@@ -2,7 +2,7 @@ import { Box, Container, Grid, Typography } from '@mui/material';
 
 export default function Banner() {
   return (
-    <Box sx={{ backgroundColor: "aliceblue" }}>
+    <Box sx={{ backgroundColor: "primary.main", color: "primary.contrastText" }}>
       <Container maxWidth="lg">
         <Grid container direction="column">
           <Grid item mt={8}>

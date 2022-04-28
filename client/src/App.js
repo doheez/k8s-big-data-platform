@@ -3,16 +3,17 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
+import { ThemeProvider } from '@mui/material';
+import theme from './theme/Theme';
 import ResponsiveAppBar from './components/AppBar/ResponsiveAppBar';
 import Banner from './components/Banner/Banner';
-import { Box } from '@mui/material';
 
 function App() {
   return (
-    <Box>
+    <ThemeProvider theme={theme}>
       <ResponsiveAppBar />
       <Banner />
-    </Box>
+    </ThemeProvider>
   );
 }
 
