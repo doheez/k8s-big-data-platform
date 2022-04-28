@@ -4,15 +4,15 @@ import CreatingClusterButton from "./CreatingClusterButton";
 
 export default function CreatingCluster() {
   return (
-      <Container maxWidth="lg">
-        <Grid container direction="column">
-          <Grid item my={5}>
-            <CreatingClusterText />
-          </Grid>
-          <Grid item>
-            <CreatingClusterButton />
-          </Grid>
+    <Container maxWidth="lg">
+      <Grid container direction="column">
+        <Grid item mt={5}>
+          <CreatingClusterText />
         </Grid>
-      </Container>
+        <Grid item mt={5}>
+          <CreatingClusterButton />
+        </Grid>
+      </Grid>
+    </Container>
   );
 }
