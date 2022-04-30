@@ -21,6 +21,7 @@ export default function CreatingClusterDialog({ open, setOpen, cluster }) {
             <ListItem sx={{px: 0}}>
               <TextField
                 autoFocus
+                autoComplete="off"
                 size="small"
                 helperText="Enter the number of clusters you want to create."
                 id="clusterNumber"
@@ -30,6 +31,7 @@ export default function CreatingClusterDialog({ open, setOpen, cluster }) {
             </ListItem>
             <ListItem sx={{px: 0}}>
               <TextField
+                autoComplete="off"
                 size="small"
                 fullWidth
                 helperText="Enter the name of cluster."

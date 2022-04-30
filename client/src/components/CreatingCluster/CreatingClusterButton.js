@@ -18,7 +18,9 @@ export default function CreatingClusterButton() {
   return (
     <Fragment>
       <ButtonGroup variant="outlined" aria-label="creating clusters button group" fullWidth size="large">
-        <Button sx={{ px: 0, py: 0, pt: '7px' }} onClick={()=>handleClickOpen(clusterName[0])}>
+        <Button
+          sx={{ p: 0, pt: '7px' }}
+          onClick={() => handleClickOpen(clusterName[0])}>
           <Grid container direction="column">
             <Grid item>
               <HadoopLogo height="100px" />
@@ -29,7 +31,9 @@ export default function CreatingClusterButton() {
             </Grid>
           </Grid>
         </Button>
-        <Button sx={{ px: 0, py: 0, pt: '7px' }} onClick={()=>handleClickOpen(clusterName[1])}>
+        <Button
+          sx={{ p: 0, pt: '7px' }}
+          onClick={() => handleClickOpen(clusterName[1])}>
           <Grid container direction="column">
             <Grid item>
               <SparkLogo height="100px" />
