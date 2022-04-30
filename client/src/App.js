@@ -8,13 +8,15 @@ import theme from './theme/Theme';
 import ResponsiveAppBar from './components/AppBar/ResponsiveAppBar';
 import Banner from './components/Banner/Banner';
 import CreatingCluster from './components/CreatingCluster/CreatingCluster';
+import Login from './components/Login/Login';
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <ResponsiveAppBar />
-      <Banner />
-      <CreatingCluster />
+      {/* <Banner />
+      <CreatingCluster /> */}
+      <Login />
     </ThemeProvider>
   );
 }
