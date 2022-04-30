@@ -6,7 +6,7 @@ export default function LoginEmail() {
       <Typography variant="h4" align="center">
         Log In
       </Typography>
-      <Stack spacing={2} mt={5}>
+      <Stack spacing={1.5} mt={3}>
         <TextField
           id="email"
           label="Email"
@@ -21,11 +21,11 @@ export default function LoginEmail() {
           autoComplete="off"
           type="password"
           size="small" />
-        <Button variant="contained">
+        <Button variant="contained" size="large">
           Log In
         </Button>
       </Stack>
-      <Typography align="center" mt={5}>
+      <Typography align="center" mt={3}>
         <Link href="#" underline="hover">Forgot Password?</Link><br />
         No Account? <Link href="#" underline="hover">Create One.</Link>
       </Typography>
