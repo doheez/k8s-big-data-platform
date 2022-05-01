@@ -45,8 +45,21 @@ public class Cluster extends TimeStamped{
         this.user = user;
         user.addCluster(this);
     }
+  
 
+  
+    @OneToMany(mappedBy="cluster")
+    private List<Spark> sparks;
 
+    public void addSpark(Spark spark){
+        this.sparks.add(spark);
+    }
+
+    public void removeSpark(Spark spark){
+        this.sparks.remove(spark);
+    }
+
+  
 
     @OneToMany(mappedBy = "hadoopCluster")
     private List<Hadoop> hadoops;
@@ -67,5 +80,4 @@ public class Cluster extends TimeStamped{
         this.type = regDto.getType();
         setUser(regDto.getUser());
     }
-
 }
