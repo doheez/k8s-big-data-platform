@@ -1,5 +1,6 @@
 package com.example.K8s.kubernetes.cluster.model;
 
+import com.example.K8s.kubernetes.cluster.dto.ClusterRegDto;
 import com.example.K8s.web.entity.User;
 import lombok.Builder;
 import lombok.Getter;
@@ -30,6 +31,8 @@ public class Cluster extends TimeStamped{
     @Column(nullable = false)
     private int type;
 
+
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
@@ -42,7 +45,9 @@ public class Cluster extends TimeStamped{
         this.user = user;
         user.addCluster(this);
     }
+  
 
+  
     @OneToMany(mappedBy="cluster")
     private List<Spark> sparks;
 
@@ -52,5 +57,27 @@ public class Cluster extends TimeStamped{
 
     public void removeSpark(Spark spark){
         this.sparks.remove(spark);
+    }
+
+  
+
+    @OneToMany(mappedBy = "hadoopCluster")
+    private List<Hadoop> hadoops;
+
+    // 연관관계 편의 메서드
+    public void addHadoop(Hadoop hadoop) {
+        this.hadoops.add(hadoop);
+    }
+    public void removeHadoop(Hadoop hadoop) {
+        this.hadoops.remove(hadoop);
+    }
+
+
+
+    public Cluster(ClusterRegDto regDto) {
+        this.name = regDto.getName();
+        this.amount = regDto.getAmount();
+        this.type = regDto.getType();
+        setUser(regDto.getUser());
     }
 }

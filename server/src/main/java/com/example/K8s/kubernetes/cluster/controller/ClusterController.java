@@ -3,6 +3,8 @@ package com.example.K8s.kubernetes.cluster.controller;
 import com.example.K8s.kubernetes.cluster.dto.ClusterRegDto;
 import com.example.K8s.kubernetes.cluster.repository.ClusterRepository;
 import com.example.K8s.kubernetes.cluster.service.SparkService;
+import com.example.K8s.kubernetes.cluster.service.HadoopService;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -11,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
-@Controller
+@RestController
 @RequestMapping("/kubernetes/cluster")
 @RequiredArgsConstructor
 @RestController
