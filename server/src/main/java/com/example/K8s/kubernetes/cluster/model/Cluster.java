@@ -7,11 +7,12 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
 @Entity
-@Table(name = "kluster")
+@Table(name = "cluster")
 public class Cluster extends TimeStamped{
 
     @Id
@@ -42,5 +43,14 @@ public class Cluster extends TimeStamped{
         user.addCluster(this);
     }
 
+    @OneToMany(mappedBy="cluster")
+    private List<Spark> sparks;
 
+    public void addSpark(Spark spark){
+        this.sparks.add(spark);
+    }
+
+    public void removeSpark(Spark spark){
+        this.sparks.remove(spark);
+    }
 }
