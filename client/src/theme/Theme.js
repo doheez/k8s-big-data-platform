@@ -14,6 +14,22 @@ const theme = createTheme({
       dark: '#c9bc1f',
       contrastText: '#000',
     },
+    naver: {
+      main: '#03C75A',
+      contrastText: '#fff',
+    },
+    kakao: {
+      main: '#FEE500',
+      contrastText: '#000',
+    },
+    google: {
+      main: '#fff',
+      contrastText: '#000',
+    },
+    facebook: {
+      main: '#4267B2',
+      contrastText: '#fff',
+    }
   },
 });
 
