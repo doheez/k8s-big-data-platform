@@ -1,5 +1,6 @@
 package com.example.K8s.kubernetes.cluster.model;
 
+import com.example.K8s.kubernetes.cluster.dto.ClusterRegDto;
 import com.example.K8s.web.entity.User;
 import lombok.Builder;
 import lombok.Getter;
@@ -7,11 +8,12 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
 @Entity
-@Table(name = "kluster")
+@Table(name = "cluster")
 public class Cluster extends TimeStamped{
 
     @Id
@@ -29,6 +31,8 @@ public class Cluster extends TimeStamped{
     @Column(nullable = false)
     private int type;
 
+
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
@@ -42,5 +46,26 @@ public class Cluster extends TimeStamped{
         user.addCluster(this);
     }
 
+
+
+    @OneToMany(mappedBy = "hadoopCluster")
+    private List<Hadoop> hadoops;
+
+    // 연관관계 편의 메서드
+    public void addHadoop(Hadoop hadoop) {
+        this.hadoops.add(hadoop);
+    }
+    public void removeHadoop(Hadoop hadoop) {
+        this.hadoops.remove(hadoop);
+    }
+
+
+
+    public Cluster(ClusterRegDto regDto) {
+        this.name = regDto.getName();
+        this.amount = regDto.getAmount();
+        this.type = regDto.getType();
+        setUser(regDto.getUser());
+    }
 
 }
