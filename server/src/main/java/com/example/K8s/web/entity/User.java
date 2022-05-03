@@ -18,7 +18,7 @@ public class User {
     @GeneratedValue
     private Long id;
 
-    @Column(nullable = false, length = 255)
+    @Column( length = 255 )
     private String token;
 
     @Column(nullable = false, length = 10)
@@ -28,7 +28,7 @@ public class User {
     private String email;
 
     //path값 들어감
-    @Column(nullable = false, length = 255)
+    @Column( length = 255 )
     private String image;
 
     @OneToMany(mappedBy="user")
@@ -44,6 +44,9 @@ public class User {
         this.clusters.remove(cluster);
     }
 
+    private String role = "GUEST";
+
+
     @Builder
     public User(Long id, String token, String name, String email, String image) {
         this.id = id;
@@ -51,6 +54,14 @@ public class User {
         this.name = name;
         this.email = email;
         this.image = image;
+    }
+
+
+    public User update(String name, String image) {
+        this.name = name;
+        this.image = image;
+
+        return this;
     }
 
 }
