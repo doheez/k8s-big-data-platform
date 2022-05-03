@@ -1,0 +1,24 @@
+spring:
+  profiles:
+    include: oauth
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/example?serverTimezone=UTC&characterEncoding=UTF-8
+    username: root
+    password: root
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    open-in-view: false
+    show-sql: true
+    hibernate:
+      format_sql: true
+      ddl-auto: create
+
+  session:
+    store-type: jdbc
+    # spring.session.jdbc.initialize-schema: always 설정이 있어야만
+    # JPA 가 자동으로 세션 저장용 테이블을 생성한다.
+    jdbc:
+      initialize-schema: always

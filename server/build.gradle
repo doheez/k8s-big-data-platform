@@ -30,6 +30,12 @@ dependencies {
 
 	// kubernetes client-java
 	implementation 'io.kubernetes:client-java:14.0.0'
+
+	//web oauth
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	testImplementation 'org.springframework.security:spring-security-test'
+	implementation 'org.springframework.session:spring-session-jdbc'
 }
 
 tasks.named('test') {
