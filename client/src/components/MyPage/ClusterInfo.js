@@ -1,20 +1,20 @@
 import { Box, Button, Divider, List, ListItem, Stack, Typography, Grid } from "@mui/material";
 
-export default function SparkClusterInfo() {
+export default function HadoopClusterInfo({ cluster }) {
   return (
     <Box sx={{ backgroundColor: "mypageBox.main", borderRadius: 1 }}>
       <List>
         <ListItem>
           <Stack>
             <Typography variant="subtitle2" color="text.secondary">Cluster ID</Typography>
-            <Typography color="text.primary">test-spark-cluster</Typography>
+            <Typography color="text.primary">test-{cluster}-cluster</Typography>
           </Stack>
         </ListItem>
         <Divider />
         <ListItem>
           <Stack>
             <Typography variant="subtitle2" color="text.secondary">Numbers of Clusters</Typography>
-            <Typography color="text.primary">5</Typography>
+            <Typography color="text.primary">3</Typography>
           </Stack>
         </ListItem>
         <Divider />

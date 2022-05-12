@@ -1,6 +1,5 @@
 import UserInfo from './UserInfo';
-import HadoopClusterInfo from './HadoopClusterInfo';
-import SparkClusterInfo from './SparkClusterInfo';
+import ClusterInfo from './ClusterInfo';
 import { Container, Grid, Typography } from '@mui/material';
 
 export default function MyPage() {
@@ -14,11 +13,11 @@ export default function MyPage() {
         <Grid item xs container spacing={3} direction="column">
           <Grid item xs>
             <Typography variant="h6" color="primary.main">Hadoop Cluster Info</Typography>
-            <HadoopClusterInfo />
+            <ClusterInfo cluster="hadoop" />
           </Grid>
           <Grid item xs>
             <Typography variant="h6" color="primary.main">Spark Cluster Info</Typography>
-            <SparkClusterInfo />
+            <ClusterInfo cluster="spark" />
           </Grid>
         </Grid>
       </Grid>
