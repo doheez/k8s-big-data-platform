@@ -26,7 +26,7 @@ const ResponsiveAppBar = () => {
   };
 
   return (
-    <AppBar position="relative" sx={{ boxShadow: 0, borderBottom: "1px solid", borderBottomColor: "primary.light" }}>
+    <AppBar position="sticky" sx={{ boxShadow: 0, borderBottom: "1px solid", borderBottomColor: "primary.light" }}>
       <Container maxWidth="lg">
         <Toolbar disableGutters>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
