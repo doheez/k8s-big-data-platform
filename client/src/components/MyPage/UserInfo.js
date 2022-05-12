@@ -2,7 +2,7 @@ import { Avatar, Box, Stack, Typography } from "@mui/material";
 
 export default function UserInfo() {
   return (
-    <Box p={2} sx={{ backgroundColor: "mypageBox.main" }}>
+    <Box p={2} sx={{ backgroundColor: "mypageBox.main", borderRadius: 1 }}>
       <Stack direction="row" spacing={2}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <Avatar>K</Avatar>
