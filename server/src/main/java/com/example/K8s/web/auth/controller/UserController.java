@@ -4,11 +4,12 @@ import com.example.K8s.web.auth.dto.SessionUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
 
 @RequiredArgsConstructor
-@org.springframework.stereotype.Controller
+@RestController
 public class AuthController {
     private final HttpSession httpSession;
 
