@@ -1,8 +1,10 @@
 import { Button, ButtonGroup, Grid, Divider } from "@mui/material";
 import { ReactComponent as HadoopLogo } from '../../images/hadoopLogo.svg';
 import { ReactComponent as SparkLogo } from '../../images/sparkLogo.svg';
-import { Fragment, useState } from 'react';
+import { useState } from 'react';
 import CreatingClusterDialog from "./CreatingClusterDialog";
+import { StyledEngineProvider } from '@mui/material/styles';
+import "./CreatingCluster.css";
 
 export default function CreatingClusterButton() {
   const [open, setOpen] = useState(false);
@@ -16,7 +18,7 @@ export default function CreatingClusterButton() {
   };
 
   return (
-    <Fragment>
+    <StyledEngineProvider injectFirst>
       <ButtonGroup variant="outlined" aria-label="creating clusters button group" fullWidth size="large">
         <Button
           sx={{ p: 0, pt: '7px' }}
@@ -46,6 +48,6 @@ export default function CreatingClusterButton() {
         </Button>
       </ButtonGroup>
       <CreatingClusterDialog open={open} setOpen={setOpen} cluster={cluster} />
-    </Fragment>
+    </StyledEngineProvider>
   );
 }

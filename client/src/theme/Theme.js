@@ -29,6 +29,9 @@ const theme = createTheme({
     facebook: {
       main: '#4267B2',
       contrastText: '#fff',
+    },
+    mypageBox: {
+      main: '#eeeeee'
     }
   },
 });

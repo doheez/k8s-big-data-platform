@@ -1,5 +1,17 @@
 .divider {
     width: 5px;
     height: 70px;
+    margin-right: 20px;
     background-color: #4a0072;
+}
+
+/* 클러스터 생성 버튼 border 조정 */
+.css-18myaqf-MuiButtonBase-root-MuiButton-root{
+    border: 2.5px solid rgba(123, 31, 162, 0.5);
+}
+.css-18myaqf-MuiButtonBase-root-MuiButton-root:hover{
+    border: 2.5px solid #7b1fa2;
+}
+.css-qzmzlp-MuiButtonGroup-root .MuiButtonGroup-grouped:not(:first-of-type){
+    margin-left: -2.5px;
 }
