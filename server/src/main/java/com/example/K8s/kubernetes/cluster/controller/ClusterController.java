@@ -12,11 +12,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
+
 @Slf4j
 @RestController
 @RequestMapping("/kubernetes/cluster")
 @RequiredArgsConstructor
-@RestController
 public class ClusterController {
     private final SparkService sparkService;
     private final HadoopService hadoopService;
@@ -24,7 +25,7 @@ public class ClusterController {
 
     // 클러스터 생성
     @PostMapping
-    public String createCluster(ClusterRegDto regDto) {
+    public String createCluster(ClusterRegDto regDto) throws IOException {
         if (regDto.getType() == 0) {
             hadoopService.createHadoopCluster(regDto);
             log.info("hadoop cluster 생성 완료");
