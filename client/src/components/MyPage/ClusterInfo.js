@@ -1,7 +1,21 @@
 import { Box, Button, Divider, List, ListItem, Stack, Typography, Grid } from "@mui/material";
+import { useState } from "react";
+import AddClusterDialog from "./ClusterManagementDialog/AddClusterDialog";
+import DeleteClusterDialog from "./ClusterManagementDialog/DeleteClusterDialog";
 import PodTable from "./PodTable";
 
 export default function HadoopClusterInfo({ cluster }) {
+  const [openAdd, setOpenAdd] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
+
+  const handleClickAdd = () => {
+    setOpenAdd(true);
+  };
+
+  const handleClickDelete = () => {
+    setOpenDelete(true);
+  }
+
   return (
     <Box sx={{ backgroundColor: "mypageBox.main", borderRadius: 1 }}>
       <List>
@@ -39,8 +53,14 @@ export default function HadoopClusterInfo({ cluster }) {
           <Stack width="100%" rowGap={1}>
             <Typography variant="subtitle2" color="text.secondary">Cluster Management</Typography>
             <Grid container spacing={2}>
-              <Grid item xs={6}><Button variant="contained" fullWidth>add cluster</Button></Grid>
-              <Grid item xs={6}><Button variant="contained" fullWidth>delete cluster</Button></Grid>
+              <Grid item xs={6}>
+                <Button variant="contained" fullWidth onClick={() => handleClickAdd()}>add cluster</Button>
+                <AddClusterDialog open={openAdd} setOpen={setOpenAdd} cluster={cluster} />
+              </Grid>
+              <Grid item xs={6}>
+                <Button variant="contained" fullWidth onClick={() => handleClickDelete()}>delete cluster</Button>
+                <DeleteClusterDialog open={openDelete} setOpen={setOpenDelete} cluster={cluster} />
+              </Grid>
             </Grid>
           </Stack>
         </ListItem>
