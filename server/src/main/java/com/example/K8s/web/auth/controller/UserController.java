@@ -10,20 +10,20 @@ import javax.servlet.http.HttpSession;
 
 @RequiredArgsConstructor
 @RestController
-public class AuthController {
-    private final HttpSession httpSession;
+public class UserController {
+    //private final HttpSession httpSession;
 
     // Model 객체
     // 서버 탬플릿 엔진에서 사용가능한 객체를 저장할 수 있다.
-    @GetMapping("/")
-    public String index(Model model) {
-
-        SessionUser user = (SessionUser) httpSession.getAttribute("user");
-        // 세션에 저장된 값이 있을 경우만 model에 userName으로 등록한다.
-        if (user != null) {
-            model.addAttribute("userName",user.getName());
-            model.addAttribute("userEmail",user.getEmail());
-        }
-        return "test";
-    }
+//    @GetMapping("/")
+//    public String index(Model model) {
+//
+//        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+//        // 세션에 저장된 값이 있을 경우만 model에 userName으로 등록한다.
+//        if (user != null) {
+//            model.addAttribute("userName",user.getName());
+//            model.addAttribute("userEmail",user.getEmail());
+//        }
+//        return "test";
+//    }
 }
