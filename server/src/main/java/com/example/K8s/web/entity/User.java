@@ -44,7 +44,7 @@ public class User {
         this.clusters.remove(cluster);
     }
 
-    private String role = "GUEST";
+    private String role = "ROLE_GUEST";
 
 
     @Builder
