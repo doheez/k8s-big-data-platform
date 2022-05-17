@@ -1,12 +1,6 @@
 spring:
   profiles:
-    include: oauth
-
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/example?serverTimezone=UTC&characterEncoding=UTF-8
-    username: root
-    password: root
+    include: aws
 
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect

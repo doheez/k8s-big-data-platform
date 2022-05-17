@@ -37,4 +37,4 @@ out/
 .vscode/
 
 ### Security ###
-application-oauth.yml
+application-aws.yml
