@@ -1,18 +1,28 @@
+#spring:
+#  profiles:
+#    include: aws
+#
+#  jpa:
+#    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+#    open-in-view: false
+#    show-sql: true
+#    hibernate:
+#      format_sql: true
+#      ddl-auto: update
+#    generate-ddl: true
+#
+#  session:
+#    store-type: jdbc
+#    # spring.session.jdbc.initialize-schema: always 설정이 있어야만
+#    # JPA 가 자동으로 세션 저장용 테이블을 생성한다.
+#    jdbc:
+#      initialize-schema: always
+
 spring:
-  profiles:
-    include: aws
-
+  datasource:
+    username: admin
+    url: jdbc:mysql://dbinstance.csaqw2bfsjnj.ap-northeast-2.rds.amazonaws.com:3306/chatsolution
+    password: dbinstance
   jpa:
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-    open-in-view: false
-    show-sql: true
     hibernate:
-      format_sql: true
-      ddl-auto: create
-
-  session:
-    store-type: jdbc
-    # spring.session.jdbc.initialize-schema: always 설정이 있어야만
-    # JPA 가 자동으로 세션 저장용 테이블을 생성한다.
-    jdbc:
-      initialize-schema: always
+      ddl-auto: update
