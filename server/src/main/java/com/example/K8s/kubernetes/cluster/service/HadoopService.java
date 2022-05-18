@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -18,15 +20,18 @@ public class HadoopService {
     private final ClusterController clusterController;
     private final ClusterRepository clusterRepository;
     private final HadoopRepository hadoopRepository;
+    private final HadoopClusterService hadoopClusterService;
 
     // hadoop 클러스터 생성
-    public boolean createHadoopCluster(ClusterRegDto regDto) {
+    public boolean createHadoopCluster(ClusterRegDto regDto) throws IOException {
         // 이름 중복 체크
         boolean exist = clusterRepository.existsByName(regDto.getName());
         if (exist) return false;
 
         // 클러스터 생성
         Cluster newCluster = new Cluster(regDto);
+        boolean success = hadoopClusterService.createHadoopCluster(newCluster);
+        if (!success) return false;
         clusterRepository.save(newCluster);
 
         // hadoop 객체 생성

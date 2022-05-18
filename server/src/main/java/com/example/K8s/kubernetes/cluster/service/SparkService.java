@@ -32,6 +32,7 @@ public class SparkService {
         Spark spark = new Spark(0,cluster);
         sparkRepository.save(spark);
 
+        return "true";
     }
 
 }
