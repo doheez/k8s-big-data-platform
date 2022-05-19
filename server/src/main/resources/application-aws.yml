@@ -1,0 +1,30 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 1098530548732-d0khj9l8fjom0prupfhol2nmpnqc5hb8.apps.googleusercontent.com
+            client-secret: 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
+            scope: profile, email
+
+          kakao:
+            client-id: 4d77024dcde936b6020466d0396b9d93
+            client-secret: DwPTI95ZpzcE02jFoxGaB0YOhp1xMIWN
+            scope: profile_nickname,profile_image, account_email
+            client-name: Kakao
+            client-authentication-method: POST
+            authorization-grant-type: authorization_code
+            redirect-uri: "{baseUrl}/{action}/oauth2/code/{registrationId}"
+        provider:
+          kakao:
+            authorization_uri: https://kauth.kakao.com/oauth/authorize
+            token_uri: https://kauth.kakao.com/oauth/token
+            user-info-uri: https://kapi.kakao.com/v2/user/me
+            user_name_attribute: id
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://43.200.21.228:3306/kbdp?serverTimezone=UTC&characterEncoding=UTF-8
+    username: root
+    password: root
