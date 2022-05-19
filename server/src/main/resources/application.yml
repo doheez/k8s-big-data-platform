@@ -1,6 +1,6 @@
 spring:
   profiles:
-    include: aws
+    include: oauth
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
