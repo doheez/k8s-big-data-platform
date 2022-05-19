@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 
-export default function AddClusterDialog({ open, setOpen, cluster }) {
+export default function IncreaseDecreaseNodeDialog({ open, setOpen, cluster, option }) {
   const handleClose = () => {
     setOpen(false);
   };
@@ -10,17 +10,19 @@ export default function AddClusterDialog({ open, setOpen, cluster }) {
     return str.charAt(0).toUpperCase() + str.slice(1);
   };
 
+  const HELPER_TEXT = `Enter the number of nodes you want to ${option}.`;
+
   return (
     <div>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Add {capitalize(cluster)} Cluster</DialogTitle>
+        <DialogTitle>{capitalize(option)} {capitalize(cluster)} Node</DialogTitle>
         <DialogContent>
           <TextField
             sx={{ my: 1 }}
             autoFocus
             autoComplete="off"
             size="small"
-            helperText="Enter the number of clusters you want to add."
+            helperText={HELPER_TEXT}
             id="clusterNumber"
             type="number"
             label="Number"
