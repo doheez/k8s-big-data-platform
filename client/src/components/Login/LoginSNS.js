@@ -13,6 +13,12 @@ const Root = styled('div')(({ theme }) => ({
 }));
 
 export default function LoginSNS() {
+  const API_BASE_URL = 'http://ec2-52-78-90-149.ap-northeast-2.compute.amazonaws.com:8080';
+  const OAUTH2_REDIRECT_URI = 'http://localhost:3000/oauth2/redirect';
+
+  const handleClickGoogle = () => {
+    window.location.href = API_BASE_URL + '/oauth2/authorization/google?redirect_uri=' + OAUTH2_REDIRECT_URI;
+  };
 
   return (
     <Box mt={8}>
@@ -36,7 +42,7 @@ export default function LoginSNS() {
             Login with Kakao
           </Box>
         </Button>
-        <Button variant="contained" size="large" color="google">
+        <Button variant="contained" size="large" color="google" onClick={() => handleClickGoogle()}>
           <GoogleLogo width="30px" />
           <Box width="100%">
             Login with Google

@@ -22,8 +22,9 @@ function App() {
           <Route path="/" element={<Fragment><Banner /><CreatingCluster /></Fragment>}></Route>
           <Route path="/mypage" element={<MyPage />}></Route>
           <Route path="/login" element={<Login />}></Route>
+          <Route exact path="/oauth2/redirect" component={<MyPage />}/>
           {/* 상단에 위치하는 라우트들의 규칙을 모두 확인, 일치하는 라우트가 없는 경우 처리 */}
-          <Route path="*" element={<Fragment><Banner /><CreatingCluster /></Fragment>}></Route>
+          {/* <Route path="*" element={<Fragment><Banner /><CreatingCluster /></Fragment>}></Route> */}
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
