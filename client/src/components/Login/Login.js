@@ -26,15 +26,19 @@ export const chcekLoginStatusAsync = (setLoginStatus) => {
 
   axios.get(url, config)
     .then(response => {
-      if (response.data.body) {
+      if (response.data && response.data.name !== null && response.data.name !== 'null') {
         setLoginStatus(true);
-        console.log('사용자 정보를 받아왔습니다. ' + response.data);
+        console.log('사용자 정보를 받아왔습니다.');
+        console.log(response);
       } else {
+        setLoginStatus(false);
         console.log('사용자 정보를 받아오지 못했습니다.');
+        console.log(response);
       }
     })
     .catch(error => {
       setLoginStatus(false);
-      console.log('사용자 정보 API 요청을 실패했습니다. ' + error);
+      console.log('사용자 정보 API 요청을 실패했습니다.');
+      console.log(error);
     });
 };

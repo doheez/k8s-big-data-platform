@@ -13,10 +13,11 @@ const Root = styled('div')(({ theme }) => ({
 }));
 
 export default function LoginSNS() {
-  const API_BASE_URL = 'http://ec2-52-78-90-149.ap-northeast-2.compute.amazonaws.com:8080';
+  const AWS_API_BASE_URL = 'http://ec2-52-78-90-149.ap-northeast-2.compute.amazonaws.com:8080';
+  const LOCAL_API_BASE_URL = 'http://localhost:8080';
 
   const handleClickGoogle = () => {
-    window.location.href = API_BASE_URL + '/oauth2/authorization/google';
+    window.location.href = AWS_API_BASE_URL + '/oauth2/authorization/google';
   };
 
   return (
