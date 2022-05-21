@@ -31,7 +31,7 @@ export default function SignUp() {
       axios.post(url, data)
         .then(response => {
           console.log(response);
-          alert('Success in sign up!');
+          alert('Success in sign up! Please log in.');
           navigate('/login');
         })
         .catch(error => {

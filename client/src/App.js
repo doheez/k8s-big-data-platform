@@ -13,7 +13,8 @@ import SignUp from './components/SignUp/SignUp';
 import MyPage from './components/MyPage/MyPage';
 // import { chcekLoginStatusAsync } from './components/Login/Login';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Fragment, useState } from 'react';
+import { Fragment, useState, useEffect } from 'react';
+import { onSilentRefresh } from './components/Login/LoginEmail';
 
 function App() {
   // const [loginStatus, setLoginStatus] = useState();
@@ -33,6 +34,10 @@ function App() {
   // else {
   //   alert("로그인 확인 중 오류가 발생했습니다.");
   // }
+
+  useEffect(() => {
+    onSilentRefresh(setToken);
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>

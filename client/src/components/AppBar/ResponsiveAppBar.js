@@ -30,8 +30,9 @@ const ResponsiveAppBar = ({ token, setToken }) => {
   };
 
   const handleLogOut = () => {
-    alert('Success in log out!');
+    window.localStorage.clear();
     setToken(undefined);
+    alert('Success in log out!');
   };
 
   return (

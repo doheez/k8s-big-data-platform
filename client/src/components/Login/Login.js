@@ -20,8 +20,7 @@ export default function Login({ setToken }) {
 export const chcekLoginStatusAsync = (setLoginStatus) => {
   const url = '/api/v1/user';
   const config = {
-    maxRedirects: 0, // node.js에서 리디렉션 최대값을 정의한다. (기본값: 5)
-    withCredentials: true // 자격 증명을 사용하여 사이트 간 액세스 제어 요청을 해야 하는지 여부를 나타낸다. (기본값: false)
+    maxRedirects: 0 // node.js에서 리디렉션 최대값을 정의한다. (기본값: 5)
   };
 
   axios.get(url, config)

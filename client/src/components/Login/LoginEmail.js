@@ -29,6 +29,9 @@ export default function LoginEmail({ setToken }) {
     if (checkEmail(email)) {
       axios.post(url, data)
         .then(response => {
+          // API 요청하는 콜마다 헤더에 accessToken 담아 보내도록 설정
+          axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
+          window.localStorage.setItem('token', response.data.token);
           setToken(response.data.token);
           console.log(response);
           alert('Success in login!');
@@ -79,3 +82,11 @@ export default function LoginEmail({ setToken }) {
     </Box>
   );
 }
+
+// 페이지 리로드 시 로그인 연장
+export const onSilentRefresh = (setToken) => {
+  const token = window.localStorage.getItem('token');
+  if (token !== null) {
+    setToken(token);
+  }
+};
