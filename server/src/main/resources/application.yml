@@ -1,6 +1,6 @@
 spring:
-  config:
-    import: application-aws.yml
+  profiles:
+    include: aws
 
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
@@ -10,11 +10,19 @@ spring:
 #      format_sql: true
       ddl-auto: update
 #    generate-ddl: true
-
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        default_batch_fetch_size: 1000 # 1:N 쿼리 N+1 페이징 문제, 최적화 옵션 (MAX는 거의 1000)
+        format_sql: true
+      messages:
+        basename: messages
+        encoding: UTF-8
   session:
     store-type: jdbc
     # spring.session.jdbc.initialize-schema: always 설정이 있어야만
     # JPA 가 자동으로 세션 저장용 테이블을 생성한다.
     jdbc:
       initialize-schema: always
+
 
