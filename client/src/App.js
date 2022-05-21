@@ -18,7 +18,9 @@ function App() {
   const [loginStatus, setLoginStatus] = useState();
 
   if (loginStatus === undefined) {
-    chcekLoginStatusAsync(setLoginStatus);
+    // Oauth 도메인 관련 문제로 구글 로그인을 일시 비활성화합니다.
+    // chcekLoginStatusAsync(setLoginStatus);
+    
     console.log('사용자 정보를 확인중입니다..');
   }
   else if (loginStatus) {
