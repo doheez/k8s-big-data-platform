@@ -14,15 +14,24 @@ import { Link as RouterLink } from 'react-router-dom';
 const pages = ['Main', 'My Page', 'Log In'];
 const links = ['/', '/mypage', '/login']
 
-const ResponsiveAppBar = () => {
+const ResponsiveAppBar = ({ token, setToken }) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
 
-  const handleCloseNavMenu = () => {
+  const handleCloseNavMenu = (index) => {
+    // 로그아웃 버튼일 경우
+    if (index === 2 && token !== undefined) {
+      handleLogOut();
+    }
     setAnchorElNav(null);
+  };
+
+  const handleLogOut = () => {
+    alert('Success in log out!');
+    setToken(undefined);
   };
 
   return (
@@ -61,11 +70,11 @@ const ResponsiveAppBar = () => {
               {pages.map((page, index) => (
                 <MenuItem
                   key={page}
-                  onClick={handleCloseNavMenu}
+                  onClick={() => handleCloseNavMenu(index)}
                   component={RouterLink}
                   to={links[index]}
                 >
-                  <Typography textAlign="center">{page}</Typography>
+                  <Typography textAlign="center">{index === 2 && token !== undefined ? 'Log Out' : page}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -75,12 +84,12 @@ const ResponsiveAppBar = () => {
             {pages.map((page, index) => (
               <Button
                 key={page}
-                onClick={handleCloseNavMenu}
+                onClick={() => handleCloseNavMenu(index)}
                 sx={{ my: 1, color: 'white', display: 'block', textAlign: 'center' }}
                 component={RouterLink}
                 to={links[index]}
               >
-                {page}
+                {index === 2 && token !== undefined ? 'Log Out' : page}
               </Button>
             ))}
           </Box>

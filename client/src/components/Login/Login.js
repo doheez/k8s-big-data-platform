@@ -3,14 +3,14 @@ import LoginEmail from "./LoginEmail";
 import LoginSNS from "./LoginSNS";
 import axios from 'axios';
 
-export default function Login() {
+export default function Login({ setToken }) {
   return (
     <Container maxWidth="sm">
       <Box
         my={7}
         p={8}
         sx={{ border: 1, borderRadius: 1, borderColor: 'primary.main' }}>
-        <LoginEmail />
+        <LoginEmail setToken={setToken} />
         <LoginSNS />
       </Box>
     </Container>
