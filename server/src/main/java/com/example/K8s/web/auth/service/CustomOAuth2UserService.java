@@ -1,8 +1,9 @@
 package com.example.K8s.web.auth.service;
 
 import com.example.K8s.web.auth.dto.OAuthAttributes;
-import com.example.K8s.web.auth.dto.SessionUser;
+import com.example.K8s.web.auth.dto.UserSessionDto;
 import com.example.K8s.web.auth.repository.UserRepository;
+import com.example.K8s.web.entity.Role;
 import com.example.K8s.web.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -48,20 +49,19 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         // SessionUser
         // 세션에 사용자 정보를 저장하기 위한 따로 만든 Dto 클래스이다.
         User user = saveOrUpdate(attributes);
-        httpSession.setAttribute("user", new SessionUser(user));
+        httpSession.setAttribute("user", new UserSessionDto(user));
 
         return new DefaultOAuth2User(
-                Collections.singleton(new SimpleGrantedAuthority(user.getRole())),
+                Collections.singleton(new SimpleGrantedAuthority(user.getRole().getCode())),
                 attributes.getAttributes(),
                 attributes.getNameAttributeKey()
         );
     }
 
     private User saveOrUpdate(OAuthAttributes attributes) {
-        User user = userRepository.findByEmail(attributes.getEmail())
-                .map(entity -> entity.update(attributes.getName(), attributes.getImage()))
-                .orElse(attributes.toEntity());
-
+        User user = userRepository.findByEmail(attributes.getEmail());
+        if(user == null) return null;
+        user.update(attributes.getName(), attributes.getImage());
         return userRepository.save(user);
     }
 }

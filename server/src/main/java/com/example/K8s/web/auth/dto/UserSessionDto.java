@@ -7,13 +7,13 @@ import lombok.Getter;
 import java.io.Serializable;
 
 @Getter
-public class SessionUser implements Serializable {
+public class UserSessionDto implements Serializable {
     private String name;
     private String email;
     private String image;
 
     @Builder
-    public SessionUser(User user) {
+    public UserSessionDto(User user) {
         this.name = user.getName();
         this.email = user.getEmail();
         this.image = user.getImage();

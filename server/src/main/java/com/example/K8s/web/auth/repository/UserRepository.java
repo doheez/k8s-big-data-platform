@@ -7,5 +7,5 @@ import java.util.Optional;
 
 //이메일을 통해 이미 생성된 사용자인지 확인하기 위한 메소드
 public interface UserRepository extends JpaRepository<User,Long> {
-    Optional<User> findByEmail(String email);
+    User findByEmail(String email);
 }
