@@ -3,9 +3,13 @@ import { createRoot } from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import axios from 'axios';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
+
+// 자격 증명을 사용하여 사이트 간 액세스 제어 요청을 해야 하는지 여부를 나타낸다. (기본값: false)
+axios.defaults.withCredentials = true;
 
 root.render(
   <React.StrictMode>
