@@ -1,8 +1,7 @@
 package com.example.K8s.kubernetes.cluster.service;
 
-import com.example.K8s.kubernetes.cluster.controller.ClusterController;
 import com.example.K8s.kubernetes.cluster.dto.ClusterRegDto;
-import com.example.K8s.kubernetes.cluster.hadoopcr.HadoopCr;
+import com.example.K8s.kubernetes.CR.hadoopcr.HadoopCr;
 import com.example.K8s.kubernetes.cluster.model.Cluster;
 import com.example.K8s.kubernetes.cluster.model.Hadoop;
 import com.example.K8s.kubernetes.cluster.repository.ClusterRepository;
