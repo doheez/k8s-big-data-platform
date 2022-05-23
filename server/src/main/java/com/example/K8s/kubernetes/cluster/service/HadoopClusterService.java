@@ -1,6 +1,6 @@
 package com.example.K8s.kubernetes.cluster.service;
 
-import com.example.K8s.kubernetes.cluster.hadoopcr.HadoopCr;
+import com.example.K8s.kubernetes.CR.hadoopcr.HadoopCr;
 import com.example.K8s.kubernetes.cluster.model.Cluster;
 import io.kubernetes.client.openapi.ApiException;
 import io.kubernetes.client.openapi.apis.CustomObjectsApi;
