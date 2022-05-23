@@ -34,5 +34,8 @@ public class UserService {
         }
     }
 
-
+    public User selectUser(Long id){
+        User user = userRepository.findById(id).orElse(null);
+        return user;
+    }
 }
