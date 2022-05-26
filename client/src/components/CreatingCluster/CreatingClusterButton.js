@@ -10,7 +10,7 @@ export default function CreatingClusterButton() {
   const [open, setOpen] = useState(false);
   const [cluster, setCluster] = useState('');
 
-  const clusterName = ['Hadoop', 'Spark'];
+  const clusterName = ['hadoop', 'spark'];
 
   const handleClickOpen = (clusterName) => {
     setCluster(clusterName);

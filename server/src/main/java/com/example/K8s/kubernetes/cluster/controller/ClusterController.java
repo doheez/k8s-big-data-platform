@@ -39,4 +39,20 @@ public class ClusterController {
         log.error("클러스터 생성 실패");
         return "생성 실패";
     }
+
+    // 클러스터 수정
+    @PostMapping("/adj")
+    public String modifyCluster(ClusterRegDto adjDto) throws IOException{
+        if(adjDto.getType() == 0){
+//            hadoopService.modifyHadoopCluster(adjDto);
+            log.info("hadoop cluster 수정 완료");
+            return "hadoop cluster 수정 완료";
+        }
+        else if(adjDto.getType()==1){
+            sparkService.replaceSparkCluster(adjDto);
+            log.info("spark cluster 수정 완료");
+            return "spark cluster 수정 완료";
+        }
+        return "수정 성공";
+    }
 }

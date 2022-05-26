@@ -9,7 +9,7 @@ export default function CreatingCluster() {
         <Grid item mt={5}>
           <CreatingClusterText />
         </Grid>
-        <Grid item mt={5}>
+        <Grid item my={5}>
           <CreatingClusterButton />
         </Grid>
       </Grid>

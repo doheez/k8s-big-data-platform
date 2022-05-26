@@ -6,19 +6,48 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { List, ListItem } from '@mui/material';
+import { useState } from 'react';
+import axios from 'axios';
 
 export default function CreatingClusterDialog({ open, setOpen, cluster }) {
+  const [clusterNumber, setClusterNumber] = useState(0);
+  const [clusterName, setClusterName] = useState('');
+
+  const capitalize = (str) => {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  };
+
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleCreateCluster = () => {
+    handleClose();
+
+    const url = '/api/create/cluster';
+    const data = {
+      type: cluster,
+      name: clusterName,
+      amount: clusterNumber
+    };
+    console.log(data);
+
+    axios.post(url, data)
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
 
   return (
     <div>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Create {cluster} Cluster</DialogTitle>
+        <DialogTitle>Create {capitalize(cluster)} Cluster</DialogTitle>
         <DialogContent>
           <List>
-            <ListItem sx={{px: 0}}>
+            <ListItem sx={{ px: 0 }}>
               <TextField
                 autoFocus
                 autoComplete="off"
@@ -27,9 +56,10 @@ export default function CreatingClusterDialog({ open, setOpen, cluster }) {
                 id="clusterNumber"
                 type="number"
                 label="Number"
+                onChange={e => setClusterNumber(Number(e.target.value))}
               />
             </ListItem>
-            <ListItem sx={{px: 0}}>
+            <ListItem sx={{ px: 0 }}>
               <TextField
                 autoComplete="off"
                 size="small"
@@ -37,13 +67,14 @@ export default function CreatingClusterDialog({ open, setOpen, cluster }) {
                 helperText="Enter the name of cluster."
                 id="clusterName"
                 label="Name"
+                onChange={e => setClusterName(e.target.value)}
               />
             </ListItem>
           </List>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>OK</Button>
+          <Button onClick={handleCreateCluster}>OK</Button>
         </DialogActions>
       </Dialog>
     </div>
