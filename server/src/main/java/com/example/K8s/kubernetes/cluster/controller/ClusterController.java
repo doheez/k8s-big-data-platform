@@ -40,11 +40,11 @@ public class ClusterController {
     @PostMapping("/adj")
     public String modifyCluster(ClusterRegDto adjDto) throws IOException{
         if(adjDto.getType() == 0){
-            boolean result = hadoopService.modifyHadoopCluster(adjDto);
+            boolean result = hadoopService.adjustHadoopCluster(adjDto);
             if (!result) return "hadoop cluster 조절 실패";
         }
         else if(adjDto.getType()==1){
-            boolean result = sparkService.replaceSparkCluster(adjDto);
+            boolean result = sparkService.adjustSparkCluster(adjDto);
             if (!result) return "spark cluster 조절 실패";
         }
         return "수정 성공";
