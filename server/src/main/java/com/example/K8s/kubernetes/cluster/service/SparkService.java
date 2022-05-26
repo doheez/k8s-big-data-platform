@@ -50,7 +50,7 @@ public class SparkService {
 
     // 스파크 클러스터 수정
     @Transactional
-    public boolean replaceSparkCluster(ClusterRegDto adjDto) throws IOException{
+    public boolean adjustSparkCluster(ClusterRegDto adjDto) throws IOException{
 
         // 클러스터 존재 유무 확인
         boolean exist = clusterRepository.existsByName(adjDto.getName());
