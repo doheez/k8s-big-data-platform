@@ -73,7 +73,7 @@ public class HadoopService {
 
     // hadoop 클러스터 크기 조절
     @Transactional
-    public boolean modifyHadoopCluster(ClusterRegDto adjDto) throws IOException {
+    public boolean adjustHadoopCluster(ClusterRegDto adjDto) throws IOException {
         Cluster hadoopCluster = clusterRepository.findClusterByName(adjDto.getName());
         if (hadoopCluster == null) return false;
 

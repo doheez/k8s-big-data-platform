@@ -14,6 +14,32 @@ import java.util.List;
 import java.util.Map;
 
 public class SparkOperatorService {
+
+    public static void main(String[] args) throws IOException{
+
+        try {
+            // Deployment
+            AppsV1Api api = new AppsV1Api(ClientBuilder.standard().build());
+            api.createNamespacedDeployment("spark", Spark_operator_deployment() , null, null, null);
+
+            // Service account
+            CoreV1Api service_api = new CoreV1Api(ClientBuilder.standard().build());
+            service_api.createNamespacedServiceAccount("spark", Spark_Service_Account(),null,null,null);
+
+            // Rolebinding
+            RbacAuthorizationV1Api rbacAuthorizationV1Api = new RbacAuthorizationV1Api(ClientBuilder.standard().build());
+            rbacAuthorizationV1Api.createNamespacedRoleBinding("spark", Spark_RoleBinding(),null,null,null);
+
+            System.out.println("deployment : " + api);
+            System.out.println("service : " + service_api);
+            System.out.println("Rolebinding : "+rbacAuthorizationV1Api);
+
+        }catch (ApiException e) {
+            System.out.println(e.getResponseBody());
+            e.printStackTrace();
+        }
+
+    }
     public static V1Deployment Spark_operator_deployment() {
         V1Deployment deploy = new V1Deployment().apiVersion("apps/v1");
         deploy.setKind("Deployment");
@@ -97,30 +123,5 @@ public class SparkOperatorService {
         return v1RoleBinding;
     }
 
-    public static void main(String[] args) throws IOException{
-
-        try {
-            // deployment
-            AppsV1Api api = new AppsV1Api(ClientBuilder.standard().build());
-            api.createNamespacedDeployment("spark", Spark_operator_deployment() , null, null, null);
-
-            //service account
-            CoreV1Api service_api = new CoreV1Api(ClientBuilder.standard().build());
-            service_api.createNamespacedServiceAccount("spark", Spark_Service_Account(),null,null,null);
-
-            // Rolebinding
-            RbacAuthorizationV1Api rbacAuthorizationV1Api = new RbacAuthorizationV1Api(ClientBuilder.standard().build());
-            rbacAuthorizationV1Api.createNamespacedRoleBinding("spark", Spark_RoleBinding(),null,null,null);
-
-            System.out.println("deployment : " + api);
-            System.out.println("service : " + service_api);
-            System.out.println("Rolebinding : "+rbacAuthorizationV1Api);
-
-        }catch (ApiException e) {
-            System.out.println(e.getResponseBody());
-            e.printStackTrace();
-        }
-
-    }
 
 }

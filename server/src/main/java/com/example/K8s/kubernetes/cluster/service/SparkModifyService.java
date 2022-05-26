@@ -13,16 +13,7 @@ import org.json.simple.parser.ParseException;
 import java.io.IOException;
 
 public class SparkModifyService {
-    //    public static boolean replaceSparkCluster(ClusterRegDto regDto) throws IOException {
-////        boolean exist = clusterRepository.existsByName(regDto.getName());
-////        if(!exist) return false;
-//
-//        // 클러스터 수정
-//        Cluster cluster = new Cluster(regDto);
-//        boolean success = replace_Spark_Cluster(cluster);
-//
-//        return true;
-//    }
+
     public static SparkCluster resetCluster(String name, int amount, String resourceVersion) {
         SparkCluster sparkCluster = new SparkCluster();
         sparkCluster.setApiVersion("radanalytics.io/v1");
