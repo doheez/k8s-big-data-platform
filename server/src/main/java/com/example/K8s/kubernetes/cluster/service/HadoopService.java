@@ -1,5 +1,6 @@
 package com.example.K8s.kubernetes.cluster.service;
 
+import com.example.K8s.kubernetes.cluster.dto.ClusterAdjDto;
 import com.example.K8s.kubernetes.cluster.dto.ClusterRegDto;
 import com.example.K8s.kubernetes.CR.hadoopcr.HadoopCr;
 import com.example.K8s.kubernetes.cluster.model.Cluster;
@@ -8,6 +9,8 @@ import com.example.K8s.kubernetes.cluster.repository.ClusterRepository;
 import com.example.K8s.kubernetes.cluster.repository.HadoopRepository;
 import io.kubernetes.client.openapi.ApiException;
 import io.kubernetes.client.openapi.apis.CustomObjectsApi;
+import io.kubernetes.client.openapi.models.V1DeleteOptions;
+import io.kubernetes.client.proto.V1;
 import io.kubernetes.client.util.ClientBuilder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +25,6 @@ public class HadoopService {
 
     private final ClusterRepository clusterRepository;
     private final HadoopRepository hadoopRepository;
-//    private final HadoopClusterService hadoopClusterService;
 
     // hadoop 클러스터 생성
     public boolean createHadoopCluster(ClusterRegDto regDto) throws IOException {
@@ -32,7 +34,7 @@ public class HadoopService {
 
         // 클러스터 생성
         Cluster newCluster = new Cluster(regDto);
-        boolean success = createHadoopCluster(newCluster);
+        boolean success = callAPICreateHadoopCluster(newCluster);
         if (!success) return false;
         clusterRepository.save(newCluster);
 
@@ -42,7 +44,8 @@ public class HadoopService {
         return true;
     }
 
-    public boolean createHadoopCluster(Cluster cluster) throws IOException {
+    // hadoop 클러스터 생성하는 쿠버네티스 API 호출
+    public boolean callAPICreateHadoopCluster(Cluster cluster) throws IOException {
         String name = cluster.getName();
         int amount = cluster.getAmount();
 
@@ -56,6 +59,48 @@ public class HadoopService {
         try {
             Object result = apiInstance.createNamespacedCustomObject(group, version, namespace, plural, body, null, null, null);
             System.out.println(result);
+            return true;
+        } catch (ApiException e) {
+            System.err.println("Exception when calling CustomObjectsApi#patchNamespacedCustomObject");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // hadoop 클러스터 크기 조절
+    public boolean scaleHadoopCluster(ClusterAdjDto adjDto) throws IOException {
+        Cluster hadoopCluster = clusterRepository.findClusterByName(adjDto.getName());
+        if (hadoopCluster == null) return false;
+
+        // 클러스터 크기 조절
+        boolean success = callAPIAdjHadoopCluster(hadoopCluster);
+        if (!success) return false;
+//        clusterRepository.save(newCluster);
+//
+//        // hadoop 객체 생성
+//        Hadoop hadoop = new Hadoop(newCluster);
+//        hadoopRepository.save(hadoop);
+        return true;
+    }
+
+    //
+    public boolean callAPIAdjHadoopCluster(Cluster cluster) throws IOException {
+        CustomObjectsApi apiInstance = new CustomObjectsApi(ClientBuilder.standard().build());
+        String group = "alicek106.hadoop";
+        String version = "v1alpha1";
+        String namespace = "hadoop";
+        String plural = "hadoopservices";
+        String name = cluster.getName();
+        V1DeleteOptions v1DeleteOptions = new V1DeleteOptions();
+
+        try {
+//            Object result = apiInstance.replaceNamespacedCustomObject(group, version, namespace, plural, name, body, null, null);
+            Object delete = apiInstance.deleteNamespacedCustomObject(group, version, namespace, plural, name, 0, true, null, null, v1DeleteOptions);
+            callAPICreateHadoopCluster(cluster);
+
             return true;
         } catch (ApiException e) {
             System.err.println("Exception when calling CustomObjectsApi#patchNamespacedCustomObject");
