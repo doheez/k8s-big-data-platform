@@ -25,9 +25,6 @@ public class User implements UserDetails {
     @GeneratedValue
     private Long id;
 
-    @Column( length = 255 )
-    private String token;
-
     @Column(nullable = false, length = 10)
     private String name;
 
@@ -60,9 +57,8 @@ public class User implements UserDetails {
     private Role role;
 
     @Builder
-    public User(Long id, String token, String name, String email,String password, String image, Role role) {
+    public User(Long id, String name, String email,String password, String image, Role role) {
         this.id = id;
-        this.token = token;
         this.name = name;
         this.email = email;
         this.password = password;
