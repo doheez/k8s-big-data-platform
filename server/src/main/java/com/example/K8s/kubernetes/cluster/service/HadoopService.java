@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.io.IOException;
 
 @Slf4j
@@ -71,22 +72,20 @@ public class HadoopService {
     }
 
     // hadoop 클러스터 크기 조절
-    public boolean scaleHadoopCluster(ClusterAdjDto adjDto) throws IOException {
+    @Transactional
+    public boolean modifyHadoopCluster(ClusterRegDto adjDto) throws IOException {
         Cluster hadoopCluster = clusterRepository.findClusterByName(adjDto.getName());
         if (hadoopCluster == null) return false;
 
         // 클러스터 크기 조절
         boolean success = callAPIAdjHadoopCluster(hadoopCluster);
         if (!success) return false;
-//        clusterRepository.save(newCluster);
-//
-//        // hadoop 객체 생성
-//        Hadoop hadoop = new Hadoop(newCluster);
-//        hadoopRepository.save(hadoop);
+
+        hadoopCluster.setAmount(adjDto.getAmount());
         return true;
     }
 
-    //
+    // hadoop 클러스터 크기 조절하는 쿠버네티스 API 호출
     public boolean callAPIAdjHadoopCluster(Cluster cluster) throws IOException {
         CustomObjectsApi apiInstance = new CustomObjectsApi(ClientBuilder.standard().build());
         String group = "alicek106.hadoop";
@@ -97,13 +96,10 @@ public class HadoopService {
         V1DeleteOptions v1DeleteOptions = new V1DeleteOptions();
 
         try {
-//            Object result = apiInstance.replaceNamespacedCustomObject(group, version, namespace, plural, name, body, null, null);
             Object delete = apiInstance.deleteNamespacedCustomObject(group, version, namespace, plural, name, 0, true, null, null, v1DeleteOptions);
             callAPICreateHadoopCluster(cluster);
-
             return true;
         } catch (ApiException e) {
-            System.err.println("Exception when calling CustomObjectsApi#patchNamespacedCustomObject");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());

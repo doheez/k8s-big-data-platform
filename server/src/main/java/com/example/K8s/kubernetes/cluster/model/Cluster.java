@@ -54,7 +54,6 @@ public class Cluster extends TimeStamped{
     public void addSpark(Spark spark){
         this.sparks.add(spark);
     }
-
     public void removeSpark(Spark spark){
         this.sparks.remove(spark);
     }
@@ -79,5 +78,9 @@ public class Cluster extends TimeStamped{
         this.amount = regDto.getAmount();
         this.type = regDto.getType();
         setUser(regDto.getUser());
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 }
