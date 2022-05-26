@@ -1,15 +1,10 @@
-package com.example.K8s.kubernetes.cluster.hadoopcr;
+package com.example.K8s.kubernetes.CR.sparkcr;
 
+import com.fasterxml.jackson.annotation.*;
+
+import javax.annotation.Generated;
 import java.util.HashMap;
 import java.util.Map;
-import javax.annotation.Generated;
-
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -19,12 +14,11 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "spec"
 })
 @Generated("jsonschema2pojo")
-public class HadoopCr {
-
+public class SparkCluster {
     @JsonProperty("apiVersion")
-    private String apiVersion = "alicek106.hadoop/v1alpha1";
+    private String apiVersion;
     @JsonProperty("kind")
-    private String kind = "HadoopService";
+    private String kind;
     @JsonProperty("metadata")
     private Metadata metadata;
     @JsonProperty("spec")
@@ -80,10 +74,5 @@ public class HadoopCr {
     @JsonAnySetter
     public void setAdditionalProperty(String name, Object value) {
         this.additionalProperties.put(name, value);
-    }
-
-    public HadoopCr(String name, int amount) {
-        this.metadata.setName(name);
-        this.spec.setClusterSize(amount);
     }
 }

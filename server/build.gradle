@@ -47,6 +47,10 @@ dependencies {
 
 	//RestTemplate httpcomponentclient
 	implementation 'org.apache.httpcomponents:httpclient:4.5.13'
+
+	//Json파싱
+	implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+
 }
 
 tasks.named('test') {

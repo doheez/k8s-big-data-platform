@@ -7,10 +7,9 @@ import lombok.Setter;
 
 @Getter @Setter
 @NoArgsConstructor
-public class ClusterRegDto {
+public class ClusterAdjDto {
     private User user;
     private String name;
     private int amount;
     private int type;
-
 }

@@ -1,24 +1,23 @@
-package com.example.K8s.kubernetes.cluster.hadoopcr;
+package com.example.K8s.kubernetes.CR.hadoopcr;
 
+import com.fasterxml.jackson.annotation.*;
+
+import javax.annotation.Generated;
 import java.util.HashMap;
 import java.util.Map;
-import javax.annotation.Generated;
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-        "name"
+        "name",
+        "resourceVersion"
 })
 @Generated("jsonschema2pojo")
 public class Metadata {
 
     @JsonProperty("name")
-    private String name = "example-hadoopservice111";
+    private String name;
+    @JsonProperty("resourceVersion")
+    private String resourceVersion;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -30,6 +29,16 @@ public class Metadata {
     @JsonProperty("name")
     public void setName(String name) {
         this.name = name;
+    }
+
+    @JsonProperty("resourceVersion")
+    public String getResourceVersion() {
+        return resourceVersion;
+    }
+
+    @JsonProperty("resourceVersion")
+    public void setResourceVersion(String resourceVersion) {
+        this.resourceVersion = resourceVersion;
     }
 
     @JsonAnyGetter
