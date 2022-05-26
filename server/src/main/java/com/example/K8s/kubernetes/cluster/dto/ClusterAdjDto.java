@@ -12,5 +12,4 @@ public class ClusterAdjDto {
     private String name;
     private int amount;
     private int type;
-
 }

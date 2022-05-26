@@ -8,13 +8,16 @@ import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-        "name"
+        "name",
+        "resourceVersion"
 })
 @Generated("jsonschema2pojo")
 public class Metadata {
 
     @JsonProperty("name")
-    private String name = "example-hadoopservice111";
+    private String name;
+    @JsonProperty("resourceVersion")
+    private String resourceVersion;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -26,6 +29,16 @@ public class Metadata {
     @JsonProperty("name")
     public void setName(String name) {
         this.name = name;
+    }
+
+    @JsonProperty("resourceVersion")
+    public String getResourceVersion() {
+        return resourceVersion;
+    }
+
+    @JsonProperty("resourceVersion")
+    public void setResourceVersion(String resourceVersion) {
+        this.resourceVersion = resourceVersion;
     }
 
     @JsonAnyGetter

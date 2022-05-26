@@ -78,6 +78,8 @@ public class HadoopCr {
     }
 
     public HadoopCr(String name, int amount) {
+        this.metadata = new Metadata();
+        this.spec = new Spec();
         this.metadata.setName(name);
         this.spec.setClusterSize(amount);
     }
