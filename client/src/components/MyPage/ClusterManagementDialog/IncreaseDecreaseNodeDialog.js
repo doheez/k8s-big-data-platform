@@ -1,9 +1,34 @@
 import * as React from 'react';
 import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
+import { useState } from 'react';
+import axios from 'axios';
 
-export default function IncreaseDecreaseNodeDialog({ open, setOpen, cluster, option }) {
+export default function IncreaseDecreaseNodeDialog({ open, setOpen, cluster, option, name }) {
+  const [amount, setAmount] = useState();
+
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleScaleCluster = () => {
+    handleClose();
+
+    const url = '/api/cluster/modify';
+    const data = {
+      type: cluster,
+      name: name,
+      amount: amount
+    };
+
+    axios.post(url, data)
+      .then(response => {
+        alert(`Success in ${option} ${cluster} cluster nodes!`);
+        console.log(response);
+      })
+      .catch(error => {
+        alert(error.message);
+        console.log(error);
+      });
   };
 
   const capitalize = (str) => {
@@ -26,11 +51,12 @@ export default function IncreaseDecreaseNodeDialog({ open, setOpen, cluster, opt
             id="clusterNumber"
             type="number"
             label="Number"
+            onChange={e => setAmount(Number(e.target.value))}
           />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>OK</Button>
+          <Button onClick={() => handleScaleCluster()}>OK</Button>
         </DialogActions>
       </Dialog>
     </div>

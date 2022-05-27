@@ -1,11 +1,8 @@
 import { Avatar, Box, Stack, Typography } from "@mui/material";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 
-export default function UserInfo() {
-  const [name, setName] = useState();
-  const [email, setEmail] = useState();
-
+export default function UserInfo({ name, setName, email, setEmail }) {
   const getUserInfo = () => {
     const url = '/api/user';
 
