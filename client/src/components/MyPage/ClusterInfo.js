@@ -38,7 +38,7 @@ export default function HadoopClusterInfo({ cluster }) {
         <ListItem>
           <Stack width="100%">
             <Typography variant="subtitle2" color="text.secondary">Pods Status</Typography>
-            <PodTable />
+            <PodTable cluster={cluster} />
           </Stack>
         </ListItem>
         <Divider />

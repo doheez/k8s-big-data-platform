@@ -1,7 +1,11 @@
 import { DataGrid } from '@mui/x-data-grid';
 import { Box } from '@mui/material';
+import { useState } from 'react';
+import PodDetailDialog from './PodDetailDialog';
 
-export default function PodTable() {
+export default function PodTable({ cluster }) {
+  const [open, setOpen] = useState(false);
+
   // 임시 데이터
   const columns = [
     { field: 'id', headerName: 'ID', width: 90 },
@@ -33,7 +37,9 @@ export default function PodTable() {
             color: 'primary.main',
           },
         }}
+        onRowClick={() => setOpen(true)}
       />
+      <PodDetailDialog open={open} setOpen={setOpen} cluster={cluster} />
     </Box>
   );
 }
