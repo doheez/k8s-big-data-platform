@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter @Setter
 @NoArgsConstructor
 public class ClusterRegDto {
-    private User user;
+    private Long id;
     private String name;
     private int amount;
     private int type;

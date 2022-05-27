@@ -31,7 +31,8 @@ public class Cluster extends TimeStamped{
     @Column(nullable = false)
     private int type;
 
-
+    @Column(nullable = false)
+    private String namespace;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -73,14 +74,18 @@ public class Cluster extends TimeStamped{
 
 
 
-    public Cluster(ClusterRegDto regDto) {
+    public Cluster(ClusterRegDto regDto, User user) {
         this.name = regDto.getName();
         this.amount = regDto.getAmount();
         this.type = regDto.getType();
-        setUser(regDto.getUser());
+        setUser(user);
     }
 
     public void setAmount(int amount) {
         this.amount = amount;
+    }
+
+    public void setNamespace(String namespace){
+        this.namespace = namespace;
     }
 }
