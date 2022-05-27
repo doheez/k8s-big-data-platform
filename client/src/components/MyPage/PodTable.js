@@ -26,8 +26,6 @@ export default function PodTable() {
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5]}
-        checkboxSelection
-        disableSelectionOnClick
         sx={{
           border: 2,
           borderColor: 'primary.light',
