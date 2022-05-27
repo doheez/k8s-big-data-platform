@@ -31,6 +31,9 @@ public class Cluster extends TimeStamped{
     @Column(nullable = false)
     private int type;
 
+    @Column(nullable = false)
+    private String namespace;
+
 
 
     @ManyToOne(fetch = FetchType.LAZY)
