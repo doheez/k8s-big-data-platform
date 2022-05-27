@@ -4,7 +4,7 @@ import IncreaseDecreaseNodeDialog from "./ClusterManagementDialog/IncreaseDecrea
 import DeleteClusterDialog from "./ClusterManagementDialog/DeleteClusterDialog";
 import PodTable from "./PodTable";
 
-export default function HadoopClusterInfo({ cluster }) {
+export default function ClusterInfo({ cluster, name }) {
   const [openIncreaseDecrease, setOpenIncreaseDecrease] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
   const [option, setOption] = useState('increase');
@@ -38,7 +38,7 @@ export default function HadoopClusterInfo({ cluster }) {
         <ListItem>
           <Stack width="100%">
             <Typography variant="subtitle2" color="text.secondary">Pods Status</Typography>
-            <PodTable />
+            <PodTable cluster={cluster} />
           </Stack>
         </ListItem>
         <Divider />
@@ -57,7 +57,7 @@ export default function HadoopClusterInfo({ cluster }) {
             <Grid container spacing={2}>
               <Grid item xs={4}>
                 <Button variant="contained" fullWidth onClick={() => handleClickIncreaseDecrease('increase')}>increase node</Button>
-                <IncreaseDecreaseNodeDialog open={openIncreaseDecrease} setOpen={setOpenIncreaseDecrease} cluster={cluster} option={option} />
+                <IncreaseDecreaseNodeDialog open={openIncreaseDecrease} setOpen={setOpenIncreaseDecrease} cluster={cluster} option={option} name={name} />
               </Grid>
               <Grid item xs={4}>
                 <Button variant="contained" fullWidth onClick={() => handleClickIncreaseDecrease('decrease')}>decrease node</Button>
