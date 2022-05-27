@@ -1,14 +1,9 @@
 package com.example.K8s.web.cluster.controller;
 
-import com.example.K8s.kubernetes.cluster.model.Cluster;
 import com.example.K8s.web.auth.dto.ErrorResponse;
 import com.example.K8s.web.auth.service.UserService;
-import com.example.K8s.web.cluster.dto.ClusterInfoReqDto;
-import com.example.K8s.web.cluster.dto.ClusterInfoResDto;
-import com.example.K8s.web.cluster.dto.ClusterReqDto;
-import com.example.K8s.web.cluster.dto.ClusterResDto;
+import com.example.K8s.web.cluster.dto.*;
 import com.example.K8s.web.cluster.service.UserClusterService;
-import com.example.K8s.web.entity.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.MessageSource;
@@ -86,5 +81,18 @@ public class UserClusterController {
         List<ClusterInfoResDto> clusters = userClusterService.reqClusterInfo(clusterInfoReqDto);
 
         return ResponseEntity.status(HttpStatus.OK).body(clusters);
+    }
+
+    @PostMapping("/detail")
+    public ResponseEntity<?> getClusterDetail(@RequestHeader(value = "Authorization") String token, @RequestBody PodDetailReqDto podDetailReqDto){
+        Long userId = userClusterService.checkAuth(token);
+        if(userId == -1L)
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .body(new ErrorResponse(messageSource.getMessage("error.valid.jwt",null, LocaleContextHolder.getLocale())));
+
+        PodDetailResDto podDetailResDto = userClusterService.reqPodDetail(podDetailReqDto);
+
+        return ResponseEntity.status(HttpStatus.OK).body(podDetailResDto);
     }
 }

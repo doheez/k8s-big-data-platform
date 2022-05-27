@@ -1,14 +1,9 @@
 package com.example.K8s.web.cluster.service;
 
-import com.example.K8s.web.auth.dto.ErrorResponse;
-import com.example.K8s.web.auth.service.UserService;
 import com.example.K8s.web.auth.token.JwtTokenProvider;
 import com.example.K8s.web.cluster.dto.*;
-import com.example.K8s.web.entity.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.ClientHttpResponse;
@@ -53,6 +48,7 @@ public class UserClusterService {
         else return -1;
     }
 
+    @Transactional
     public List<ClusterInfoResDto> reqClusterInfo(ClusterInfoReqDto clusterInfoReqDto){
         //예시 url
         String url = "http://ec2-52-78-90-149.ap-northeast-2.compute.amazonaws.com:8080/kubernetes/info";
@@ -65,6 +61,12 @@ public class UserClusterService {
         return clusters;
     }
 
+    public PodDetailResDto reqPodDetail(PodDetailReqDto podDetailReqDto){
+        String url = "http://ec2-52-78-90-149.ap-northeast-2.compute.amazonaws.com:8080/kubernetes/cluster/detail";
+        setRestTemplate();
+        PodDetailResDto response = restTemplate.postForObject(url, podDetailReqDto, PodDetailResDto.class);
+        return response;
+    }
     public ClusterResDto setClusterResDto( String token, ClusterReqDto clusterReqDto) {
         ClusterResDto clusterResDto = new ClusterResDto();
         Long userId = checkAuth(token);
