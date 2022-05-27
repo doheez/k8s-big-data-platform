@@ -1,6 +1,6 @@
 import { Avatar, Box, Stack, Typography } from "@mui/material";
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function UserInfo() {
   const [name, setName] = useState();
@@ -19,9 +19,10 @@ export default function UserInfo() {
         console.log(error);
       })
   };
-  if (name === undefined) {
+
+  useEffect(() => {
     getUserInfo();
-  }
+  }, [name]);
 
   function stringAvatar(name) {
     if (name === undefined) {
