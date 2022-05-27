@@ -1,7 +1,6 @@
 package com.example.K8s.kubernetes.cluster.service;
 
 import com.example.K8s.kubernetes.CR.sparkcr.*;
-import com.example.K8s.kubernetes.cluster.dto.ClusterAdjDto;
 import com.example.K8s.kubernetes.cluster.dto.ClusterRegDto;
 import com.example.K8s.kubernetes.cluster.model.Cluster;
 import com.example.K8s.kubernetes.cluster.model.Spark;
