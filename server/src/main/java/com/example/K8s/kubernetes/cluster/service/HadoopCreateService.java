@@ -6,6 +6,8 @@ import com.example.K8s.kubernetes.cluster.model.Cluster;
 import com.example.K8s.kubernetes.cluster.model.Hadoop;
 import com.example.K8s.kubernetes.cluster.repository.ClusterRepository;
 import com.example.K8s.kubernetes.cluster.repository.HadoopRepository;
+import com.example.K8s.web.auth.repository.UserRepository;
+import com.example.K8s.web.entity.User;
 import io.kubernetes.client.openapi.ApiException;
 import io.kubernetes.client.openapi.apis.CustomObjectsApi;
 import io.kubernetes.client.util.ClientBuilder;
@@ -14,12 +16,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.Optional;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class HadoopCreateService {
 
+    private final UserRepository userRepository;
     private final ClusterRepository clusterRepository;
     private final HadoopRepository hadoopRepository;
 
@@ -30,7 +34,8 @@ public class HadoopCreateService {
         if (exist) return false;
 
         // 클러스터 생성
-        Cluster newCluster = new Cluster(regDto);
+        Optional<User> user = userRepository.findById(regDto.getId());
+        Cluster newCluster = new Cluster(regDto, user.get());
         boolean success = callAPICreateHadoopCluster(newCluster);
         if (!success) return false;
         clusterRepository.save(newCluster);
