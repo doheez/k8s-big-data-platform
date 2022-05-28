@@ -46,15 +46,10 @@ function App() {
         {token === undefined
           ?
           <Routes>
-            {/* <Route path="/login" element={<Login setToken={setToken} />}></Route>
-            <Route path="/signup" element={<SignUp />}></Route> */}
+            <Route path="/login" element={<Login setToken={setToken} />}></Route>
+            <Route path="/signup" element={<SignUp />}></Route>
             {/* 상단에 위치하는 라우트들의 규칙을 모두 확인, 일치하는 라우트가 없는 경우 처리 */}
-            {/* <Route path="*" element={<Login setToken={setToken} />}></Route> */}
-
-            <Route path="/" element={<Fragment><Banner /><CreatingCluster /></Fragment>}></Route>
-            <Route path="/mypage" element={<MyPage />}></Route>
-            {/* 상단에 위치하는 라우트들의 규칙을 모두 확인, 일치하는 라우트가 없는 경우 처리 */}
-            <Route path="*" element={<Fragment><Banner /><CreatingCluster /></Fragment>}></Route>
+            <Route path="*" element={<Login setToken={setToken} />}></Route>
           </Routes>
           :
           <Routes>

@@ -2,11 +2,13 @@ import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import { Box } from '@mui/material';
 import { useState, useEffect } from 'react';
 import PodDetailDialog from './PodDetailDialog';
+import axios from 'axios';
 
-export default function PodTable({ cluster, pods }) {
+export default function PodTable({ cluster, pods, clusterName }) {
   const [open, setOpen] = useState(false);
   const [rows, setRows] = useState([]);
   const [columns, setColumns] = useState([]);
+  const [podDetails, setPodDetails] = useState();
 
   const getColumns = () => {
     if (pods.length > 0) {
@@ -22,6 +24,26 @@ export default function PodTable({ cluster, pods }) {
     return pods.map((row, index) => {
       return { ...row, id: index };
     });
+  };
+
+  const getPodDetails = (podName) => {
+    const url = '/api/cluster/detail';
+    const data = {
+      clusterName: clusterName,
+      podName: podName
+    };
+
+    axios.post(url, data)
+      .then(response => {
+        setPodDetails(response);
+        console.log(response);
+      })
+      .catch(error => console.log(error));
+  };
+
+  const handleRowClick = (params) => {
+    // getPodDetails(params.row.nodeName);
+    setOpen(true);
   };
 
   useEffect(() => {
@@ -43,12 +65,22 @@ export default function PodTable({ cluster, pods }) {
             color: 'primary.main',
           },
         }}
-        onRowClick={() => setOpen(true)}
+        onRowClick={handleRowClick}
         components={{
           Toolbar: GridToolbar,
         }}
       />
-      <PodDetailDialog open={open} setOpen={setOpen} cluster={cluster} />
+      <PodDetailDialog open={open} setOpen={setOpen} cluster={cluster} podDetails={testData} />
     </Box>
   );
 }
+
+const testData = {
+  "name": "example-hadoopservice-hadoop-slave-0",
+  "namespace": "hadoop",
+  "nodeName": "gke-cluster-1-default-pool-bd9844b9-f2lf",
+  "nodeIP": "127.0.0.1",
+  "startTime": "Thu, 26 May 2022 12:58:29",
+  "status": "RUNNING",
+  "podIP": "10.4.0.104"
+};

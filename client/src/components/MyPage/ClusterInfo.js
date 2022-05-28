@@ -47,7 +47,7 @@ export default function ClusterInfo({ cluster, clusterList }) {
                 <ListItem>
                   <Stack width="100%">
                     <Typography variant="subtitle2" color="text.secondary">Pods Status</Typography>
-                    <PodTable cluster={cluster} pods={clusterInfo.podInfos} />
+                    <PodTable cluster={cluster} pods={clusterInfo.podInfos} clusterName={clusterInfo.clusterName} />
                   </Stack>
                 </ListItem>
                 <Divider />
