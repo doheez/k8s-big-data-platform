@@ -15,9 +15,13 @@ export default function UserInfo() {
         setEmail(response.data.email);
       })
       .catch(error => {
-        alert(error.message);
+        if (error.response.data) {
+          alert(error.response.data);
+        } else {
+          alert(error.message);
+        }
         console.log(error);
-      })
+      });
   };
 
   useEffect(() => {

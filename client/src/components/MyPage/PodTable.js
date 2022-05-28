@@ -38,7 +38,14 @@ export default function PodTable({ cluster, pods, clusterName }) {
         setPodDetails(response);
         console.log(response);
       })
-      .catch(error => console.log(error));
+      .catch(error => {
+        if (error.response.data) {
+          alert(error.response.data);
+        } else {
+          alert(error.message);
+        }
+        console.log(error);
+      });
   };
 
   const handleRowClick = (params) => {

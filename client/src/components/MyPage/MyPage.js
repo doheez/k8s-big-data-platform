@@ -21,8 +21,12 @@ export default function MyPage() {
   //       setSparkClusterList(response.data.clusters.filter(e => (e.type === 1)));
   //     })
   //     .catch(error => {
+  //       if (error.response.data) {
+  //         alert(error.response.data);
+  //       } else {
+  //         alert(error.message);
+  //       }
   //       console.log(error);
-  //       alert(error.message);
   //     });
   // };
 

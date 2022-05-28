@@ -23,7 +23,11 @@ export default function DeleteClusterDialog({ open, setOpen, cluster, clusterNam
         console.log(response);
       })
       .catch(error => {
-        alert(error.message);
+        if (error.response.data) {
+          alert(error.response.data);
+        } else {
+          alert(error.message);
+        }
         console.log(error);
       });
   };
