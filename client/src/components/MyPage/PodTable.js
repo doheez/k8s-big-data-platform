@@ -1,10 +1,12 @@
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import { Box } from '@mui/material';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PodDetailDialog from './PodDetailDialog';
+import axios from 'axios';
 
 export default function PodTable({ cluster }) {
   const [open, setOpen] = useState(false);
+  const [clusterInfo, setClusterInfo] = useState();
 
   // 임시 데이터
   const columns = [
@@ -23,6 +25,24 @@ export default function PodTable({ cluster }) {
     { id: 5, name: 'find-animal-sdfk4t', ready: '1/1', status: 'RUNNING', age: '78ms' },
   ];
 
+  // const getClusterInfo = () => {
+  //   const url = '/api/cluster/info';
+
+  //   axios.get(url)
+  //     .then(response => {
+  //       console.log(response);
+  //       setClusterInfo(response);
+  //     })
+  //     .catch(error => {
+  //       console.log(error);
+  //       alert(error.message);
+  //     });
+  // };
+
+  // useEffect(() => {
+  //   getClusterInfo();
+  // }, [clusterInfo]);
+
   return (
     <Box width="100%" height={350} my={1}>
       <DataGrid
@@ -38,6 +58,9 @@ export default function PodTable({ cluster }) {
           },
         }}
         onRowClick={() => setOpen(true)}
+        components={{
+          Toolbar: GridToolbar,
+        }}
       />
       <PodDetailDialog open={open} setOpen={setOpen} cluster={cluster} />
     </Box>

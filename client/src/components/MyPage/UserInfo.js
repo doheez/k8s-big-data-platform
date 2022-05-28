@@ -8,11 +8,11 @@ export default function UserInfo({ name, setName, email, setEmail }) {
 
     axios.get(url)
       .then(response => {
-        console.log(response)
         setName(response.data.name);
         setEmail(response.data.email);
       })
       .catch(error => {
+        alert(error.message);
         console.log(error);
       })
   };

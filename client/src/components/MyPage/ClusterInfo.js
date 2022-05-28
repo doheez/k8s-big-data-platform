@@ -38,6 +38,7 @@ export default function ClusterInfo({ cluster, name }) {
         <ListItem>
           <Stack width="100%">
             <Typography variant="subtitle2" color="text.secondary">Pods Status</Typography>
+            <Typography>Cluster Name: 클러스터 기본/세부 정보 API는 주석처리 해둠. 지금 보이는 건 임시 데이터</Typography>
             <PodTable cluster={cluster} />
           </Stack>
         </ListItem>
@@ -64,7 +65,7 @@ export default function ClusterInfo({ cluster, name }) {
               </Grid>
               <Grid item xs={4}>
                 <Button variant="contained" fullWidth onClick={() => handleClickDelete()}>delete cluster</Button>
-                <DeleteClusterDialog open={openDelete} setOpen={setOpenDelete} cluster={cluster} />
+                <DeleteClusterDialog open={openDelete} setOpen={setOpenDelete} cluster={cluster} name={name} />
               </Grid>
             </Grid>
           </Stack>
