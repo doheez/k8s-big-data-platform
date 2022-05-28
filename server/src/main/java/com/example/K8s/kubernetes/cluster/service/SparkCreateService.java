@@ -12,12 +12,14 @@ import io.kubernetes.client.openapi.ApiException;
 import io.kubernetes.client.openapi.apis.CustomObjectsApi;
 import io.kubernetes.client.util.ClientBuilder;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class SparkCreateService {
@@ -35,20 +37,17 @@ public class SparkCreateService {
         // 클러스터 생성
         Optional<User> user = userRepository.findById(regDto.getId());
         Cluster cluster = new Cluster(regDto,user.get());
+        cluster.setNamespace("spark");
         boolean success = create_API(cluster);
         if(!success) return false;
-
         // 클러스터 저장
-        clusterRepository.save(cluster);  
-        cluster.setNamespace("spark");
-
+        clusterRepository.save(cluster);
         // 스파크 클러스터 저장
         Spark spark = new Spark(0,cluster);
         sparkRepository.save(spark);
         return true;
     }
     public boolean create_API (Cluster cluster) throws IOException {
-        // CRD 등록
         CustomObjectsApi apiInstance = new CustomObjectsApi(ClientBuilder.standard().build());
         String group ="radanalytics.io";
         String version ="v1";

@@ -49,7 +49,7 @@ public class ClusterController {
 
     // 클러스터 조절
     @PostMapping("/adj")
-    public String modifyCluster(ClusterRegDto adjDto) throws IOException{
+    public String modifyCluster(@RequestBody ClusterRegDto adjDto) throws IOException{
         if(adjDto.getType() == 0){
             boolean result = hadoopAdjustService.adjustHadoopCluster(adjDto);
             if (!result) return "hadoop cluster 조절 실패";
@@ -62,8 +62,8 @@ public class ClusterController {
     }
 
     // 클러스터 기본 정보들
-    @GetMapping
-    public ArrayList<ClusterInfoListDto> podInfoList(Long userId) throws IOException, ApiException {
+    @GetMapping("/{userId}")
+    public ArrayList<ClusterInfoListDto> podInfoList(@PathVariable Long userId) throws IOException, ApiException {
         List<Cluster> clusters = podInfoListService.getClusters(userId);
         ArrayList<ClusterInfoListDto> podinfolist = podInfoListService.getlistPodInfo(clusters);
         return podinfolist;
