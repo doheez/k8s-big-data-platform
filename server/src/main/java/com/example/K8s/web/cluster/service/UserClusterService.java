@@ -12,6 +12,7 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.DefaultResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.DefaultUriBuilderFactory;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
@@ -74,7 +75,7 @@ public class UserClusterService {
             clusterResDto.setType(-1);
             return clusterResDto;
         }
-        clusterResDto.setUserId(userId);
+        clusterResDto.setId(userId);
         clusterResDto.setAmount(clusterReqDto.getAmount());
         clusterResDto.setName(clusterReqDto.getName());
         switch (clusterReqDto.getType()) {

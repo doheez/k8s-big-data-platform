@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -64,6 +65,7 @@ public class User implements UserDetails {
         this.password = password;
         this.image = image;
         this.role = role != null ? role : Role.USER;
+        this.clusters = new ArrayList<>();
     }
 
     @Builder

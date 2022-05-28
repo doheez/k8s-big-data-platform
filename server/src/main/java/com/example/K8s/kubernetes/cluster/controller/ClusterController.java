@@ -13,10 +13,7 @@ import io.kubernetes.client.openapi.ApiException;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -38,7 +35,7 @@ public class ClusterController {
 
     // 클러스터 생성
     @PostMapping
-    public String createCluster(ClusterRegDto regDto) throws IOException {
+    public String createCluster(@RequestBody ClusterRegDto regDto) throws IOException {
         if (regDto.getType() == 0) {
             boolean result = hadoopCreateService.createHadoopCluster(regDto);
             if (!result) return "hadoop cluster 생성 실패";
