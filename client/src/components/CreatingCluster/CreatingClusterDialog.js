@@ -24,19 +24,20 @@ export default function CreatingClusterDialog({ open, setOpen, cluster }) {
   const handleCreateCluster = () => {
     handleClose();
 
-    const url = '/api/create/cluster';
+    const url = '/api/cluster/create';
     const data = {
       type: cluster,
       name: clusterName,
       amount: clusterNumber
     };
-    console.log(data);
 
     axios.post(url, data)
       .then(response => {
+        alert(`Success in creating ${cluster} cluster!`);
         console.log(response);
       })
       .catch(error => {
+        alert(error.message);
         console.log(error);
       });
   };
