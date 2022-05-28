@@ -45,14 +45,15 @@ public class PodInfoListService {
 
                 List<PodInfoDto> podinfos = new ArrayList<>();
                 for(V1Pod pod : podlist.getItems()){
-                    if (pod.getMetadata().getName().contains(cluster.getName())) {
-                        String name = pod.getMetadata().getName();
-                        String podIP = pod.getStatus().getPodIP();
-                        String status = pod.getStatus().getPhase();
-                        PodInfoDto podInfoDto = new PodInfoDto(name,podIP,status);
-                        podinfos.add(podInfoDto);
+                    if(!pod.getMetadata().getName().contains("operator")) {
+                        if (pod.getMetadata().getName().contains(cluster.getName() + "-")) {
+                            String name = pod.getMetadata().getName();
+                            String podIP = pod.getStatus().getPodIP();
+                            String status = pod.getStatus().getPhase();
+                            PodInfoDto podInfoDto = new PodInfoDto(name, podIP, status);
+                            podinfos.add(podInfoDto);
+                        }
                     }
-
                 }
 
                 ClusterInfoListDto clusterInfoListDto = new ClusterInfoListDto(cluster.getType(),cluster.getName(),podinfos);
