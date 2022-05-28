@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -78,6 +79,8 @@ public class Cluster extends TimeStamped{
         this.name = regDto.getName();
         this.amount = regDto.getAmount();
         this.type = regDto.getType();
+        this.hadoops = new ArrayList<>();
+        this.sparks = new ArrayList<>();
         setUser(user);
     }
 

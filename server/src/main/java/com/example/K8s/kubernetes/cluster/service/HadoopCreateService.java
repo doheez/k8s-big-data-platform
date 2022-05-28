@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.Optional;
 
@@ -28,6 +29,7 @@ public class HadoopCreateService {
     private final HadoopRepository hadoopRepository;
 
     // hadoop 클러스터 생성
+    @Transactional
     public boolean createHadoopCluster(ClusterRegDto regDto) throws IOException {
         // 이름 중복 체크
         boolean exist = clusterRepository.existsByName(regDto.getName());

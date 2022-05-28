@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 @Data
 public class ClusterResDto implements Serializable {
-    private Long userId;
+    private Long id;
     private String name;
     private int amount;
     private int type;

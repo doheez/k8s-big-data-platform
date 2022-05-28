@@ -7,7 +7,6 @@ import lombok.Setter;
 @Getter @Setter
 @NoArgsConstructor
 public class PodDetailRequestDto {
-    private Long userId;
     private String clusterName;
-    private int type;
+    private String podName;
 }
