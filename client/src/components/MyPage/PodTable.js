@@ -2,46 +2,32 @@ import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import { Box } from '@mui/material';
 import { useState, useEffect } from 'react';
 import PodDetailDialog from './PodDetailDialog';
-import axios from 'axios';
 
-export default function PodTable({ cluster }) {
+export default function PodTable({ cluster, pods }) {
   const [open, setOpen] = useState(false);
-  const [clusterInfo, setClusterInfo] = useState();
+  const [rows, setRows] = useState([]);
+  const [columns, setColumns] = useState([]);
 
-  // 임시 데이터
-  const columns = [
-    { field: 'id', headerName: 'ID', width: 90 },
-    { field: 'name', headerName: 'Name', width: 180, },
-    { field: 'ready', headerName: 'Ready', width: 90, },
-    { field: 'status', headerName: 'Status', width: 130, },
-    { field: 'age', headerName: 'Age', width: 110, },
-  ];
+  const getColumns = () => {
+    if (pods.length > 0) {
+      const keys = Object.keys(pods[0]);
+      const columns = keys.map((key, index) => {
+        return { field: key, headerName: key, width: 200 };
+      });
+      return columns;
+    }
+  };
 
-  const rows = [
-    { id: 1, name: 'find-animal-sdfk4r', ready: '1/1', status: 'RUNNING', age: '78ms' },
-    { id: 2, name: 'find-animal-sdfk4f', ready: '1/1', status: 'RUNNING', age: '78ms' },
-    { id: 3, name: 'find-animal-sdfk4t', ready: '1/1', status: 'RUNNING', age: '78ms' },
-    { id: 4, name: 'find-animal-sdfk4t', ready: '1/1', status: 'RUNNING', age: '78ms' },
-    { id: 5, name: 'find-animal-sdfk4t', ready: '1/1', status: 'RUNNING', age: '78ms' },
-  ];
+  const getRows = () => {
+    return pods.map((row, index) => {
+      return { ...row, id: index };
+    });
+  };
 
-  // const getClusterInfo = () => {
-  //   const url = '/api/cluster/info';
-
-  //   axios.get(url)
-  //     .then(response => {
-  //       console.log(response);
-  //       setClusterInfo(response);
-  //     })
-  //     .catch(error => {
-  //       console.log(error);
-  //       alert(error.message);
-  //     });
-  // };
-
-  // useEffect(() => {
-  //   getClusterInfo();
-  // }, [clusterInfo]);
+  useEffect(() => {
+    setColumns(getColumns());
+    setRows(getRows());
+  }, [pods]);
 
   return (
     <Box width="100%" height={350} my={1}>
