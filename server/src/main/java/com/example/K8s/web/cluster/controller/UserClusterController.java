@@ -33,13 +33,13 @@ public class UserClusterController {
         }
         else if(clusterResDto.getType() == -2){
             return ResponseEntity
-                    .status(HttpStatus.NOT_FOUND)
+                    .status(HttpStatus.BAD_REQUEST)
                     .body("INVALID_INPUT_VALUE");
         }
         int value = userClusterService.reqClusterCreate(clusterResDto);
         if(value != 1) {
             return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
+                    .status(HttpStatus.NOT_FOUND)
                     .body("COULD_NOT_CREATED");
         }
         return ResponseEntity.status(HttpStatus.CREATED).body(null);
@@ -56,13 +56,13 @@ public class UserClusterController {
         }
         else if(clusterResDto.getType() == -2){
             return ResponseEntity
-                    .status(HttpStatus.NOT_FOUND)
+                    .status(HttpStatus.BAD_REQUEST)
                     .body("INVALID_INPUT_VALUE");
         }
         int value = userClusterService.reqClusterModify(clusterResDto);
         if(value != 1) {
             return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
+                    .status(HttpStatus.NOT_FOUND)
                     .body("COULD_NOT_CREATED");
         }
         return ResponseEntity.status(HttpStatus.CREATED).body(null);
