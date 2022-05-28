@@ -38,6 +38,7 @@ public class HadoopCreateService {
         // 클러스터 생성
         Optional<User> user = userRepository.findById(regDto.getId());
         Cluster newCluster = new Cluster(regDto, user.get());
+        newCluster.setNamespace("hadoop");
         boolean success = callAPICreateHadoopCluster(newCluster);
         if (!success) return false;
         clusterRepository.save(newCluster);
