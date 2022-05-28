@@ -1,7 +1,10 @@
 package com.example.K8s.web.cluster.dto;
 
+import lombok.Data;
+
+@Data
 public class PodInfo {
-    private String nodeName;
-    private String nodeIP;
-    private String status;
+    private String name;
+    private String PodIP;
+    private String STATUS;
 }
