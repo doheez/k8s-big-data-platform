@@ -12,10 +12,11 @@ import java.util.List;
 public class ClusterInfoListDto {
     private int type;
     private String clusterName;
-    private List<PodInfoDto> clueterInfo = new ArrayList<>();
-    public ClusterInfoListDto(int type, String clusterName, List<PodInfoDto> clueterInfo){
+    private List<PodInfoDto> pods = new ArrayList<>();
+
+    public ClusterInfoListDto(int type, String clusterName, List<PodInfoDto> pods){
         this.type = type;
         this.clusterName = clusterName;
-        this.clueterInfo = clueterInfo;
+        this.pods = pods;
     }
 }
