@@ -85,7 +85,8 @@ public class UserController {
         }
         else {
             Long id = jwtTokenProvider.getId(token);
-            UserInfoDto userInfoDto = userService.selectUser(id);
+            User user = userService.selectUser(id);
+            UserInfoDto userInfoDto = new UserInfoDto(user.getName(), user.getEmail());
             return ResponseEntity
                     .status(HttpStatus.OK)
                     .body(userInfoDto);

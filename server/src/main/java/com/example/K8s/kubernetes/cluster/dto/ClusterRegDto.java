@@ -12,5 +12,4 @@ public class ClusterRegDto {
     private String name;
     private int amount;
     private int type;
-
 }

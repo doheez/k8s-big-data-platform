@@ -33,8 +33,8 @@ public class UserService {
             throw new IllegalStateException("일치하는 아이디가 존재합니다.");
         }
     }
-    public UserInfoDto selectUser(Long id){
+    public User selectUser(Long id){
         User user = userRepository.findById(id).orElse(null);
-        return new UserInfoDto(user.getName(), user.getEmail());
+        return user;
     }
 }
