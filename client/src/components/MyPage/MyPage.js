@@ -11,29 +11,23 @@ export default function MyPage() {
   const [hadoopClusterList, setHadoopClusterList] = useState([]);
   const [sparkClusterList, setSparkClusterList] = useState([]);
 
-  // const getClusterInfo = () => {
-  //   const url = '/api/cluster/info';
+  const getClusterInfo = () => {
+    const url = '/api/cluster/info';
 
-  //   axios.get(url)
-  //     .then(response => {
-  //       console.log(response);
-  //       setHadoopClusterList(response.data.clusters.filter(e => (e.type === 0)));
-  //       setSparkClusterList(response.data.clusters.filter(e => (e.type === 1)));
-  //     })
-  //     .catch(error => {
-  //       if (error.response.data) {
-  //         alert(error.response.data);
-  //       } else {
-  //         alert(error.message);
-  //       }
-  //       console.log(error);
-  //     });
-  // };
+    axios.get(url)
+      .then(response => {
+        console.log(response);
+        setHadoopClusterList(response.data.clusters.filter(e => (e.type === 0)));
+        setSparkClusterList(response.data.clusters.filter(e => (e.type === 1)));
+      })
+      .catch(error => {
+        alert(error.message);
+        console.log(error);
+      });
+  };
 
   useEffect(() => {
-    // getClusterInfo();
-    setHadoopClusterList(testData.clusters.filter(e => (e.type === "0")));
-    setSparkClusterList(testData.clusters.filter(e => (e.type === "1")));
+    getClusterInfo();
   }, []);
 
   return (
@@ -57,113 +51,3 @@ export default function MyPage() {
     </Container>
   );
 }
-
-const testData = {
-  "clusters": [
-    {
-      "type": "0",  //[0 : hadoop, 1 : spark]
-      "clusterName": "하둡 클러스터 1",
-      "podInfos": [
-        {
-          "nodeName": "example-node",
-          "nodeIP": "127.0.0.1",
-          "status": "RUNNING"
-        },
-        {
-          "nodeName": "example-node",
-          "nodeIP": "127.0.0.1",
-          "status": "RUNNING"
-        },
-        {
-          "nodeName": "example-node",
-          "nodeIP": "127.0.0.1",
-          "status": "RUNNING"
-        },
-      ]
-    },
-    {
-      "type": "0",  //[0 : hadoop, 1 : spark]
-      "clusterName": "하둡 클러스터 2",
-      "podInfos": [
-        {
-          "nodeName": "example-node",
-          "nodeIP": "127.0.0.1",
-          "status": "RUNNING"
-        },
-        {
-          "nodeName": "example-node",
-          "nodeIP": "127.0.0.1",
-          "status": "RUNNING"
-        },
-      ]
-    },
-    {
-      "type": "0",  //[0 : hadoop, 1 : spark]
-      "clusterName": "하둡 클러스터 3",
-      "podInfos": [
-        {
-          "nodeName": "example-node",
-          "nodeIP": "127.0.0.1",
-          "status": "RUNNING"
-        },
-        {
-          "nodeName": "example-node",
-          "nodeIP": "127.0.0.1",
-          "status": "RUNNING"
-        },
-        {
-          "nodeName": "example-node",
-          "nodeIP": "127.0.0.1",
-          "status": "RUNNING"
-        },
-        {
-          "nodeName": "example-node",
-          "nodeIP": "127.0.0.1",
-          "status": "RUNNING"
-        },
-      ]
-    },
-    {
-      "type": "1",  //[0 : hadoop, 1 : spark]
-      "clusterName": "스파크 클러스터 1",
-      "podInfos": [
-        {
-          "nodeName": "example-node",
-          "nodeIP": "127.0.0.1",
-          "status": "RUNNING"
-        },
-        {
-          "nodeName": "example-node",
-          "nodeIP": "127.0.0.1",
-          "status": "RUNNING"
-        },
-        {
-          "nodeName": "example-node",
-          "nodeIP": "127.0.0.1",
-          "status": "RUNNING"
-        },
-        {
-          "nodeName": "example-node",
-          "nodeIP": "127.0.0.1",
-          "status": "RUNNING"
-        },
-      ]
-    },
-    {
-      "type": "1",  //[0 : hadoop, 1 : spark]
-      "clusterName": "스파크 클러스터 2",
-      "podInfos": [
-        {
-          "nodeName": "example-node",
-          "nodeIP": "127.0.0.1",
-          "status": "RUNNING"
-        },
-        {
-          "nodeName": "example-node",
-          "nodeIP": "127.0.0.1",
-          "status": "RUNNING"
-        },
-      ]
-    },
-  ]
-};
