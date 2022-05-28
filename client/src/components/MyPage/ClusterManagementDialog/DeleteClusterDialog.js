@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Alert, AlertTitle } from '@mui/material';
 import axios from 'axios';
 
-export default function DeleteClusterDialog({ open, setOpen, cluster, name }) {
+export default function DeleteClusterDialog({ open, setOpen, cluster, clusterName }) {
   const handleClose = () => {
     setOpen(false);
   };
@@ -13,17 +13,21 @@ export default function DeleteClusterDialog({ open, setOpen, cluster, name }) {
     const url = '/api/cluster/modify';
     const data = {
       type: cluster,
-      name: name,
+      name: clusterName,
       amount: 0
     };
 
     axios.post(url, data)
       .then(response => {
-        alert(`Success in delete ${cluster} cluster!`);
+        alert(`Success in delete ${clusterName} cluster!`);
         console.log(response);
       })
       .catch(error => {
-        alert(error.message);
+        if (error.response.data) {
+          alert(error.response.data);
+        } else {
+          alert(error.message);
+        }
         console.log(error);
       });
   };

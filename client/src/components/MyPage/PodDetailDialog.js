@@ -7,7 +7,7 @@ import BusinessIcon from '@mui/icons-material/Business';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import SignalWifi0BarIcon from '@mui/icons-material/SignalWifi0Bar'; import FlipIcon from '@mui/icons-material/Flip';
 
-export default function PodDetailDialog({ open, setOpen, cluster }) {
+export default function PodDetailDialog({ open, setOpen, cluster, podDetails }) {
   const handleClose = () => {
     setOpen(false);
   };
@@ -30,7 +30,7 @@ export default function PodDetailDialog({ open, setOpen, cluster }) {
               </ListItemAvatar>
               <Stack>
                 <Typography variant="subtitle2" color="text.secondary">Name</Typography>
-                <Typography color="text.primary">example-hadoopservice-hadoop-slave-0</Typography>
+                <Typography color="text.primary">{podDetails.name}</Typography>
               </Stack>
             </ListItem>
             <Divider />
@@ -42,7 +42,7 @@ export default function PodDetailDialog({ open, setOpen, cluster }) {
               </ListItemAvatar>
               <Stack>
                 <Typography variant="subtitle2" color="text.secondary">Namespace</Typography>
-                <Typography color="text.primary">hadoop</Typography>
+                <Typography color="text.primary">{podDetails.namespace}</Typography>
               </Stack>
             </ListItem>
             <Divider />
@@ -54,7 +54,7 @@ export default function PodDetailDialog({ open, setOpen, cluster }) {
               </ListItemAvatar>
               <Stack width="100%">
                 <Typography variant="subtitle2" color="text.secondary">Node Name</Typography>
-                <Typography color="text.primary">gke-cluster-1-default-pool-bd9844b9-f2lf</Typography>
+                <Typography color="text.primary">{podDetails.nodeName}</Typography>
               </Stack>
             </ListItem>
             <Divider />
@@ -66,7 +66,7 @@ export default function PodDetailDialog({ open, setOpen, cluster }) {
               </ListItemAvatar>
               <Stack width="100%">
                 <Typography variant="subtitle2" color="text.secondary">Node IP</Typography>
-                <Typography color="text.primary">10.128.0.9</Typography>
+                <Typography color="text.primary">{podDetails.nodeIP}</Typography>
               </Stack>
             </ListItem>
             <Divider />
@@ -78,7 +78,7 @@ export default function PodDetailDialog({ open, setOpen, cluster }) {
               </ListItemAvatar>
               <Stack width="100%">
                 <Typography variant="subtitle2" color="text.secondary">Start Time</Typography>
-                <Typography color="text.primary">Thu, 26 May 2022 12:58:29</Typography>
+                <Typography color="text.primary">{podDetails.startTime}</Typography>
               </Stack>
             </ListItem>
             <Divider />
@@ -90,7 +90,7 @@ export default function PodDetailDialog({ open, setOpen, cluster }) {
               </ListItemAvatar>
               <Stack width="100%">
                 <Typography variant="subtitle2" color="text.secondary">Status</Typography>
-                <Typography color="text.primary">RUNNING</Typography>
+                <Typography color="text.primary">{podDetails.status}</Typography>
               </Stack>
             </ListItem>
             <Divider />
@@ -102,7 +102,7 @@ export default function PodDetailDialog({ open, setOpen, cluster }) {
               </ListItemAvatar>
               <Stack width="100%">
                 <Typography variant="subtitle2" color="text.secondary">IP</Typography>
-                <Typography color="text.primary">10.4.0.104</Typography>
+                <Typography color="text.primary">{podDetails.podIP}</Typography>
               </Stack>
             </ListItem>
           </List>

@@ -1,8 +1,11 @@
 import { Avatar, Box, Stack, Typography } from "@mui/material";
 import axios from "axios";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
-export default function UserInfo({ name, setName, email, setEmail }) {
+export default function UserInfo() {
+  const [name, setName] = useState();
+  const [email, setEmail] = useState();
+
   const getUserInfo = () => {
     const url = '/api/user';
 
@@ -12,9 +15,13 @@ export default function UserInfo({ name, setName, email, setEmail }) {
         setEmail(response.data.email);
       })
       .catch(error => {
-        alert(error.message);
+        if (error.response.data) {
+          alert(error.response.data);
+        } else {
+          alert(error.message);
+        }
         console.log(error);
-      })
+      });
   };
 
   useEffect(() => {

@@ -3,7 +3,7 @@ import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle } 
 import { useState } from 'react';
 import axios from 'axios';
 
-export default function IncreaseDecreaseNodeDialog({ open, setOpen, cluster, option, name }) {
+export default function IncreaseDecreaseNodeDialog({ open, setOpen, cluster, option, clusterName }) {
   const [amount, setAmount] = useState();
 
   const handleClose = () => {
@@ -16,17 +16,21 @@ export default function IncreaseDecreaseNodeDialog({ open, setOpen, cluster, opt
     const url = '/api/cluster/modify';
     const data = {
       type: cluster,
-      name: name,
+      name: clusterName,
       amount: amount
     };
 
     axios.post(url, data)
       .then(response => {
-        alert(`Success in ${option} ${cluster} cluster nodes!`);
+        alert(`Success in ${option} ${clusterName} nodes!`);
         console.log(response);
       })
       .catch(error => {
-        alert(error.message);
+        if (error.response.data) {
+          alert(error.response.data);
+        } else {
+          alert(error.message);
+        }
         console.log(error);
       });
   };
