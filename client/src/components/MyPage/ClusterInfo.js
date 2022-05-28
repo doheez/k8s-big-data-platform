@@ -4,7 +4,7 @@ import IncreaseDecreaseNodeDialog from "./ClusterManagementDialog/IncreaseDecrea
 import DeleteClusterDialog from "./ClusterManagementDialog/DeleteClusterDialog";
 import PodTable from "./PodTable";
 
-export default function ClusterInfo({ cluster, name, clusterList }) {
+export default function ClusterInfo({ cluster, clusterList }) {
   const [openIncreaseDecrease, setOpenIncreaseDecrease] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
   const [option, setOption] = useState('increase');
@@ -66,14 +66,14 @@ export default function ClusterInfo({ cluster, name, clusterList }) {
                     <Grid container spacing={2}>
                       <Grid item xs={4}>
                         <Button variant="contained" fullWidth onClick={() => handleClickIncreaseDecrease('increase')}>increase node</Button>
-                        <IncreaseDecreaseNodeDialog open={openIncreaseDecrease} setOpen={setOpenIncreaseDecrease} cluster={cluster} option={option} name={name} />
+                        <IncreaseDecreaseNodeDialog open={openIncreaseDecrease} setOpen={setOpenIncreaseDecrease} cluster={cluster} option={option} clusterName={clusterInfo.clusterName} />
                       </Grid>
                       <Grid item xs={4}>
                         <Button variant="contained" fullWidth onClick={() => handleClickIncreaseDecrease('decrease')}>decrease node</Button>
                       </Grid>
                       <Grid item xs={4}>
                         <Button variant="contained" fullWidth onClick={() => handleClickDelete()}>delete cluster</Button>
-                        <DeleteClusterDialog open={openDelete} setOpen={setOpenDelete} cluster={cluster} name={name} />
+                        <DeleteClusterDialog open={openDelete} setOpen={setOpenDelete} cluster={cluster} clusterName={clusterInfo.clusterName} />
                       </Grid>
                     </Grid>
                   </Stack>

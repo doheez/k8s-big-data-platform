@@ -7,8 +7,7 @@ import axios from 'axios';
 const HADOOP = 'hadoop', SPARK = 'spark';
 
 export default function MyPage() {
-  const [name, setName] = useState();
-  const [email, setEmail] = useState();
+
   const [hadoopClusterList, setHadoopClusterList] = useState([]);
   const [sparkClusterList, setSparkClusterList] = useState([]);
 
@@ -38,16 +37,16 @@ export default function MyPage() {
       <Grid container direction={{ xs: "column", md: "row" }} spacing={3} my={3}>
         <Grid item xs md={4}>
           <Typography variant="h6" color="primary.main">User Info</Typography>
-          <UserInfo name={name} setName={setName} email={email} setEmail={setEmail} />
+          <UserInfo />
         </Grid>
         <Grid item xs md container direction="column" spacing={{ xs: 0, md: 3 }}>
           <Grid item xs>
             <Typography variant="h6" color="primary.main">Hadoop Cluster Info</Typography>
-            <ClusterInfo cluster={HADOOP} name={name} clusterList={hadoopClusterList} />
+            <ClusterInfo cluster={HADOOP} clusterList={hadoopClusterList} />
           </Grid>
           <Grid item xs>
             <Typography variant="h6" color="primary.main">Spark Cluster Info</Typography>
-            <ClusterInfo cluster={SPARK} name={name} clusterList={sparkClusterList} />
+            <ClusterInfo cluster={SPARK} clusterList={sparkClusterList} />
           </Grid>
         </Grid>
       </Grid>
