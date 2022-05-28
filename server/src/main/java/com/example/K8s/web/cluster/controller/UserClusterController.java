@@ -21,27 +21,26 @@ import java.util.List;
 public class UserClusterController {
     private final UserClusterService userClusterService;
     private final MessageSource messageSource;
-    private final UserService userService;
 
-    @PostMapping("/api/create/cluster")
+    @PostMapping("/create")
     public ResponseEntity<?> createCluster( @RequestHeader(value = "Authorization")String token,
                                             @RequestBody ClusterReqDto clusterReqDto){
         ClusterResDto clusterResDto = userClusterService.setClusterResDto(token, clusterReqDto);
         if(clusterResDto.getType() == -1){
             return ResponseEntity
                     .status(HttpStatus.UNAUTHORIZED)
-                    .body(new ErrorResponse(messageSource.getMessage("error.valid.jwt",null, LocaleContextHolder.getLocale())));
+                    .body("INVALID_JWT_VALUE");
         }
         else if(clusterResDto.getType() == -2){
             return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
-                    .body(null);
+                    .status(HttpStatus.NOT_FOUND)
+                    .body("INVALID_INPUT_VALUE");
         }
         int value = userClusterService.reqClusterCreate(clusterResDto);
         if(value != 1) {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
-                    .body(null);
+                    .body("COULD_NOT_CREATED");
         }
         return ResponseEntity.status(HttpStatus.CREATED).body(null);
     }
@@ -53,18 +52,18 @@ public class UserClusterController {
         if(clusterResDto.getType() == -1){
             return ResponseEntity
                     .status(HttpStatus.UNAUTHORIZED)
-                    .body(new ErrorResponse(messageSource.getMessage("error.valid.jwt",null, LocaleContextHolder.getLocale())));
+                    .body("INVALID_JWT_VALUE");
         }
         else if(clusterResDto.getType() == -2){
             return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
-                    .body(null);
+                    .status(HttpStatus.NOT_FOUND)
+                    .body("INVALID_INPUT_VALUE");
         }
         int value = userClusterService.reqClusterModify(clusterResDto);
         if(value != 1) {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
-                    .body(null);
+                    .body("COULD_NOT_CREATED");
         }
         return ResponseEntity.status(HttpStatus.CREATED).body(null);
     }
@@ -76,7 +75,7 @@ public class UserClusterController {
         if(userId == -1L)
             return ResponseEntity
                 .status(HttpStatus.UNAUTHORIZED)
-                .body(new ErrorResponse(messageSource.getMessage("error.valid.jwt",null, LocaleContextHolder.getLocale())));
+                .body("INVALID_JWT_VALUE");
         clusterInfoReqDto.setUserId(userId);
         List<ClusterInfoResDto> clusters = userClusterService.reqClusterInfo(clusterInfoReqDto);
 
@@ -89,7 +88,7 @@ public class UserClusterController {
         if(userId == -1L)
             return ResponseEntity
                     .status(HttpStatus.UNAUTHORIZED)
-                    .body(new ErrorResponse(messageSource.getMessage("error.valid.jwt",null, LocaleContextHolder.getLocale())));
+                    .body("INVALID_JWT_VALUE");
 
         PodDetailResDto podDetailResDto = userClusterService.reqPodDetail(podDetailReqDto);
 

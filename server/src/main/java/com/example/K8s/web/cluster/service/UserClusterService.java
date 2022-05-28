@@ -39,7 +39,7 @@ public class UserClusterService {
 
     @Transactional
     public int reqClusterModify(ClusterResDto clusterResDto){
-        String url = "http://ec2-52-78-90-149.ap-northeast-2.compute.amazonaws.com:8080/kubernetes/adj";
+        String url = "http://ec2-52-78-90-149.ap-northeast-2.compute.amazonaws.com:8080/kubernetes/cluster/adj";
         setRestTemplate();
         //.postForObject(요청할 url, 보낼 object, 응답받을 타입)
         String msg = restTemplate.postForObject(url, clusterResDto, String.class);
