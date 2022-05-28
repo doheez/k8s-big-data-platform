@@ -11,25 +11,31 @@ import io.kubernetes.client.openapi.models.V1Pod;
 import io.kubernetes.client.openapi.models.V1PodList;
 import io.kubernetes.client.util.ClientBuilder;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class PodInfoListService {
     private final UserRepository userRepository;
 
+    @Transactional
     public List<Cluster> getClusters(Long userId){
         Optional<User> user = userRepository.findById(userId);
         List<Cluster> clusters = user.get().getClusters();
         return clusters;
     }
 
-    public ArrayList<ClusterInfoListDto> getlistPodInfo(List<Cluster> clusters) throws IOException, ApiException {
+    @Transactional
+    public ArrayList<ClusterInfoListDto> getlistPodInfo(Long userId) throws IOException {
+        List<Cluster> clusters = getClusters(userId);
         ArrayList<ClusterInfoListDto> result = new ArrayList<>();
         CoreV1Api coreV1Api = new CoreV1Api(ClientBuilder.standard().build());
         try{

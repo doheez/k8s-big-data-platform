@@ -14,7 +14,7 @@ public class SparkDeleteService {
         String version ="v1";
         String namespace ="spark";
         String plural = "sparkclusters";
-        String name = "my-spark-cluster";
+        String name = "please";
         Integer gracePeriodSeconds = 1;
         Boolean orphanDependants = true;
         V1DeleteOptions body = new V1DeleteOptions();

@@ -1,10 +1,7 @@
 package com.example.K8s.kubernetes.cluster.controller;
 
-import com.example.K8s.kubernetes.cluster.dto.ClusterRegDto;
-import com.example.K8s.kubernetes.cluster.dto.ClusterInfoListDto;
+import com.example.K8s.kubernetes.cluster.dto.*;
 import com.example.K8s.kubernetes.cluster.model.Cluster;
-import com.example.K8s.kubernetes.cluster.dto.PodDetailDto;
-import com.example.K8s.kubernetes.cluster.dto.PodDetailRequestDto;
 import com.example.K8s.kubernetes.cluster.repository.ClusterRepository;
 import com.example.K8s.kubernetes.cluster.service.*;
 import com.example.K8s.kubernetes.cluster.service.HadoopCreateService;
@@ -64,16 +61,24 @@ public class ClusterController {
     // 클러스터 기본 정보들
     @GetMapping("/{userId}")
     public ArrayList<ClusterInfoListDto> podInfoList(@PathVariable Long userId) throws IOException, ApiException {
-        List<Cluster> clusters = podInfoListService.getClusters(userId);
-        ArrayList<ClusterInfoListDto> podinfolist = podInfoListService.getlistPodInfo(clusters);
+        ArrayList<ClusterInfoListDto> podinfolist = podInfoListService.getlistPodInfo(userId);
+//        for(ClusterInfoListDto cluster : podinfolist){
+//            log.info(cluster.getClusterName());
+//            for(PodInfoDto pod : cluster.getPods()){
+//                log.info(pod.getName()+" ");
+//            }
+//        }
         return podinfolist;
     }
 
 
 
     // 클러스터 세부 정보
-    @GetMapping("/detail")
-    public PodDetailDto podDetail(PodDetailRequestDto podDetailRequestDto) throws IOException {
+    @GetMapping("/{clusterName}/{podName}")
+    public PodDetailDto podDetail(@PathVariable String clusterName, @PathVariable String podName) throws IOException {
+        PodDetailRequestDto podDetailRequestDto = new PodDetailRequestDto();
+        podDetailRequestDto.setClusterName(clusterName);
+        podDetailRequestDto.setPodName(podName);
         PodDetailDto detailDto = podDetailService.getPodInfo(podDetailRequestDto);
         return detailDto;
     }
