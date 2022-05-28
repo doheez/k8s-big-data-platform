@@ -1,13 +1,9 @@
 package com.example.K8s.web.cluster.controller;
 
-import com.example.K8s.web.auth.dto.ErrorResponse;
-import com.example.K8s.web.auth.service.UserService;
 import com.example.K8s.web.cluster.dto.*;
 import com.example.K8s.web.cluster.service.UserClusterService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +16,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserClusterController {
     private final UserClusterService userClusterService;
-    private final MessageSource messageSource;
 
     @PostMapping("/create")
     public ResponseEntity<?> createCluster( @RequestHeader(value = "Authorization")String token,

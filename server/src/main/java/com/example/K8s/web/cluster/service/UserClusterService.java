@@ -50,10 +50,9 @@ public class UserClusterService {
 
     @Transactional
     public List<ClusterInfoResDto> reqClusterInfo(ClusterInfoReqDto clusterInfoReqDto){
-        //예시 url
-        String url = "http://ec2-52-78-90-149.ap-northeast-2.compute.amazonaws.com:8080/kubernetes/info";
+        String url = "http://ec2-52-78-90-149.ap-northeast-2.compute.amazonaws.com:8080/kubernetes/info" + clusterInfoReqDto.getUserId();
         setRestTemplate();
-        ClusterInfoResList response = restTemplate.postForObject(url, clusterInfoReqDto, ClusterInfoResList.class);
+        ClusterInfoResList response = restTemplate.getForObject(url, ClusterInfoResList.class);
         if(response == null){
             return null;
         }
@@ -61,10 +60,11 @@ public class UserClusterService {
         return clusters;
     }
 
+    @Transactional
     public PodDetailResDto reqPodDetail(PodDetailReqDto podDetailReqDto){
-        String url = "http://ec2-52-78-90-149.ap-northeast-2.compute.amazonaws.com:8080/kubernetes/cluster/detail";
+        String url = "http://ec2-52-78-90-149.ap-northeast-2.compute.amazonaws.com:8080/kubernetes/cluster/detail"+ podDetailReqDto.getClusterName() + podDetailReqDto.getPodName();
         setRestTemplate();
-        PodDetailResDto response = restTemplate.postForObject(url, podDetailReqDto, PodDetailResDto.class);
+        PodDetailResDto response = restTemplate.getForObject(url, PodDetailResDto.class);
         return response;
     }
     public ClusterResDto setClusterResDto( String token, ClusterReqDto clusterReqDto) {
@@ -74,7 +74,7 @@ public class UserClusterService {
             clusterResDto.setType(-1);
             return clusterResDto;
         }
-        clusterResDto.setUserId(userId);
+        clusterResDto.setId(userId);
         clusterResDto.setAmount(clusterReqDto.getAmount());
         clusterResDto.setName(clusterReqDto.getName());
         switch (clusterReqDto.getType()) {
