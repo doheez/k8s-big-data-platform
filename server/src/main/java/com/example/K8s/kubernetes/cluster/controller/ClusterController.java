@@ -72,8 +72,11 @@ public class ClusterController {
 
 
     // 클러스터 세부 정보
-    @GetMapping("/detail")
-    public PodDetailDto podDetail(PodDetailRequestDto podDetailRequestDto) throws IOException {
+    @GetMapping("/{clusterName}/{podName}")
+    public PodDetailDto podDetail(@PathVariable String clusterName, @PathVariable String podName) throws IOException {
+        PodDetailRequestDto podDetailRequestDto = new PodDetailRequestDto();
+        podDetailRequestDto.setClusterName(clusterName);
+        podDetailRequestDto.setPodName(podName);
         PodDetailDto detailDto = podDetailService.getPodInfo(podDetailRequestDto);
         return detailDto;
     }

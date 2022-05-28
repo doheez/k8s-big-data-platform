@@ -31,7 +31,7 @@ public class HadoopAdjustService {
         if (hadoopCluster == null) return false;
 
         // 클러스터 크기 조절
-        boolean success = callAPIAdjHadoopCluster(hadoopCluster);
+        boolean success = callAPIAdjHadoopCluster(hadoopCluster, adjDto.getAmount());
         if (!success) return false;
 
         hadoopCluster.setAmount(adjDto.getAmount());
@@ -39,9 +39,8 @@ public class HadoopAdjustService {
     }
 
     // hadoop 클러스터 크기 조절하는 쿠버네티스 API 호출
-    public boolean callAPIAdjHadoopCluster(Cluster cluster) throws IOException {
+    public boolean callAPIAdjHadoopCluster(Cluster cluster, int amount) throws IOException {
         String name = cluster.getName();
-        int amount = cluster.getAmount();
 
         CustomObjectsApi apiInstance = new CustomObjectsApi(ClientBuilder.standard().build());
         String group = "alicek106.hadoop";
