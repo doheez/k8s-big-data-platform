@@ -8,7 +8,7 @@ export default function PodTable({ cluster, pods, clusterName }) {
   const [open, setOpen] = useState(false);
   const [rows, setRows] = useState([]);
   const [columns, setColumns] = useState([]);
-  const [podDetails, setPodDetails] = useState();
+  const [podDetails, setPodDetails] = useState({});
 
   const getColumns = () => {
     if (pods.length > 0) {
@@ -45,7 +45,7 @@ export default function PodTable({ cluster, pods, clusterName }) {
   };
 
   const handleRowClick = (params) => {
-    getPodDetails(params.row.nodeName);
+    getPodDetails(params.row.name);
     setOpen(true);
   };
 
