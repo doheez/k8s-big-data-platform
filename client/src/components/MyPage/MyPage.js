@@ -57,7 +57,6 @@ export default function MyPage() {
             </Stack>
           </Grid>
         }
-
       </Grid>
     </Container>
   );
