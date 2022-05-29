@@ -4,8 +4,8 @@ import axios from 'axios';
 import ClusterSnackbar from '../Snackbar/ClusterSnackbar';
 
 const CREATING_CLUSTER = "Creating Cluster...";
-const SUCCESS_IN_CREATING_CLUSTER = "✅ Success in Cluster Creation!";
-const FAIL_IN_CREATING_CLUSTER = "⛔ Failed in Cluster Creation.";
+const SUCCESS_IN_CREATING_CLUSTER = "✅ Cluster Created Successfully!";
+const FAIL_IN_CREATING_CLUSTER = "⛔ Failed to Create Cluster.";
 
 export default function CreatingClusterDialog({ open, setOpen, cluster }) {
   const [clusterNumber, setClusterNumber] = useState(0);
