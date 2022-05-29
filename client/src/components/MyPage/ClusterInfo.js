@@ -39,15 +39,15 @@ export default function ClusterInfo({ cluster, clusterList }) {
                 <Divider />
                 <ListItem>
                   <Stack>
-                    <Typography variant="subtitle2" color="text.secondary">Numbers of Clusters</Typography>
-                    <Typography color="text.primary">{clusterInfo.podInfos.length}</Typography>
+                    <Typography variant="subtitle2" color="text.secondary">Numbers of Pods</Typography>
+                    <Typography color="text.primary">{clusterInfo.pods.length - 1}</Typography>
                   </Stack>
                 </ListItem>
                 <Divider />
                 <ListItem>
                   <Stack width="100%">
                     <Typography variant="subtitle2" color="text.secondary">Pods Status</Typography>
-                    <PodTable cluster={cluster} pods={clusterInfo.podInfos} clusterName={clusterInfo.clusterName} />
+                    <PodTable cluster={cluster} pods={clusterInfo.pods} clusterName={clusterInfo.clusterName} />
                   </Stack>
                 </ListItem>
                 <Divider />

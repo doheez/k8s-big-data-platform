@@ -7,7 +7,6 @@ import axios from 'axios';
 const HADOOP = 'hadoop', SPARK = 'spark';
 
 export default function MyPage() {
-
   const [hadoopClusterList, setHadoopClusterList] = useState([]);
   const [sparkClusterList, setSparkClusterList] = useState([]);
 
@@ -17,8 +16,8 @@ export default function MyPage() {
     axios.get(url)
       .then(response => {
         console.log(response);
-        setHadoopClusterList(response.data.clusters.filter(e => (e.type === 0)));
-        setSparkClusterList(response.data.clusters.filter(e => (e.type === 1)));
+        setHadoopClusterList(response.data.filter(e => (e.type === 0)));
+        setSparkClusterList(response.data.filter(e => (e.type === 1)));
       })
       .catch(error => {
         alert(error.message);
@@ -37,16 +36,16 @@ export default function MyPage() {
           <Typography variant="h6" color="primary.main">User Info</Typography>
           <UserInfo />
         </Grid>
-        <Grid item xs md container direction="column" spacing={{ xs: 0, md: 3 }}>
-          <Grid item xs>
-            <Typography variant="h6" color="primary.main">Hadoop Cluster Info</Typography>
-            <ClusterInfo cluster={HADOOP} clusterList={hadoopClusterList} />
+          <Grid item xs md container direction="column" spacing={{ xs: 0, md: 3 }}>
+            <Grid item xs>
+              <Typography variant="h6" color="primary.main">Hadoop Cluster Info</Typography>
+              <ClusterInfo cluster={HADOOP} clusterList={hadoopClusterList} />
+            </Grid>
+            <Grid item xs>
+              <Typography variant="h6" color="primary.main">Spark Cluster Info</Typography>
+              <ClusterInfo cluster={SPARK} clusterList={sparkClusterList} />
+            </Grid>
           </Grid>
-          <Grid item xs>
-            <Typography variant="h6" color="primary.main">Spark Cluster Info</Typography>
-            <ClusterInfo cluster={SPARK} clusterList={sparkClusterList} />
-          </Grid>
-        </Grid>
       </Grid>
     </Container>
   );
