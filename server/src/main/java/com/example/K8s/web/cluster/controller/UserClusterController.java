@@ -90,4 +90,16 @@ public class UserClusterController {
 
         return ResponseEntity.status(HttpStatus.OK).body(podDetailResDto);
     }
+
+    @DeleteMapping("/{clusterName}")
+    public ResponseEntity<?> delCluster(@RequestHeader(value = "Authorization") String token, @PathVariable String clusterName){
+        Long userId = userClusterService.checkAuth(token);
+        if(userId == -1L)
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .body("INVALID_JWT_VALUE");
+
+        userClusterService.reqDelCluster(clusterName);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+    }
 }
