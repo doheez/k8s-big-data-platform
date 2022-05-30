@@ -39,6 +39,9 @@ public class Cluster extends TimeStamped{
     @JoinColumn(name = "user_id")
     private User user;
 
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<ClusterMember> clusterMembers = new ArrayList<>();
+
     // 연관관계 편의 메서드
     public void setUser(User user) {
         if (this.user != null) {

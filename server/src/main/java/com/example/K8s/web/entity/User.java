@@ -1,6 +1,7 @@
 package com.example.K8s.web.entity;
 
 import com.example.K8s.kubernetes.cluster.model.Cluster;
+import com.example.K8s.kubernetes.cluster.model.ClusterMember;
 import com.example.K8s.web.auth.dto.UserJoinReqDto;
 import lombok.Builder;
 import lombok.Getter;
@@ -41,6 +42,9 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy="user")
     private List<Cluster> clusters;
+
+    @OneToMany(mappedBy="user")
+    private List<ClusterMember> clusterMembers = new ArrayList<>();
 
     // 연관관계 편의 메서드
     public void addCluster(Cluster cluster) {
