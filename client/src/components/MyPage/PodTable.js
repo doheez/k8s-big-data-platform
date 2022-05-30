@@ -6,6 +6,7 @@ import axios from 'axios';
 
 export default function PodTable({ cluster, pods, clusterName }) {
   const [open, setOpen] = useState(false);
+  const [detailLoading, setDetailLoading] = useState(false);
   const [rows, setRows] = useState([]);
   const [columns, setColumns] = useState([]);
   const [podDetails, setPodDetails] = useState({});
@@ -35,7 +36,8 @@ export default function PodTable({ cluster, pods, clusterName }) {
 
     axios.post(url, data)
       .then(response => {
-        setPodDetails(response);
+        setPodDetails(response.data);
+        setDetailLoading(false);
         console.log(response);
       })
       .catch(error => {
@@ -46,6 +48,7 @@ export default function PodTable({ cluster, pods, clusterName }) {
 
   const handleRowClick = (params) => {
     getPodDetails(params.row.name);
+    setDetailLoading(true);
     setOpen(true);
   };
 
@@ -73,7 +76,7 @@ export default function PodTable({ cluster, pods, clusterName }) {
           Toolbar: GridToolbar,
         }}
       />
-      <PodDetailDialog open={open} setOpen={setOpen} cluster={cluster} podDetails={podDetails} />
+      <PodDetailDialog open={open} setOpen={setOpen} cluster={cluster} podDetails={podDetails} detailLoading={detailLoading} />
     </Box>
   );
 }
