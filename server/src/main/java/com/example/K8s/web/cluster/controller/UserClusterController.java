@@ -77,14 +77,15 @@ public class UserClusterController {
         return ResponseEntity.status(HttpStatus.OK).body(clusters);
     }
 
-    @PostMapping("/detail")
-    public ResponseEntity<?> getClusterDetail(@RequestHeader(value = "Authorization") String token, @RequestBody PodDetailReqDto podDetailReqDto){
+    @GetMapping("/detail/{clusterName}/{podName}")
+    public ResponseEntity<?> getClusterDetail(@RequestHeader(value = "Authorization") String token, @PathVariable String clusterName, @PathVariable String podName){
         Long userId = userClusterService.checkAuth(token);
         if(userId == -1L)
             return ResponseEntity
                     .status(HttpStatus.UNAUTHORIZED)
                     .body("INVALID_JWT_VALUE");
 
+        PodDetailReqDto podDetailReqDto = new PodDetailReqDto(clusterName, podName);
         PodDetailResDto podDetailResDto = userClusterService.reqPodDetail(podDetailReqDto);
 
         return ResponseEntity.status(HttpStatus.OK).body(podDetailResDto);
