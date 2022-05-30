@@ -28,13 +28,9 @@ export default function PodTable({ cluster, pods, clusterName }) {
   };
 
   const getPodDetails = (podName) => {
-    const url = '/api/cluster/detail';
-    const data = {
-      clusterName: clusterName,
-      podName: podName
-    };
+    const url = `/api/cluster/detail/${clusterName}/${podName}`;
 
-    axios.post(url, data)
+    axios.get(url)
       .then(response => {
         setPodDetails(response.data);
         setDetailLoading(false);
