@@ -3,7 +3,9 @@ package com.example.K8s.kubernetes.cluster.service;
 import com.example.K8s.kubernetes.CR.hadoopcr.HadoopCr;
 import com.example.K8s.kubernetes.cluster.dto.ClusterRegDto;
 import com.example.K8s.kubernetes.cluster.model.Cluster;
+import com.example.K8s.kubernetes.cluster.model.ClusterMember;
 import com.example.K8s.kubernetes.cluster.model.Hadoop;
+import com.example.K8s.kubernetes.cluster.repository.ClusterMemberRepository;
 import com.example.K8s.kubernetes.cluster.repository.ClusterRepository;
 import com.example.K8s.kubernetes.cluster.repository.HadoopRepository;
 import com.example.K8s.web.auth.repository.UserRepository;
@@ -27,6 +29,7 @@ public class HadoopCreateService {
     private final UserRepository userRepository;
     private final ClusterRepository clusterRepository;
     private final HadoopRepository hadoopRepository;
+    private final ClusterMemberRepository clusterMemberRepository;
 
     // hadoop 클러스터 생성
     @Transactional
@@ -37,7 +40,10 @@ public class HadoopCreateService {
 
         // 클러스터 생성
         Optional<User> user = userRepository.findById(regDto.getId());
-        Cluster newCluster = new Cluster(regDto, user.get());
+        Cluster newCluster = new Cluster(regDto);
+        ClusterMember clusterMember = new ClusterMember(newCluster,user.get());
+        clusterMemberRepository.save(clusterMember);
+
         newCluster.setNamespace("hadoop");
         boolean success = callAPICreateHadoopCluster(newCluster);
         if (!success) return false;

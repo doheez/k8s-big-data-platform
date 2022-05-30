@@ -3,6 +3,8 @@ package com.example.K8s.kubernetes.cluster.service;
 import com.example.K8s.kubernetes.cluster.dto.PodInfoDto;
 import com.example.K8s.kubernetes.cluster.dto.ClusterInfoListDto;
 import com.example.K8s.kubernetes.cluster.model.Cluster;
+import com.example.K8s.kubernetes.cluster.model.ClusterMember;
+import com.example.K8s.kubernetes.cluster.repository.ClusterMemberRepository;
 import com.example.K8s.web.auth.repository.UserRepository;
 import com.example.K8s.web.entity.User;
 import io.kubernetes.client.openapi.ApiException;
@@ -25,11 +27,16 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class PodInfoListService {
     private final UserRepository userRepository;
+    private final ClusterMemberRepository clusterMemberRepository;
 
     @Transactional
     public List<Cluster> getClusters(Long userId){
         Optional<User> user = userRepository.findById(userId);
-        List<Cluster> clusters = user.get().getClusters();
+        List<ClusterMember> clusterMembers = clusterMemberRepository.findClusterMembersByUser(user.get());
+
+        List<Cluster> clusters = new ArrayList<>();
+        for (ClusterMember member : clusterMembers) clusters.add(member.getCluster());
+
         return clusters;
     }
 

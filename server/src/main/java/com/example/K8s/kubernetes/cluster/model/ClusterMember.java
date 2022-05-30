@@ -3,6 +3,7 @@ package com.example.K8s.kubernetes.cluster.model;
 import com.example.K8s.web.entity.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.text.translate.NumericEntityUnescaper;
 
 import javax.persistence.*;
 
@@ -14,7 +15,7 @@ public class ClusterMember {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name ="cluster_user_id")
-    private Long clusterMemberId;
+    private Long Id;
 
     // Cluster
     @ManyToOne(targetEntity = Cluster.class, fetch=FetchType.LAZY)

@@ -3,7 +3,9 @@ package com.example.K8s.kubernetes.cluster.service;
 import com.example.K8s.kubernetes.CR.sparkcr.*;
 import com.example.K8s.kubernetes.cluster.dto.ClusterRegDto;
 import com.example.K8s.kubernetes.cluster.model.Cluster;
+import com.example.K8s.kubernetes.cluster.model.ClusterMember;
 import com.example.K8s.kubernetes.cluster.model.Spark;
+import com.example.K8s.kubernetes.cluster.repository.ClusterMemberRepository;
 import com.example.K8s.kubernetes.cluster.repository.ClusterRepository;
 import com.example.K8s.kubernetes.cluster.repository.SparkRepository;
 import com.example.K8s.web.auth.repository.UserRepository;
@@ -26,7 +28,7 @@ public class SparkCreateService {
     private final UserRepository userRepository;
     private final ClusterRepository clusterRepository;
     private final SparkRepository sparkRepository;
-
+    private final ClusterMemberRepository clusterMemberRepository;
     @Transactional
     public boolean createSparkCluster(ClusterRegDto regDto) throws IOException {
 
@@ -36,7 +38,9 @@ public class SparkCreateService {
 
         // 클러스터 생성
         Optional<User> user = userRepository.findById(regDto.getId());
-        Cluster cluster = new Cluster(regDto,user.get());
+        Cluster cluster = new Cluster(regDto);
+        ClusterMember clusterMember = new ClusterMember(cluster,user.get());
+        clusterMemberRepository.save(clusterMember);
         cluster.setNamespace("spark");
         boolean success = create_API(cluster);
         if(!success) return false;

@@ -35,24 +35,9 @@ public class Cluster extends TimeStamped{
     @Column(nullable = false)
     private String namespace;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
-
     @OneToMany(fetch = FetchType.LAZY)
     private List<ClusterMember> clusterMembers = new ArrayList<>();
 
-    // 연관관계 편의 메서드
-    public void setUser(User user) {
-        if (this.user != null) {
-            this.user.removeCluster(this);
-        }
-        this.user = user;
-        user.addCluster(this);
-    }
-  
-
-  
     @OneToMany(mappedBy="cluster")
     private List<Spark> sparks;
 
@@ -78,13 +63,12 @@ public class Cluster extends TimeStamped{
 
 
 
-    public Cluster(ClusterRegDto regDto, User user) {
+    public Cluster(ClusterRegDto regDto) {
         this.name = regDto.getName();
         this.amount = regDto.getAmount();
         this.type = regDto.getType();
         this.hadoops = new ArrayList<>();
         this.sparks = new ArrayList<>();
-        setUser(user);
     }
 
     public void setAmount(int amount) {
