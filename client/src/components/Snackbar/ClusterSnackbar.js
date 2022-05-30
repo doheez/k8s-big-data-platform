@@ -29,7 +29,6 @@ const ClusterSnackbar = ({ message, handleCloseSnackbar, openSnackbar }) => {
   return (
     <Snackbar
       open={openSnackbar}
-      autoHideDuration={6000}
       onClose={handleCloseSnackbar}
       message={message}
       action={action}

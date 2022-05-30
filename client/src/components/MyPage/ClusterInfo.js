@@ -68,7 +68,7 @@ export default function ClusterInfo({ cluster, clusterList }) {
                     <Grid container spacing={2}>
                       <Grid item xs={4}>
                         <Button variant="contained" fullWidth onClick={() => handleClickIncreaseDecrease(INCREASE)}>{INCREASE} node</Button>
-                        <IncreaseDecreaseNodeDialog open={openIncreaseDecrease} setOpen={setOpenIncreaseDecrease} cluster={cluster} option={option} clusterName={clusterInfo.clusterName} />
+                        <IncreaseDecreaseNodeDialog open={openIncreaseDecrease} setOpen={setOpenIncreaseDecrease} cluster={cluster} option={option} clusterName={clusterInfo.clusterName} clusterAmount={clusterInfo.pods.length - 1} />
                       </Grid>
                       <Grid item xs={4}>
                         <Button variant="contained" fullWidth onClick={() => handleClickIncreaseDecrease(DECREASE)}>{DECREASE} node</Button>

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import ClusterSnackbar from '../../Snackbar/ClusterSnackbar';
 
@@ -13,7 +13,7 @@ const SUCCESS_IN_DECREASING_NODES = "✅ Nodes Decreased Successfully!";
 const FAIL_IN_INCREASING_NODES = "⛔ Failed to Increase Nodes.";
 const FAIL_IN_DECREASING_NODES = "⛔ Failed to Decrease Nodes.";
 
-export default function IncreaseDecreaseNodeDialog({ open, setOpen, cluster, option, clusterName }) {
+export default function IncreaseDecreaseNodeDialog({ open, setOpen, cluster, option, clusterName, clusterAmount }) {
   const [amount, setAmount] = useState();
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [message, setMessage] = useState(INCREASING_NODES);
@@ -36,10 +36,12 @@ export default function IncreaseDecreaseNodeDialog({ open, setOpen, cluster, opt
   }
 
   const handleSuccessModifyingCluster = () => {
-    if (option === INCREASE) {
-      setMessage(SUCCESS_IN_INCREASING_NODES);
-    } else {
-      setMessage(SUCCESS_IN_DECREASING_NODES);
+    if (clusterAmount === amount) {
+      if (option === INCREASE) {
+        setMessage(SUCCESS_IN_INCREASING_NODES);
+      } else {
+        setMessage(SUCCESS_IN_DECREASING_NODES);
+      }
     }
   };
 
@@ -50,6 +52,10 @@ export default function IncreaseDecreaseNodeDialog({ open, setOpen, cluster, opt
       setMessage(FAIL_IN_DECREASING_NODES);
     }
   };
+
+  useEffect(()=>{
+    handleSuccessModifyingCluster();
+  });
 
   const handleScaleCluster = () => {
     handleCloseDialog();

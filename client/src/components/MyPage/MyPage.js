@@ -15,7 +15,6 @@ export default function MyPage() {
 
     axios.get(url)
       .then(response => {
-        console.log(response);
         setHadoopClusterList(response.data.filter(e => (e.type === 0)));
         setSparkClusterList(response.data.filter(e => (e.type === 1)));
       })
@@ -27,7 +26,7 @@ export default function MyPage() {
 
   useEffect(() => {
     getClusterInfo();
-  }, []);
+  }, [hadoopClusterList, sparkClusterList]);
 
   return (
     <Container maxWidth="lg">
