@@ -41,20 +41,8 @@ public class User implements UserDetails {
     private String image;
 
     @OneToMany(mappedBy="user")
-    private List<Cluster> clusters;
-
-    @OneToMany(mappedBy="user")
     private List<ClusterMember> clusterMembers = new ArrayList<>();
 
-    // 연관관계 편의 메서드
-    public void addCluster(Cluster cluster) {
-        this.clusters.add(cluster);
-    }
-
-    // 연관관계 편의 메서드
-    public void removeCluster(Cluster cluster) {
-        this.clusters.remove(cluster);
-    }
 
     @Column(name = "ROLE_TYPE", length = 20)
     @Enumerated(EnumType.STRING)
@@ -69,7 +57,6 @@ public class User implements UserDetails {
         this.password = password;
         this.image = image;
         this.role = role != null ? role : Role.USER;
-        this.clusters = new ArrayList<>();
     }
 
     @Builder
