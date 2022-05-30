@@ -1,10 +1,6 @@
 package com.example.K8s.kubernetes.cluster.controller;
 
-import com.example.K8s.kubernetes.cluster.dto.ClusterRegDto;
-import com.example.K8s.kubernetes.cluster.dto.ClusterInfoListDto;
-import com.example.K8s.kubernetes.cluster.model.Cluster;
-import com.example.K8s.kubernetes.cluster.dto.PodDetailDto;
-import com.example.K8s.kubernetes.cluster.dto.PodDetailRequestDto;
+import com.example.K8s.kubernetes.cluster.dto.*;
 import com.example.K8s.kubernetes.cluster.repository.ClusterRepository;
 import com.example.K8s.kubernetes.cluster.service.*;
 import com.example.K8s.kubernetes.cluster.service.HadoopCreateService;
@@ -17,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 @Slf4j
 @RestController
@@ -63,10 +58,10 @@ public class ClusterController {
 
     // 클러스터 기본 정보들
     @GetMapping("/{userId}")
-    public ArrayList<ClusterInfoListDto> podInfoList(@PathVariable Long userId) throws IOException, ApiException {
-        List<Cluster> clusters = podInfoListService.getClusters(userId);
-        ArrayList<ClusterInfoListDto> podinfolist = podInfoListService.getlistPodInfo(clusters);
-        return podinfolist;
+    public ClusterInfoList podInfoList(@PathVariable Long userId) throws IOException, ApiException {
+        ArrayList<ClusterInfoListDto> podinfolist = podInfoListService.getlistPodInfo(userId);
+        ClusterInfoList clusterInfoList = new ClusterInfoList(podinfolist);
+        return clusterInfoList;
     }
 
 
