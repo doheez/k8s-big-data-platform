@@ -26,7 +26,6 @@ public class UserClusterService {
     private final RestTemplate restTemplate;
     private final JwtTokenProvider jwtTokenProvider;
 
-    @Transactional
     public int reqClusterCreate(ClusterResDto clusterResDto){
         String url = "http://ec2-52-78-90-149.ap-northeast-2.compute.amazonaws.com:8080/kubernetes/cluster";
         setRestTemplate();
@@ -38,7 +37,6 @@ public class UserClusterService {
         else return -1;
     }
 
-    @Transactional
     public int reqClusterModify(ClusterResDto clusterResDto){
         String url = "http://ec2-52-78-90-149.ap-northeast-2.compute.amazonaws.com:8080/kubernetes/cluster/adj";
         setRestTemplate();
@@ -49,7 +47,6 @@ public class UserClusterService {
         else return -1;
     }
 
-    @Transactional
     public List<ClusterInfoResDto> reqClusterInfo(ClusterInfoReqDto clusterInfoReqDto){
         String url = "http://ec2-52-78-90-149.ap-northeast-2.compute.amazonaws.com:8080/kubernetes/cluster/" + clusterInfoReqDto.getUserId();
 
@@ -62,13 +59,20 @@ public class UserClusterService {
         return clusters;
     }
 
-    @Transactional
     public PodDetailResDto reqPodDetail(PodDetailReqDto podDetailReqDto){
         String url = "http://ec2-52-78-90-149.ap-northeast-2.compute.amazonaws.com:8080/kubernetes/cluster/"+ podDetailReqDto.getClusterName() +"/"+ podDetailReqDto.getPodName();
         setRestTemplate();
         PodDetailResDto response = restTemplate.getForObject(url, PodDetailResDto.class);
         return response;
     }
+
+    public void reqDelCluster(String clusterName){
+        String url = "http://ec2-52-78-90-149.ap-northeast-2.compute.amazonaws.com:8080/kubernetes/cluster/" + clusterName;
+        setRestTemplate();
+        restTemplate.delete(url);
+        return;
+    }
+
     public ClusterResDto setClusterResDto( String token, ClusterReqDto clusterReqDto) {
         ClusterResDto clusterResDto = new ClusterResDto();
         Long userId = checkAuth(token);
