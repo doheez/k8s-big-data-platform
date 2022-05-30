@@ -35,10 +35,10 @@ public class Cluster extends TimeStamped{
     @Column(nullable = false)
     private String namespace;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
     private List<ClusterMember> clusterMembers = new ArrayList<>();
 
-    @OneToMany(mappedBy="cluster")
+    @OneToMany(mappedBy="cluster", orphanRemoval = true)
     private List<Spark> sparks;
 
     public void addSpark(Spark spark){
@@ -50,7 +50,7 @@ public class Cluster extends TimeStamped{
 
   
 
-    @OneToMany(mappedBy = "hadoopCluster")
+    @OneToMany(mappedBy = "hadoopCluster", orphanRemoval = true)
     private List<Hadoop> hadoops;
 
     // 연관관계 편의 메서드

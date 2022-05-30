@@ -18,7 +18,6 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class ClusterDeleteService {
 
-    private final ClusterController clusterController;
     private final ClusterRepository clusterRepository;
 
     // 데이터베이스에서 클러스터 삭제
