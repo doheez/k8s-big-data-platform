@@ -35,7 +35,7 @@ public class Cluster extends TimeStamped{
     @Column(nullable = false)
     private String namespace;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "cluster")
     private List<ClusterMember> clusterMembers = new ArrayList<>();
 
     @OneToMany(mappedBy="cluster")
