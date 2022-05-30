@@ -24,6 +24,7 @@ public class ClusterController {
     private final PodDetailService podDetailService;
     private final PodInfoListService podInfoListService;
     private final ClusterDeleteService clusterDeleteService;
+    private final JoinUserService joinUserService;
 
     // 클러스터 생성
     @PostMapping
@@ -77,6 +78,14 @@ public class ClusterController {
     @DeleteMapping("/{clusterName}")
     public void deleteCluster(@PathVariable String clusterName) throws IOException {
         clusterDeleteService.deleteClusterInDB(clusterName);
+    }
+
+    // 공동 관리 유저 추가
+    @PostMapping("/user")
+    public String JoinUser(@RequestBody JoinUserListDto joinUserListDto){
+        boolean result = joinUserService.join_user(joinUserListDto);
+        if(!result) return "추가 실패";
+        return "추가 성공";
     }
 
 }
