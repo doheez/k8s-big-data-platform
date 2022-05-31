@@ -1,6 +1,5 @@
 package com.example.K8s.kubernetes.cluster.service;
 
-import com.example.K8s.kubernetes.cluster.dto.JoinUserDto;
 import com.example.K8s.kubernetes.cluster.dto.JoinUserListDto;
 import com.example.K8s.kubernetes.cluster.model.Cluster;
 import com.example.K8s.kubernetes.cluster.model.ClusterMember;
@@ -22,9 +21,9 @@ public class JoinUserService {
 
     public boolean join_user(JoinUserListDto joinUserList){
 
-        for(JoinUserDto user : joinUserList.getUsers()){
-            Cluster cluster = clusterRepository.findClusterByName(user.getClusterName());
-            Optional<User> new_user = userRepository.findById(user.getUserId());
+        for(Long userId : joinUserList.getUsers()){
+            Cluster cluster = clusterRepository.findClusterByName(joinUserList.getClsuterName());
+            Optional<User> new_user = userRepository.findById(userId);
             ClusterMember clusterMember = new ClusterMember(cluster,new_user.get());
             clusterMemberRepository.save(clusterMember);
         }

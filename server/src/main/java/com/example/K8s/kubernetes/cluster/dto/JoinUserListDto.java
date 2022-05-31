@@ -10,5 +10,6 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 public class JoinUserListDto {
-     private List<JoinUserDto> users;
+     private List<Long> users;
+     private String clsuterName;
 }
