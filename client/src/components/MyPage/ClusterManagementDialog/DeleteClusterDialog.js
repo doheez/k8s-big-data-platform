@@ -37,14 +37,9 @@ export default function DeleteClusterDialog({ open, setOpen, cluster, clusterNam
     handleCloseDialog();
     handleOpenSnackbar();
 
-    const url = '/api/cluster/modify';
-    const data = {
-      type: cluster,
-      name: clusterName,
-      amount: 0
-    };
+    const url = `/api/cluster/${clusterName}`;
 
-    axios.post(url, data)
+    axios.delete(url)
       .then(response => {
         handleSuccessDeletingCluster();
         console.log(response);
