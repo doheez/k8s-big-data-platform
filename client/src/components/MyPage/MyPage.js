@@ -1,6 +1,6 @@
 import UserInfo from './UserInfo';
 import ClusterInfo from './ClusterInfo';
-import { Container, Grid, Typography } from '@mui/material';
+import { Container, Grid, Typography, Stack, CircularProgress } from '@mui/material';
 import { useState, useEffect } from "react";
 import axios from 'axios';
 
@@ -15,7 +15,6 @@ export default function MyPage() {
 
     axios.get(url)
       .then(response => {
-        console.log(response);
         setHadoopClusterList(response.data.filter(e => (e.type === 0)));
         setSparkClusterList(response.data.filter(e => (e.type === 1)));
       })
@@ -27,7 +26,7 @@ export default function MyPage() {
 
   useEffect(() => {
     getClusterInfo();
-  }, []);
+  }, [hadoopClusterList, sparkClusterList]);
 
   return (
     <Container maxWidth="lg">
@@ -36,6 +35,7 @@ export default function MyPage() {
           <Typography variant="h6" color="primary.main">User Info</Typography>
           <UserInfo />
         </Grid>
+        {hadoopClusterList.length > 0 ?
           <Grid item xs md container direction="column" spacing={{ xs: 0, md: 3 }}>
             <Grid item xs>
               <Typography variant="h6" color="primary.main">Hadoop Cluster Info</Typography>
@@ -46,6 +46,16 @@ export default function MyPage() {
               <ClusterInfo cluster={SPARK} clusterList={sparkClusterList} />
             </Grid>
           </Grid>
+          :
+          <Grid item xs md container direction="column" spacing={{ xs: 0, md: 3 }}>
+            <Stack alignItems="center" mt={8}>
+              <CircularProgress />
+              <Typography m={2}>
+                {'Loading Cluster Info...'}
+              </Typography>
+            </Stack>
+          </Grid>
+        }
       </Grid>
     </Container>
   );
