@@ -3,6 +3,7 @@ import ClusterInfo from './ClusterInfo';
 import { Container, Grid, Typography, Stack, CircularProgress, Tabs, Tab, Box } from '@mui/material';
 import { useState, useEffect } from "react";
 import axios from 'axios';
+import { a11yProps, TabPanel } from './TabPanel';
 
 const HADOOP = 'hadoop', SPARK = 'spark';
 
@@ -73,31 +74,4 @@ export default function MyPage() {
       </Grid>
     </Container>
   );
-}
-
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`cluster-tabpanel-${index}`}
-      aria-labelledby={`cluster-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box p={3} px={{ xs: 0, md: 3 }}>
-          {children}
-        </Box>
-      )}
-    </div>
-  );
-}
-
-function a11yProps(index) {
-  return {
-    id: `clueter-tab-${index}`,
-    'aria-controls': `cluster-tabpanel-${index}`,
-  };
 }

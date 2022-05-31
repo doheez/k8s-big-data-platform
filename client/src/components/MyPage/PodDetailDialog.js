@@ -115,7 +115,6 @@ export default function PodDetailDialog({ open, setOpen, cluster, podDetails, de
               </ListItem>
             </List>
           }
-
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Close</Button>
