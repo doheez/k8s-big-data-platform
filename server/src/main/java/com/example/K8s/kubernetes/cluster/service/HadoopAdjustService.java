@@ -22,7 +22,6 @@ import java.io.IOException;
 public class HadoopAdjustService {
 
     private final ClusterRepository clusterRepository;
-    private final HadoopRepository hadoopRepository;
 
     // hadoop 클러스터 크기 조절
     @Transactional

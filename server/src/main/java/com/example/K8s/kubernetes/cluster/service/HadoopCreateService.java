@@ -72,7 +72,6 @@ public class HadoopCreateService {
             System.out.println(result);
             return true;
         } catch (ApiException e) {
-            System.err.println("Exception when calling CustomObjectsApi#patchNamespacedCustomObject");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
