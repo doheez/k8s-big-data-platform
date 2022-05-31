@@ -1,5 +1,6 @@
 package com.example.K8s.kubernetes.cluster.service;
 
+import com.example.K8s.kubernetes.cluster.dto.CoUserInfoDto;
 import com.example.K8s.kubernetes.cluster.dto.PodInfoDto;
 import com.example.K8s.kubernetes.cluster.dto.ClusterInfoListDto;
 import com.example.K8s.kubernetes.cluster.model.Cluster;
@@ -46,12 +47,12 @@ public class PodInfoListService {
         ArrayList<ClusterInfoListDto> result = new ArrayList<>();
         CoreV1Api coreV1Api = new CoreV1Api(ClientBuilder.standard().build());
         try{
-            for(Cluster cluster : clusters){
+            for(Cluster cluster : clusters) {
                 String namespace = cluster.getNamespace();
                 V1PodList podlist = coreV1Api.listNamespacedPod(namespace,null,null,null,null,null,null,null,null,null,null);
 
                 List<PodInfoDto> podinfos = new ArrayList<>();
-                for(V1Pod pod : podlist.getItems()){
+                for(V1Pod pod : podlist.getItems()) {
                     if(!pod.getMetadata().getName().contains("operator")) {
                         if (pod.getMetadata().getName().contains(cluster.getName() + "-")) {
                             String name = pod.getMetadata().getName();
@@ -63,10 +64,14 @@ public class PodInfoListService {
                     }
                 }
 
-                ClusterInfoListDto clusterInfoListDto = new ClusterInfoListDto(cluster.getType(),cluster.getName(),podinfos);
+                List<ClusterMember> clusterMembers = clusterMemberRepository.findClusterMembersByCluster(cluster);
+                List<CoUserInfoDto> users = new ArrayList<>();
+                for (ClusterMember member : clusterMembers) users.add(new CoUserInfoDto(member.getUser().getName(), member.getUser().getEmail()));
+
+                ClusterInfoListDto clusterInfoListDto = new ClusterInfoListDto(cluster.getType(), cluster.getName(), users, podinfos);
                 result.add(clusterInfoListDto);
-                }
             }
+        }
         catch (ApiException e) {
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
@@ -74,7 +79,7 @@ public class PodInfoListService {
             e.printStackTrace();
         }
 
-    return result;
+        return result;
     }
 
 }

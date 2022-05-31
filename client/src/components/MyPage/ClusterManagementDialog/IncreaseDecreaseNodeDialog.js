@@ -1,17 +1,65 @@
 import * as React from 'react';
 import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
+import ClusterSnackbar from '../../Snackbar/ClusterSnackbar';
 
-export default function IncreaseDecreaseNodeDialog({ open, setOpen, cluster, option, clusterName }) {
+const INCREASE = "increase", DECREASE = "decrease";
+
+const INCREASING_NODES = "Increasing Nodes...";
+const DECREASING_NODES = "Decreasing Nodes...";
+const SUCCESS_IN_INCREASING_NODES = "✅ Nodes Increased Successfully!";
+const SUCCESS_IN_DECREASING_NODES = "✅ Nodes Decreased Successfully!";
+const FAIL_IN_INCREASING_NODES = "⛔ Failed to Increase Nodes.";
+const FAIL_IN_DECREASING_NODES = "⛔ Failed to Decrease Nodes.";
+
+export default function IncreaseDecreaseNodeDialog({ open, setOpen, cluster, option, clusterName, clusterAmount }) {
   const [amount, setAmount] = useState();
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [message, setMessage] = useState(INCREASING_NODES);
 
-  const handleClose = () => {
+  const handleCloseDialog = () => {
     setOpen(false);
   };
 
+  const handleOpenSnackbar = () => {
+    if (option === INCREASE) {
+      setMessage(INCREASING_NODES);
+    } else {
+      setMessage(DECREASING_NODES);
+    }
+    setOpenSnackbar(true);
+  };
+
+  const handleCloseSnackbar = () => {
+    setOpenSnackbar(false);
+  }
+
+  const handleSuccessModifyingCluster = () => {
+    if (clusterAmount === amount) {
+      if (option === INCREASE) {
+        setMessage(SUCCESS_IN_INCREASING_NODES);
+      } else {
+        setMessage(SUCCESS_IN_DECREASING_NODES);
+      }
+    }
+  };
+
+  const handleFailModifyingCluster = () => {
+    if (option === INCREASE) {
+      setMessage(FAIL_IN_INCREASING_NODES);
+    } else {
+      setMessage(FAIL_IN_DECREASING_NODES);
+    }
+  };
+
+  useEffect(()=>{
+    handleSuccessModifyingCluster();
+  });
+
   const handleScaleCluster = () => {
-    handleClose();
+    handleCloseDialog();
+    handleOpenSnackbar();
 
     const url = '/api/cluster/modify';
     const data = {
@@ -22,15 +70,11 @@ export default function IncreaseDecreaseNodeDialog({ open, setOpen, cluster, opt
 
     axios.post(url, data)
       .then(response => {
-        alert(`Success in ${option} ${clusterName} nodes!`);
+        handleSuccessModifyingCluster();
         console.log(response);
       })
       .catch(error => {
-        if (error.response.data) {
-          alert(error.response.data);
-        } else {
-          alert(error.message);
-        }
+        handleFailModifyingCluster();
         console.log(error);
       });
   };
@@ -43,7 +87,7 @@ export default function IncreaseDecreaseNodeDialog({ open, setOpen, cluster, opt
 
   return (
     <div>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog open={open} onClose={handleCloseDialog}>
         <DialogTitle>{capitalize(option)} {capitalize(cluster)} Node</DialogTitle>
         <DialogContent>
           <TextField
@@ -59,10 +103,11 @@ export default function IncreaseDecreaseNodeDialog({ open, setOpen, cluster, opt
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleCloseDialog}>Cancel</Button>
           <Button onClick={() => handleScaleCluster()}>OK</Button>
         </DialogActions>
       </Dialog>
+      <ClusterSnackbar message={message} handleCloseSnackbar={handleCloseSnackbar} openSnackbar={openSnackbar} />
     </div>
   );
 }

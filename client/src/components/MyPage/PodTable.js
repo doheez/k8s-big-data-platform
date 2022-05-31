@@ -6,6 +6,7 @@ import axios from 'axios';
 
 export default function PodTable({ cluster, pods, clusterName }) {
   const [open, setOpen] = useState(false);
+  const [detailLoading, setDetailLoading] = useState(false);
   const [rows, setRows] = useState([]);
   const [columns, setColumns] = useState([]);
   const [podDetails, setPodDetails] = useState({});
@@ -14,10 +15,14 @@ export default function PodTable({ cluster, pods, clusterName }) {
     if (pods.length > 0) {
       const keys = Object.keys(pods[0]);
       const columns = keys.map((key, index) => {
-        return { field: key, headerName: key, width: 200 };
+        if (index === 0) {
+          return { field: key, headerName: key, width: 280 };
+        }
+        return { field: key, headerName: key, width: 150 };
       });
       return columns;
     }
+    return [];
   };
 
   const getRows = () => {
@@ -27,25 +32,22 @@ export default function PodTable({ cluster, pods, clusterName }) {
   };
 
   const getPodDetails = (podName) => {
-    const url = '/api/cluster/detail';
-    const data = {
-      clusterName: clusterName,
-      podName: podName
-    };
+    const url = `/api/cluster/detail/${clusterName}/${podName}`;
 
-    axios.post(url, data)
+    axios.get(url)
       .then(response => {
-        setPodDetails(response);
+        setPodDetails(response.data);
+        setDetailLoading(false);
         console.log(response);
       })
       .catch(error => {
-        alert(error.message);
         console.log(error);
       });
   };
 
   const handleRowClick = (params) => {
     getPodDetails(params.row.name);
+    setDetailLoading(true);
     setOpen(true);
   };
 
@@ -73,7 +75,7 @@ export default function PodTable({ cluster, pods, clusterName }) {
           Toolbar: GridToolbar,
         }}
       />
-      <PodDetailDialog open={open} setOpen={setOpen} cluster={cluster} podDetails={podDetails} />
+      <PodDetailDialog open={open} setOpen={setOpen} cluster={cluster} podDetails={podDetails} detailLoading={detailLoading} />
     </Box>
   );
 }

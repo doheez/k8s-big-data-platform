@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -77,16 +78,46 @@ public class UserClusterController {
         return ResponseEntity.status(HttpStatus.OK).body(clusters);
     }
 
-    @PostMapping("/detail")
-    public ResponseEntity<?> getClusterDetail(@RequestHeader(value = "Authorization") String token, @RequestBody PodDetailReqDto podDetailReqDto){
+    @GetMapping("/detail/{clusterName}/{podName}")
+    public ResponseEntity<?> getClusterDetail(@RequestHeader(value = "Authorization") String token, @PathVariable String clusterName, @PathVariable String podName){
         Long userId = userClusterService.checkAuth(token);
         if(userId == -1L)
             return ResponseEntity
                     .status(HttpStatus.UNAUTHORIZED)
                     .body("INVALID_JWT_VALUE");
 
+        PodDetailReqDto podDetailReqDto = new PodDetailReqDto(clusterName, podName);
         PodDetailResDto podDetailResDto = userClusterService.reqPodDetail(podDetailReqDto);
 
         return ResponseEntity.status(HttpStatus.OK).body(podDetailResDto);
+    }
+
+    @DeleteMapping("/{clusterName}")
+    public ResponseEntity<?> delCluster(@RequestHeader(value = "Authorization") String token, @PathVariable String clusterName){
+        Long userId = userClusterService.checkAuth(token);
+        if(userId == -1L)
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .body("INVALID_JWT_VALUE");
+
+        userClusterService.reqDelCluster(clusterName);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+    }
+
+    @PostMapping("/add")
+    public ResponseEntity<?> addUser(@RequestHeader(value = "Authorization") String token, @RequestBody AddUserReqDto userReqDto){
+        Long userId = userClusterService.checkAuth(token);
+        if(userId == -1L)
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .body("INVALID_JWT_VALUE");
+
+        AddUserCheckDto userCheckDto = userClusterService.addUserCheck(userReqDto);
+        int result = userClusterService.reqAddUser(userReqDto.getClusterName(), userCheckDto.getValid_userId());
+
+        if(result == 1)
+            return ResponseEntity.status(HttpStatus.OK).body(userCheckDto.getInvalid_email());
+        else
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("FAIL_ADD_USER");
     }
 }

@@ -1,10 +1,8 @@
 package com.example.K8s.kubernetes.cluster.controller;
 
 import com.example.K8s.kubernetes.cluster.dto.*;
-import com.example.K8s.kubernetes.cluster.repository.ClusterRepository;
 import com.example.K8s.kubernetes.cluster.service.*;
 import com.example.K8s.kubernetes.cluster.service.HadoopCreateService;
-import com.example.K8s.web.auth.repository.UserRepository;
 import io.kubernetes.client.openapi.ApiException;
 
 import lombok.RequiredArgsConstructor;
@@ -19,14 +17,14 @@ import java.util.ArrayList;
 @RequestMapping("/kubernetes/cluster")
 @RequiredArgsConstructor
 public class ClusterController {
-    private final SparkCreateService sparkCreateServcie;
+    private final SparkCreateService sparkCreateService;
     private final SparkAdjustService sparkAdjustService;
-    private final UserRepository userRepository;
     private final HadoopCreateService hadoopCreateService;
     private final HadoopAdjustService hadoopAdjustService;
     private final PodDetailService podDetailService;
-    private final ClusterRepository clusterRepository;
     private final PodInfoListService podInfoListService;
+    private final ClusterDeleteService clusterDeleteService;
+    private final JoinUserService joinUserService;
 
     // 클러스터 생성
     @PostMapping
@@ -36,7 +34,7 @@ public class ClusterController {
             if (!result) return "hadoop cluster 생성 실패";
         }
         else if (regDto.getType() == 1) {
-            boolean result = sparkCreateServcie.createSparkCluster(regDto);
+            boolean result = sparkCreateService.createSparkCluster(regDto);
             if (!result) return "spark cluster 생성 실패";
         }
         return "생성 성공";
@@ -75,4 +73,19 @@ public class ClusterController {
         PodDetailDto detailDto = podDetailService.getPodInfo(podDetailRequestDto);
         return detailDto;
     }
+
+    // 클러스터 삭제
+    @DeleteMapping("/{clusterName}")
+    public void deleteCluster(@PathVariable String clusterName) throws IOException {
+        clusterDeleteService.deleteClusterInDB(clusterName);
+    }
+
+    // 공동 관리 유저 추가
+    @PostMapping("/user")
+    public String JoinUser(@RequestBody JoinUserListDto joinUserListDto){
+        boolean result = joinUserService.join_user(joinUserListDto);
+        if(!result) return "추가 실패";
+        return "추가 성공";
+    }
+
 }

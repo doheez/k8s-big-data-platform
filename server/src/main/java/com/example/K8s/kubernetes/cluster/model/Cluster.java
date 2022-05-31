@@ -1,13 +1,10 @@
 package com.example.K8s.kubernetes.cluster.model;
 
 import com.example.K8s.kubernetes.cluster.dto.ClusterRegDto;
-import com.example.K8s.web.entity.User;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,10 +32,10 @@ public class Cluster extends TimeStamped{
     @Column(nullable = false)
     private String namespace;
 
-    @OneToMany(mappedBy = "cluster")
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true) // mappedBy="cluster"
     private List<ClusterMember> clusterMembers = new ArrayList<>();
 
-    @OneToMany(mappedBy="cluster")
+    @OneToMany(mappedBy="cluster", orphanRemoval = true)
     private List<Spark> sparks;
 
     public void addSpark(Spark spark){
@@ -50,7 +47,7 @@ public class Cluster extends TimeStamped{
 
   
 
-    @OneToMany(mappedBy = "hadoopCluster")
+    @OneToMany(mappedBy = "hadoopCluster", orphanRemoval = true)
     private List<Hadoop> hadoops;
 
     // 연관관계 편의 메서드
