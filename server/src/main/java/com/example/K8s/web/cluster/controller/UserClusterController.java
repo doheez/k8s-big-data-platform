@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -101,5 +102,22 @@ public class UserClusterController {
 
         userClusterService.reqDelCluster(clusterName);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+    }
+
+    @PostMapping("/add")
+    public ResponseEntity<?> addUser(@RequestHeader(value = "Authorization") String token, @RequestBody AddUserReqDto userReqDto){
+        Long userId = userClusterService.checkAuth(token);
+        if(userId == -1L)
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .body("INVALID_JWT_VALUE");
+
+        AddUserCheckDto userCheckDto = userClusterService.addUserCheck(userReqDto);
+        int result = userClusterService.reqAddUser(userReqDto.getClusterName(), userCheckDto.getValid_userId());
+
+        if(result == 1)
+            return ResponseEntity.status(HttpStatus.OK).body(userCheckDto.getInvalid_email());
+        else
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("FAIL_ADD_USER");
     }
 }

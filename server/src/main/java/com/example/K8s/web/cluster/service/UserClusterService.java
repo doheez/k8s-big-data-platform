@@ -1,7 +1,9 @@
 package com.example.K8s.web.cluster.service;
 
+import com.example.K8s.web.auth.repository.UserRepository;
 import com.example.K8s.web.auth.token.JwtTokenProvider;
 import com.example.K8s.web.cluster.dto.*;
+import com.example.K8s.web.entity.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -16,6 +18,7 @@ import org.springframework.web.util.DefaultUriBuilderFactory;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -25,6 +28,7 @@ import java.util.List;
 public class UserClusterService {
     private final RestTemplate restTemplate;
     private final JwtTokenProvider jwtTokenProvider;
+    private final UserRepository userRepository;
 
     public int reqClusterCreate(ClusterResDto clusterResDto){
         String url = "http://ec2-52-78-90-149.ap-northeast-2.compute.amazonaws.com:8080/kubernetes/cluster";
@@ -71,6 +75,42 @@ public class UserClusterService {
         setRestTemplate();
         restTemplate.delete(url);
         return;
+    }
+
+    public int reqAddUser(String clusterName, ArrayList<Long> userId ){
+        String url = "http://ec2-52-78-90-149.ap-northeast-2.compute.amazonaws.com:8080/kubernetes/cluster/add";
+        setRestTemplate();
+
+        AddUserResDto addUserResDto = new AddUserResDto(userId, clusterName);
+        String msg = restTemplate.postForObject(url,addUserResDto, String.class);
+
+        if(msg.equals("추가 성공"))
+            return 1;
+        else
+            return -1;
+    }
+
+    public AddUserCheckDto addUserCheck(AddUserReqDto userReqDto){
+        List<String> emails = userReqDto.getEmails();
+        AddUserCheckDto userCheckDto = new AddUserCheckDto();
+
+        for(String email : emails){
+            Long check = checkEmail(email);
+            if(check == -1L)
+                userCheckDto.getInvalid_email().add(email);
+            else
+                userCheckDto.getValid_userId().add(check);
+        }
+        return userCheckDto;
+    }
+
+    @Transactional
+    public Long checkEmail(String email){
+        User user = userRepository.findByEmail(email);
+        if(user == null)
+            return -1L;
+        else
+            return user.getId();
     }
 
     public ClusterResDto setClusterResDto( String token, ClusterReqDto clusterReqDto) {
