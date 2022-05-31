@@ -54,15 +54,6 @@ export default function ClusterInfo({ cluster, clusterList }) {
                 </ListItem>
                 <Divider />
                 <ListItem>
-                  <Stack>
-                    <Typography variant="subtitle2" color="text.secondary">
-                      {cluster === 'hadoop' ? 'Size of Data' : 'Throughput'}
-                    </Typography>
-                    <Typography color="text.primary">그래프 삽입 예정</Typography>
-                  </Stack>
-                </ListItem>
-                <Divider />
-                <ListItem>
                   <Stack width="100%" rowGap={1}>
                     <Typography variant="subtitle2" color="text.secondary">Cluster Management</Typography>
                     <Grid container spacing={2}>
