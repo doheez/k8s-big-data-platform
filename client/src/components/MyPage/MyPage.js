@@ -1,6 +1,6 @@
 import UserInfo from './UserInfo';
 import ClusterInfo from './ClusterInfo';
-import { Container, Grid, Typography, Stack, CircularProgress } from '@mui/material';
+import { Container, Grid, Typography, Stack, CircularProgress, Tabs, Tab, Box } from '@mui/material';
 import { useState, useEffect } from "react";
 import axios from 'axios';
 
@@ -9,12 +9,14 @@ const HADOOP = 'hadoop', SPARK = 'spark';
 export default function MyPage() {
   const [hadoopClusterList, setHadoopClusterList] = useState([]);
   const [sparkClusterList, setSparkClusterList] = useState([]);
+  const [value, setValue] = useState(hadoopClusterList.length ? 0 : 1);
 
   const getClusterInfo = () => {
     const url = '/api/cluster/info';
 
     axios.get(url)
       .then(response => {
+        console.log(response);
         setHadoopClusterList(response.data.filter(e => (e.type === 0)));
         setSparkClusterList(response.data.filter(e => (e.type === 1)));
       })
@@ -28,6 +30,10 @@ export default function MyPage() {
     getClusterInfo();
   }, [hadoopClusterList, sparkClusterList]);
 
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
   return (
     <Container maxWidth="lg">
       <Grid container direction={{ xs: "column", md: "row" }} spacing={3} my={3}>
@@ -35,15 +41,23 @@ export default function MyPage() {
           <Typography variant="h6" color="primary.main">User Info</Typography>
           <UserInfo />
         </Grid>
-        {hadoopClusterList.length > 0 ?
+        {hadoopClusterList.length > 0 || sparkClusterList.length > 0 ?
           <Grid item xs md container direction="column" spacing={{ xs: 0, md: 3 }}>
             <Grid item xs>
-              <Typography variant="h6" color="primary.main">Hadoop Cluster Info</Typography>
-              <ClusterInfo cluster={HADOOP} clusterList={hadoopClusterList} />
-            </Grid>
-            <Grid item xs>
-              <Typography variant="h6" color="primary.main">Spark Cluster Info</Typography>
-              <ClusterInfo cluster={SPARK} clusterList={sparkClusterList} />
+              <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+                  <Tab label="Hadoop" value={0} {...a11yProps(0)} />
+                  <Tab label="Spark" value={1} {...a11yProps(1)} />
+                </Tabs>
+              </Box>
+              <TabPanel value={value} index={0}>
+                <Typography variant="h6" color="primary.main">Hadoop Cluster Info</Typography>
+                <ClusterInfo cluster={HADOOP} clusterList={hadoopClusterList} />
+              </TabPanel>
+              <TabPanel value={value} index={1}>
+                <Typography variant="h6" color="primary.main">Spark Cluster Info</Typography>
+                <ClusterInfo cluster={SPARK} clusterList={sparkClusterList} />
+              </TabPanel>
             </Grid>
           </Grid>
           :
@@ -59,4 +73,31 @@ export default function MyPage() {
       </Grid>
     </Container>
   );
+}
+
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`cluster-tabpanel-${index}`}
+      aria-labelledby={`cluster-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box p={3} px={{ xs: 0, md: 3 }}>
+          {children}
+        </Box>
+      )}
+    </div>
+  );
+}
+
+function a11yProps(index) {
+  return {
+    id: `clueter-tab-${index}`,
+    'aria-controls': `cluster-tabpanel-${index}`,
+  };
 }
