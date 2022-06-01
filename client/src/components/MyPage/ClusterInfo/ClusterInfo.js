@@ -43,7 +43,7 @@ export default function ClusterInfo({ cluster, clusterList }) {
                 <ListItem>
                   <Stack>
                     <Typography variant="subtitle2" color="text.secondary">Co-Administrators</Typography>
-                    <InvitedUserList userList={testUserData} />
+                    <InvitedUserList userList={clusterInfo.users} />
                   </Stack>
                 </ListItem>
                 <Divider />
@@ -91,8 +91,8 @@ export default function ClusterInfo({ cluster, clusterList }) {
 
 const testUserData = [
   {
-    "name": "dohee0601",
-    "email": "dohee0601@naver.com"
+    "name": "dohee06013",
+    "email": "dohee06013@naver.com"
   },
   {
     "name": "hyewon",

@@ -44,11 +44,11 @@ export default function InviteUser({ clusterNameList }) {
   };
 
   const handleInviteClick = () => {
-    const url = '/api/cluster/add';
+    const url = '/api/cluster/user';
     const data = {
       clusterName: selectedClusterName,
       emails: emailArray
-    }
+    };
     
     console.log(data);
     
