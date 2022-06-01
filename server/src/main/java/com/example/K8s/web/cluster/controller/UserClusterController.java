@@ -104,8 +104,8 @@ public class UserClusterController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<?> addUser(@RequestHeader(value = "Authorization") String token, @RequestBody AddUserReqDto userReqDto){
+    @PostMapping("/user")
+    public ResponseEntity<?> addClusterUser(@RequestHeader(value = "Authorization") String token, @RequestBody AddUserReqDto userReqDto){
         Long userId = userClusterService.checkAuth(token);
         if(userId == -1L)
             return ResponseEntity
@@ -119,5 +119,18 @@ public class UserClusterController {
             return ResponseEntity.status(HttpStatus.OK).body(userCheckDto.getInvalid_email());
         else
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("FAIL_ADD_USER");
+    }
+
+    @GetMapping("/user/{clusterName}")
+    public ResponseEntity<?> getClusterUser(@RequestHeader(value = "Authorization") String token, @PathVariable String clusterName){
+        Long userId = userClusterService.checkAuth(token);
+        if(userId == -1L)
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .body("INVALID_JWT_VALUE");
+        List<Long> userIds = userClusterService.reqClusterUser(clusterName);
+        List<ClusterUserInfoDto> users = userClusterService.getUserInfo(userIds);
+
+        return ResponseEntity.status(HttpStatus.OK).body(users);
     }
 }
