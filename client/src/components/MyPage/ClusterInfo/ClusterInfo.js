@@ -88,22 +88,3 @@ export default function ClusterInfo({ cluster, clusterList }) {
     </Box>
   );
 }
-
-const testUserData = [
-  {
-    "name": "dohee06013",
-    "email": "dohee06013@naver.com"
-  },
-  {
-    "name": "hyewon",
-    "email": "HyeW@naver.com"
-  },
-  {
-    "name": "doyoon",
-    "email": "idoburnish@naver.com"
-  },
-  {
-    "name": "hyunjin",
-    "email": "heohyeonjin@naver.com"
-  }
-];

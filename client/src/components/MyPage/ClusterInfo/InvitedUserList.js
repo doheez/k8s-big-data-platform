@@ -16,8 +16,7 @@ const InvitedUserList = ({ userList }) => {
           </Tooltip>
         )}
       </AvatarGroup>
-      
-      <Button onClick={()=>setOpen(true)} startIcon={<AccountCircleIcon />} variant="outlined" sx={{ml: 2}}>Show All</Button>
+      <Button onClick={() => setOpen(true)} startIcon={<AccountCircleIcon />} variant="outlined" sx={{ ml: 2 }}>Show All</Button>
       <InvitedUserListDialog open={open} setOpen={setOpen} userList={userList} />
     </Stack>
   );

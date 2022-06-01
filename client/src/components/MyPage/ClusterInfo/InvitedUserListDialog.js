@@ -12,7 +12,6 @@ export default function InvitedUserListDialog({ open, setOpen, userList }) {
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>All Administrators List</DialogTitle>
         <DialogContent>
-
           <List>
             {userList.map((user, index) =>
               <div key={user.email}>
@@ -25,9 +24,7 @@ export default function InvitedUserListDialog({ open, setOpen, userList }) {
                 </ListItem>
               </div>
             )}
-
           </List>
-
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Close</Button>
