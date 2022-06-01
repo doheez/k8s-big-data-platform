@@ -6,7 +6,7 @@ import './InviteUser.css';
 import axios from 'axios'
 import ClusterSelect from './ClusterSelect';
 
-export default function InviteUser({ clusterNameList }) {
+export default function InviteUser({ clusterList }) {
   const [email, setEmail] = useState('');
   const [emailArray, setEmailArray] = useState([]);
   const [isEmail, setIsEmail] = useState(true);
@@ -29,10 +29,10 @@ export default function InviteUser({ clusterNameList }) {
   };
 
   const checkAlreadyInvited = (email) => {
-    // const invited = project.visitor.some(visitor => visitor.email === email);
-    // setAlreadyInvited(invited);
-    // return invited;
-    return alreadyInvited;
+    const selectedCluster = clusterList.filter(e => e.clusterName === selectedClusterName)[0];
+    const invited = selectedCluster.users.some(user => user.email === email);
+    setAlreadyInvited(invited);
+    return invited;
   };
 
   const handleAddClick = () => {
@@ -49,9 +49,9 @@ export default function InviteUser({ clusterNameList }) {
       clusterName: selectedClusterName,
       emails: emailArray
     };
-    
+
     console.log(data);
-    
+
     axios.post(url, data)
       .then(response => {
         alert('Invited user successfully!');
@@ -79,7 +79,7 @@ export default function InviteUser({ clusterNameList }) {
 
   return (
     <Box p={2} sx={{ backgroundColor: "mypageBox.main", borderRadius: 1 }}>
-      <ClusterSelect clusterNameList={clusterNameList} selectedClusterName={selectedClusterName} setSelectedClusterName={setSelectedClusterName} />
+      <ClusterSelect clusterNameList={clusterList.map(cluster => cluster.clusterName)} selectedClusterName={selectedClusterName} setSelectedClusterName={setSelectedClusterName} />
       <Typography variant="subtitle2" gutterBottom component="div" color="#014361" sx={{ mt: 3 }}>
         <span className="invite-divider" />Add Account by User Email
       </Typography>
