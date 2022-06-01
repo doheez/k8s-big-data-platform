@@ -18,7 +18,6 @@ import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 
 @RequiredArgsConstructor
@@ -89,25 +88,6 @@ public class UserClusterService {
             return -1;
     }
 
-    public List<Long> reqClusterUser(String clusterName){
-        String url = "http://ec2-52-78-90-149.ap-northeast-2.compute.amazonaws.com:8080/kubernetes/cluster/user/" +clusterName;
-        setRestTemplate();
-
-        List<Long> users = restTemplate.getForObject(url,List.class);
-
-        return users;
-    }
-
-    @Transactional
-    public List<ClusterUserInfoDto> getUserInfo(List<Long> users){
-        List<ClusterUserInfoDto> userInfos = new ArrayList<>();
-        for(Long id : users){
-            Optional<User> user = userRepository.findById(id);
-            userInfos.add(new ClusterUserInfoDto(user.get().getUsername(),user.get().getEmail()));
-        }
-
-        return userInfos;
-    }
 
     public AddUserCheckDto addUserCheck(AddUserReqDto userReqDto){
         List<String> emails = userReqDto.getEmails();
