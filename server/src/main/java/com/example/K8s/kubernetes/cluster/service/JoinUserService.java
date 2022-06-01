@@ -10,6 +10,7 @@ import com.example.K8s.web.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Service
@@ -19,10 +20,10 @@ public class JoinUserService {
     private final ClusterRepository clusterRepository;
     private final UserRepository userRepository;
 
+    @Transactional
     public boolean join_user(JoinUserListDto joinUserList){
-
         for(Long userId : joinUserList.getUsers()){
-            Cluster cluster = clusterRepository.findClusterByName(joinUserList.getClsuterName());
+            Cluster cluster = clusterRepository.findClusterByName(joinUserList.getClusterName());
             Optional<User> new_user = userRepository.findById(userId);
             ClusterMember clusterMember = new ClusterMember(cluster,new_user.get());
             clusterMemberRepository.save(clusterMember);

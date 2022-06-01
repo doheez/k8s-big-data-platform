@@ -11,5 +11,5 @@ import java.util.List;
 @NoArgsConstructor
 public class JoinUserListDto {
      private List<Long> users;
-     private String clsuterName;
+     private String clusterName;
 }
