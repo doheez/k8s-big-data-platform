@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -104,8 +103,8 @@ public class UserClusterController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<?> addUser(@RequestHeader(value = "Authorization") String token, @RequestBody AddUserReqDto userReqDto){
+    @PostMapping("/user")
+    public ResponseEntity<?> addClusterUser(@RequestHeader(value = "Authorization") String token, @RequestBody AddUserReqDto userReqDto){
         Long userId = userClusterService.checkAuth(token);
         if(userId == -1L)
             return ResponseEntity
@@ -120,4 +119,5 @@ public class UserClusterController {
         else
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("FAIL_ADD_USER");
     }
+
 }

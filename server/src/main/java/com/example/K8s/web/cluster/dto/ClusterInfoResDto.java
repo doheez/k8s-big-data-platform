@@ -9,5 +9,7 @@ import java.util.List;
 public class ClusterInfoResDto {
     private int type;
     private String clusterName;
+    private List<ClusterUserInfoDto> users = new ArrayList<>();
     private List<PodInfo> pods = new ArrayList<>();
+
 }

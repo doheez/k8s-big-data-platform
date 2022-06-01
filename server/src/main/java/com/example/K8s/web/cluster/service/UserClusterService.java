@@ -7,14 +7,12 @@ import com.example.K8s.web.entity.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.DefaultResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.DefaultUriBuilderFactory;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
@@ -78,7 +76,7 @@ public class UserClusterService {
     }
 
     public int reqAddUser(String clusterName, ArrayList<Long> userId ){
-        String url = "http://ec2-52-78-90-149.ap-northeast-2.compute.amazonaws.com:8080/kubernetes/cluster/add";
+        String url = "http://ec2-52-78-90-149.ap-northeast-2.compute.amazonaws.com:8080/kubernetes/cluster/user";
         setRestTemplate();
 
         AddUserResDto addUserResDto = new AddUserResDto(userId, clusterName);
@@ -89,6 +87,7 @@ public class UserClusterService {
         else
             return -1;
     }
+
 
     public AddUserCheckDto addUserCheck(AddUserReqDto userReqDto){
         List<String> emails = userReqDto.getEmails();
