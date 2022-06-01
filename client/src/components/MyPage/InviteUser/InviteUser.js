@@ -44,27 +44,34 @@ export default function InviteUser({ clusterList }) {
   };
 
   const handleInviteClick = () => {
-    const data = emailArray;
-    const url = ``;
-
-    axios.put(url, data)
+    const url = '/api/cluster/user';
+    const data = {
+      clusterName: selectedCluster,
+      emails: emailArray
+    }
+    
+    console.log(data);
+    
+    axios.post(url, data)
       .then(response => {
         console.log(response);
       }).catch(error => {
-        if (error.response) {
-          alert(error.response.data.message + '\nAccounts Failed to Invite: ' + error.response.data.failList);
-          console.log(error.response.data);
-        } else {
-          alert(error.message);
-          console.log(error);
-        }
+        // if (error.response) {
+        //   alert(error.response.data.message + '\nAccounts Failed to Invite: ' + error.response.data.failList);
+        //   console.log(error.response.data);
+        // } else {
+        //   alert(error.message);
+        //   console.log(error);
+        // }
+        alert(error.messate);
+        console.log(error);
       }).finally(() => {
         setEmailArray([]);
         setEmail('');
         setIsEmail(true);
         setAlreadyAdded(false);
         setAlreadyInvited(false);
-        window.location.reload();
+        // window.location.reload();
       });
   };
 
