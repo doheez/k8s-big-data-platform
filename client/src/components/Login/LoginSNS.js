@@ -3,6 +3,7 @@ import { ReactComponent as NaverLogo } from '../../images/naverLogo.svg';
 import { ReactComponent as KakaoLogo } from '../../images/kakaoLogo.svg';
 import { ReactComponent as GoogleLogo } from '../../images/googleLogo.svg';
 import { ReactComponent as FacebookLogo } from '../../images/facebookLogo.svg';
+import axios from "axios";
 
 const Root = styled('div')(({ theme }) => ({
   width: '100%',
@@ -58,3 +59,29 @@ export default function LoginSNS() {
     </Box>
   );
 }
+
+// 로그인 상태를 체크하고 구글 로그인 상태 정보를 받아오는 함수. (Deprecated)
+export const checkLoginStatusAsync = (setLoginStatus) => {
+  const url = '/api/v1/user';
+  const config = {
+    maxRedirects: 0 // node.js에서 리디렉션 최대값을 정의한다. (기본값: 5)
+  };
+
+  axios.get(url, config)
+    .then(response => {
+      if (response.data && response.data.name !== null && response.data.name !== 'null') {
+        setLoginStatus(true);
+        console.log('사용자 정보를 받아왔습니다.');
+        console.log(response);
+      } else {
+        setLoginStatus(false);
+        console.log('사용자 정보를 받아오지 못했습니다.');
+        console.log(response);
+      }
+    })
+    .catch(error => {
+      setLoginStatus(false);
+      console.log('사용자 정보 API 요청을 실패했습니다.');
+      console.log(error);
+    });
+};
