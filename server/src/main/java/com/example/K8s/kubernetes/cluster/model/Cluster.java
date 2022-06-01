@@ -1,13 +1,10 @@
 package com.example.K8s.kubernetes.cluster.model;
 
 import com.example.K8s.kubernetes.cluster.dto.ClusterRegDto;
-import com.example.K8s.web.entity.User;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +32,7 @@ public class Cluster extends TimeStamped{
     @Column(nullable = false)
     private String namespace;
 
-    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true) // mappedBy="cluster"
     private List<ClusterMember> clusterMembers = new ArrayList<>();
 
     @OneToMany(mappedBy="cluster", orphanRemoval = true)
