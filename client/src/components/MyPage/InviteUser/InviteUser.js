@@ -5,6 +5,11 @@ import EmailListItem from './EmailListItem';
 import './InviteUser.css';
 import axios from 'axios'
 import ClusterSelect from './ClusterSelect';
+import ClusterSnackbar from '../../Snackbar/ClusterSnackbar';
+
+const INVITING_USERS = 'Inviting Users...';
+const SUCCESS_IN_INVITING_USERS = "✅ Invited Users Successfully!";
+const FAIL_IN_INVITING_USERS = "⛔ Failed to Invite Users.";
 
 export default function InviteUser({ clusterList }) {
   const [email, setEmail] = useState('');
@@ -13,6 +18,26 @@ export default function InviteUser({ clusterList }) {
   const [alreadyAdded, setAlreadyAdded] = useState(false);
   const [alreadyInvited, setAlreadyInvited] = useState(false);
   const [selectedClusterName, setSelectedClusterName] = useState('');
+
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [message, setMessage] = useState(INVITING_USERS);
+
+  const handleOpenSnackbar = () => {
+    setMessage(INVITING_USERS);
+    setOpenSnackbar(true);
+  };
+
+  const handleCloseSnackbar = () => {
+    setOpenSnackbar(false);
+  }
+
+  const handleSuccessInvitingUsers = () => {
+    setMessage(SUCCESS_IN_INVITING_USERS);
+  };
+
+  const handleFailInvitingUsers = () => {
+    setMessage(FAIL_IN_INVITING_USERS);
+  };
 
   const checkEmail = (email) => {
     const emailRegex =
@@ -50,21 +75,14 @@ export default function InviteUser({ clusterList }) {
       emails: emailArray
     };
 
-    console.log(data);
+    handleOpenSnackbar();
 
     axios.post(url, data)
       .then(response => {
-        alert('Invited user successfully!');
+        handleSuccessInvitingUsers();
         console.log(response);
       }).catch(error => {
-        // if (error.response) {
-        //   alert(error.response.data.message + '\nAccounts Failed to Invite: ' + error.response.data.failList);
-        //   console.log(error.response.data);
-        // } else {
-        //   alert(error.message);
-        //   console.log(error);
-        // }
-        alert(error.messate);
+        handleFailInvitingUsers();
         console.log(error);
       }).finally(() => {
         setEmailArray([]);
@@ -73,7 +91,6 @@ export default function InviteUser({ clusterList }) {
         setAlreadyAdded(false);
         setAlreadyInvited(false);
         setSelectedClusterName('');
-        // window.location.reload();
       });
   };
 
@@ -114,6 +131,7 @@ export default function InviteUser({ clusterList }) {
         })}
       </Stack>
       <Button onClick={handleInviteClick} disabled={emailArray.length === 0} fullWidth variant="contained" sx={{ mt: 2 }}>Invite</Button>
+      <ClusterSnackbar message={message} handleCloseSnackbar={handleCloseSnackbar} openSnackbar={openSnackbar} />
     </Box>
   );
 }
