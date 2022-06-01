@@ -3,6 +3,7 @@ import { useState } from "react";
 import IncreaseDecreaseNodeDialog from "./ClusterManagementDialog/IncreaseDecreaseNodeDialog";
 import DeleteClusterDialog from "./ClusterManagementDialog/DeleteClusterDialog";
 import PodTable from "./PodTable";
+import InvitedUserList from "./InvitedUserList";
 
 const INCREASE = "increase", DECREASE = "decrease";
 
@@ -34,8 +35,15 @@ export default function ClusterInfo({ cluster, clusterList }) {
               <List>
                 <ListItem>
                   <Stack>
-                    <Typography variant="subtitle2" color="text.secondary">Cluster ID</Typography>
+                    <Typography variant="subtitle2" color="text.secondary">Cluster Name</Typography>
                     <Typography color="text.primary">{clusterInfo.clusterName}</Typography>
+                  </Stack>
+                </ListItem>
+                <Divider />
+                <ListItem>
+                  <Stack>
+                    <Typography variant="subtitle2" color="text.secondary">Co-Administrators</Typography>
+                    <InvitedUserList userList={testUserData} />
                   </Stack>
                 </ListItem>
                 <Divider />
@@ -80,3 +88,22 @@ export default function ClusterInfo({ cluster, clusterList }) {
     </Box>
   );
 }
+
+const testUserData = [
+  {
+    "name": "dohee0601",
+    "email": "dohee0601@naver.com"
+  },
+  {
+    "name": "hyewon",
+    "email": "HyeW@naver.com"
+  },
+  {
+    "name": "doyoon",
+    "email": "idoburnish@naver.com"
+  },
+  {
+    "name": "hyunjin",
+    "email": "heohyeonjin@naver.com"
+  }
+];

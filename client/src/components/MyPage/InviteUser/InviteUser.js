@@ -6,13 +6,13 @@ import './InviteUser.css';
 import axios from 'axios'
 import ClusterSelect from './ClusterSelect';
 
-export default function InviteUser({ clusterList }) {
+export default function InviteUser({ clusterNameList }) {
   const [email, setEmail] = useState('');
   const [emailArray, setEmailArray] = useState([]);
   const [isEmail, setIsEmail] = useState(true);
   const [alreadyAdded, setAlreadyAdded] = useState(false);
   const [alreadyInvited, setAlreadyInvited] = useState(false);
-  const [selectedCluster, setSelectedCluster] = useState('');
+  const [selectedClusterName, setSelectedClusterName] = useState('');
 
   const checkEmail = (email) => {
     const emailRegex =
@@ -44,9 +44,9 @@ export default function InviteUser({ clusterList }) {
   };
 
   const handleInviteClick = () => {
-    const url = '/api/cluster/user';
+    const url = '/api/cluster/add';
     const data = {
-      clusterName: selectedCluster,
+      clusterName: selectedClusterName,
       emails: emailArray
     }
     
@@ -54,6 +54,7 @@ export default function InviteUser({ clusterList }) {
     
     axios.post(url, data)
       .then(response => {
+        alert('Invited user successfully!');
         console.log(response);
       }).catch(error => {
         // if (error.response) {
@@ -71,13 +72,14 @@ export default function InviteUser({ clusterList }) {
         setIsEmail(true);
         setAlreadyAdded(false);
         setAlreadyInvited(false);
+        setSelectedClusterName('');
         // window.location.reload();
       });
   };
 
   return (
     <Box p={2} sx={{ backgroundColor: "mypageBox.main", borderRadius: 1 }}>
-      <ClusterSelect clusterList={clusterList} selectedCluster={selectedCluster} setSelectedCluster={setSelectedCluster} />
+      <ClusterSelect clusterNameList={clusterNameList} selectedClusterName={selectedClusterName} setSelectedClusterName={setSelectedClusterName} />
       <Typography variant="subtitle2" gutterBottom component="div" color="#014361" sx={{ mt: 3 }}>
         <span className="invite-divider" />Add Account by User Email
       </Typography>

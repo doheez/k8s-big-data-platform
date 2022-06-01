@@ -9,7 +9,7 @@ import InviteUser from './InviteUser/InviteUser';
 const HADOOP = 'hadoop', SPARK = 'spark';
 
 export default function MyPage() {
-  const [clusterList, setClusterList] = useState([]);
+  const [clusterNameList, setClusterNameList] = useState([]);
   const [hadoopClusterList, setHadoopClusterList] = useState([]);
   const [sparkClusterList, setSparkClusterList] = useState([]);
   const [value, setValue] = useState(0);
@@ -21,7 +21,7 @@ export default function MyPage() {
     axios.get(url)
       .then(response => {
         console.log(response);
-        setClusterList(response.data.map(cluster => cluster.clusterName));
+        setClusterNameList(response.data.map(cluster => cluster.clusterName));
         setHadoopClusterList(response.data.filter(e => (e.type === 0)));
         setSparkClusterList(response.data.filter(e => (e.type === 1)));
 
@@ -55,12 +55,12 @@ export default function MyPage() {
         <Grid item xs md={4} container direction="column" rowSpacing={3}>
           <Grid item xs="auto">
             <Typography variant="h6" color="primary.main">User Info</Typography>
-            <UserInfo clusterList={clusterList} />
+            <UserInfo />
           </Grid>
           {!checkEmpty &&
             <Grid item xs="auto">
               <Typography variant="h6" color="primary.main">Invite User to Cluster</Typography>
-              <InviteUser clusterList={clusterList} />
+              <InviteUser clusterNameList={clusterNameList} />
             </Grid>
           }
         </Grid>

@@ -1,8 +1,8 @@
 import { Typography, Box, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 
-export default function ClusterSelect({ clusterList, selectedCluster, setSelectedCluster }) {
+export default function ClusterSelect({ clusterNameList, selectedClusterName, setSelectedClusterName }) {
   const handleChange = (event) => {
-    setSelectedCluster(event.target.value);
+    setSelectedClusterName(event.target.value);
   };
 
   return (
@@ -15,11 +15,11 @@ export default function ClusterSelect({ clusterList, selectedCluster, setSelecte
         <Select
           labelId="cluster-select-label"
           id="cluster-select"
-          value={selectedCluster}
+          value={selectedClusterName}
           label="Cluster List"
           onChange={handleChange}
         >
-          {clusterList.map(cluster => <MenuItem key={cluster} value={cluster}>{cluster}</MenuItem>)}
+          {clusterNameList.map(cluster => <MenuItem key={cluster} value={cluster}>{cluster}</MenuItem>)}
         </Select>
       </FormControl>
     </Box>
