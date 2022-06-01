@@ -1,5 +1,5 @@
-import UserInfo from './UserInfo';
-import ClusterInfo from './ClusterInfo';
+import UserInfo from './UserInfo/UserInfo';
+import ClusterInfo from './ClusterInfo/ClusterInfo';
 import { Container, Grid, Typography, Stack, CircularProgress, Tabs, Tab, Box } from '@mui/material';
 import { useState, useEffect } from "react";
 import axios from 'axios';

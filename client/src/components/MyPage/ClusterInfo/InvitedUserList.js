@@ -1,5 +1,5 @@
 import { Avatar, AvatarGroup, Tooltip } from "@mui/material";
-import { stringAvatar } from "./Utils/Utils";
+import { stringAvatar } from "../Utils/Utils";
 
 const InvitedUserList = ({ userList }) => {
 

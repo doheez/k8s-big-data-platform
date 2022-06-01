@@ -1,7 +1,7 @@
 import { Box, Button, Divider, List, ListItem, Stack, Typography, Grid, Pagination } from "@mui/material";
 import { useState } from "react";
-import IncreaseDecreaseNodeDialog from "./ClusterManagementDialog/IncreaseDecreaseNodeDialog";
-import DeleteClusterDialog from "./ClusterManagementDialog/DeleteClusterDialog";
+import IncreaseDecreaseNodeDialog from "../ClusterManagementDialog/IncreaseDecreaseNodeDialog";
+import DeleteClusterDialog from "../ClusterManagementDialog/DeleteClusterDialog";
 import PodTable from "./PodTable";
 import InvitedUserList from "./InvitedUserList";
 

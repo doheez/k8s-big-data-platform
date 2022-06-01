@@ -1,7 +1,7 @@
 import { Avatar, Box, Stack, Typography } from "@mui/material";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { stringAvatar } from "./Utils/Utils";
+import { stringAvatar } from "../Utils/Utils";
 
 export default function UserInfo() {
   const [name, setName] = useState();
