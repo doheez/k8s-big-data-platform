@@ -35,6 +35,28 @@ export default function InviteUser({ clusterList }) {
     setMessage(SUCCESS_IN_INVITING_USERS);
   };
 
+  const handlePartialFailure = (failedEmailList) => {
+    let message = "";
+    if (failedEmailList.length === 1) {
+      message = message.concat("⛔ The Following Account Was Not Invited. ");
+    } else {
+      message = message.concat("⛔ The Following Accounts Were Not Invited. ");
+    }
+    for (let i = 0; i < failedEmailList.length; i++) {
+      if (i === 0) {
+        message = message.concat("(");
+      }
+      message = message.concat(failedEmailList[i]);
+      if (i !== failedEmailList.length - 1) {
+        message = message.concat(", ");
+      }
+      else {
+        message = message.concat(")");
+      }
+    }
+    setMessage(message);
+  };
+
   const handleFailInvitingUsers = () => {
     setMessage(FAIL_IN_INVITING_USERS);
   };
@@ -69,17 +91,21 @@ export default function InviteUser({ clusterList }) {
   };
 
   const handleInviteClick = () => {
+    handleOpenSnackbar();
+
     const url = '/api/cluster/user';
     const data = {
       clusterName: selectedClusterName,
       emails: emailArray
     };
 
-    handleOpenSnackbar();
-
     axios.post(url, data)
       .then(response => {
-        handleSuccessInvitingUsers();
+        if (response.data.length === 0) {
+          handleSuccessInvitingUsers();
+        } else {
+          handlePartialFailure(response.data);
+        }
         console.log(response);
       }).catch(error => {
         handleFailInvitingUsers();
