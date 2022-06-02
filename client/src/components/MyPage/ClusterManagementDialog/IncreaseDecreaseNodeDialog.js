@@ -20,6 +20,7 @@ export default function IncreaseDecreaseNodeDialog({ open, setOpen, cluster, opt
 
   const handleCloseDialog = () => {
     setOpen(false);
+    setAmount(0);
   };
 
   const handleOpenSnackbar = () => {
@@ -53,12 +54,11 @@ export default function IncreaseDecreaseNodeDialog({ open, setOpen, cluster, opt
     }
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     handleSuccessModifyingCluster();
   });
 
   const handleScaleCluster = () => {
-    handleCloseDialog();
     handleOpenSnackbar();
 
     const url = '/api/cluster/modify';
@@ -77,6 +77,8 @@ export default function IncreaseDecreaseNodeDialog({ open, setOpen, cluster, opt
         handleFailModifyingCluster();
         console.log(error);
       });
+
+    handleCloseDialog();
   };
 
   const capitalize = (str) => {
@@ -104,7 +106,7 @@ export default function IncreaseDecreaseNodeDialog({ open, setOpen, cluster, opt
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseDialog}>Cancel</Button>
-          <Button onClick={() => handleScaleCluster()}>OK</Button>
+          <Button onClick={() => handleScaleCluster()} disabled={!amount}>OK</Button>
         </DialogActions>
       </Dialog>
       <ClusterSnackbar message={message} handleCloseSnackbar={handleCloseSnackbar} openSnackbar={openSnackbar} />

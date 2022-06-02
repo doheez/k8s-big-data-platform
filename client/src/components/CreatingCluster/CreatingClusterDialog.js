@@ -19,6 +19,8 @@ export default function CreatingClusterDialog({ open, setOpen, cluster }) {
 
   const handleCloseDialog = () => {
     setOpen(false);
+    setClusterName('');
+    setClusterNumber(0);
   };
 
   const handleOpenSnackbar = () => {
@@ -39,7 +41,6 @@ export default function CreatingClusterDialog({ open, setOpen, cluster }) {
   };
 
   const handleCreateCluster = () => {
-    handleCloseDialog();
     handleOpenSnackbar();
 
     const url = '/api/cluster/create';
@@ -58,6 +59,8 @@ export default function CreatingClusterDialog({ open, setOpen, cluster }) {
         handleFailCreatingCluster();
         console.log(error);
       });
+      
+    handleCloseDialog();
   };
 
   return (
@@ -93,7 +96,7 @@ export default function CreatingClusterDialog({ open, setOpen, cluster }) {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseDialog}>Cancel</Button>
-          <Button onClick={handleCreateCluster}>OK</Button>
+          <Button onClick={handleCreateCluster} disabled={!(clusterNumber > 0 && clusterName.length > 0)}>OK</Button>
         </DialogActions>
       </Dialog>
       <ClusterSnackbar message={message} handleCloseSnackbar={handleCloseSnackbar} openSnackbar={openSnackbar} />
