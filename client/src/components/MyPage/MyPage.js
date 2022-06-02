@@ -1,13 +1,15 @@
-import UserInfo from './UserInfo';
-import ClusterInfo from './ClusterInfo';
+import UserInfo from './UserInfo/UserInfo';
+import ClusterInfo from './ClusterInfo/ClusterInfo';
 import { Container, Grid, Typography, Stack, CircularProgress, Tabs, Tab, Box } from '@mui/material';
 import { useState, useEffect } from "react";
 import axios from 'axios';
 import { a11yProps, TabPanel } from './TabPanel';
+import InviteUser from './InviteUser/InviteUser';
 
 const HADOOP = 'hadoop', SPARK = 'spark';
 
 export default function MyPage() {
+  const [clusterList, setClusterList] = useState([]);
   const [hadoopClusterList, setHadoopClusterList] = useState([]);
   const [sparkClusterList, setSparkClusterList] = useState([]);
   const [value, setValue] = useState(0);
@@ -19,6 +21,7 @@ export default function MyPage() {
     axios.get(url)
       .then(response => {
         console.log(response);
+        setClusterList(response.data);
         setHadoopClusterList(response.data.filter(e => (e.type === 0)));
         setSparkClusterList(response.data.filter(e => (e.type === 1)));
 
@@ -40,7 +43,7 @@ export default function MyPage() {
 
   useEffect(() => {
     getClusterInfo();
-  }, [hadoopClusterList, sparkClusterList]);
+  }, [clusterList]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -49,9 +52,17 @@ export default function MyPage() {
   return (
     <Container maxWidth="lg">
       <Grid container direction={{ xs: "column", md: "row" }} spacing={3} my={3}>
-        <Grid item xs md={4}>
-          <Typography variant="h6" color="primary.main">User Info</Typography>
-          <UserInfo />
+        <Grid item xs md={4} container direction="column" rowSpacing={3}>
+          <Grid item xs="auto">
+            <Typography variant="h6" color="primary.main">User Info</Typography>
+            <UserInfo />
+          </Grid>
+          {!checkEmpty &&
+            <Grid item xs="auto">
+              <Typography variant="h6" color="primary.main">Invite User to Cluster</Typography>
+              <InviteUser clusterList={clusterList} />
+            </Grid>
+          }
         </Grid>
         {!checkEmpty ?
           <Grid item xs md container direction="column" spacing={{ xs: 0, md: 3 }}>

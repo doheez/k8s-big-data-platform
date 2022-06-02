@@ -11,29 +11,12 @@ import CreatingCluster from './components/CreatingCluster/CreatingCluster';
 import Login from './components/Login/Login';
 import SignUp from './components/SignUp/SignUp';
 import MyPage from './components/MyPage/MyPage';
-// import { chcekLoginStatusAsync } from './components/Login/Login';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Fragment, useState, useEffect } from 'react';
 import { onSilentRefresh } from './components/Login/LoginEmail';
 
 function App() {
-  // const [loginStatus, setLoginStatus] = useState();
   const [token, setToken] = useState();
-
-  // Oauth 도메인 관련 문제로 구글 로그인을 일시 비활성화합니다.
-  // if (loginStatus === undefined) {
-  //   chcekLoginStatusAsync(setLoginStatus);
-  //   console.log('사용자 정보를 확인중입니다..');
-  // }
-  // else if (loginStatus) {
-  //   console.log('loginStatus: ' + loginStatus);
-  // }
-  // else if (loginStatus === false) {
-  //   console.log('loginStatus: ' + loginStatus);
-  // }
-  // else {
-  //   alert("로그인 확인 중 오류가 발생했습니다.");
-  // }
 
   useEffect(() => {
     onSilentRefresh(setToken);

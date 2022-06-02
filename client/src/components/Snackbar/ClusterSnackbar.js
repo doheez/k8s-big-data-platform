@@ -6,12 +6,13 @@ const CREATING_CLUSTER = "Creating Cluster...";
 const DELETING_CLUSTER = 'Deleting Cluster...';
 const INCREASING_NODES = "Increasing Nodes...";
 const DECREASING_NODES = "Decreasing Nodes...";
+const INVITING_USERS = 'Inviting Users...';
 
 const ClusterSnackbar = ({ message, handleCloseSnackbar, openSnackbar }) => {
   const action = (
     <Fragment>
       {message === CREATING_CLUSTER || message === DELETING_CLUSTER ||
-        message === INCREASING_NODES || message === DECREASING_NODES ?
+        message === INCREASING_NODES || message === DECREASING_NODES || message === INVITING_USERS ?
         <CircularProgress size={30} sx={{ color: "primary.light" }} />
         :
         <IconButton

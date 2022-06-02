@@ -1,8 +1,9 @@
 import { Box, Button, Divider, List, ListItem, Stack, Typography, Grid, Pagination } from "@mui/material";
 import { useState } from "react";
-import IncreaseDecreaseNodeDialog from "./ClusterManagementDialog/IncreaseDecreaseNodeDialog";
-import DeleteClusterDialog from "./ClusterManagementDialog/DeleteClusterDialog";
+import IncreaseDecreaseNodeDialog from "../ClusterManagementDialog/IncreaseDecreaseNodeDialog";
+import DeleteClusterDialog from "../ClusterManagementDialog/DeleteClusterDialog";
 import PodTable from "./PodTable";
+import InvitedUserList from "./InvitedUserList";
 
 const INCREASE = "increase", DECREASE = "decrease";
 
@@ -34,8 +35,15 @@ export default function ClusterInfo({ cluster, clusterList }) {
               <List>
                 <ListItem>
                   <Stack>
-                    <Typography variant="subtitle2" color="text.secondary">Cluster ID</Typography>
+                    <Typography variant="subtitle2" color="text.secondary">Cluster Name</Typography>
                     <Typography color="text.primary">{clusterInfo.clusterName}</Typography>
+                  </Stack>
+                </ListItem>
+                <Divider />
+                <ListItem>
+                  <Stack>
+                    <Typography variant="subtitle2" color="text.secondary">Co-Administrators</Typography>
+                    <InvitedUserList userList={clusterInfo.users} />
                   </Stack>
                 </ListItem>
                 <Divider />

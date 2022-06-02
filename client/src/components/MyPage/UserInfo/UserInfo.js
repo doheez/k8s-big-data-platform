@@ -1,6 +1,7 @@
 import { Avatar, Box, Stack, Typography } from "@mui/material";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { stringAvatar } from "../Utils/Utils";
 
 export default function UserInfo() {
   const [name, setName] = useState();
@@ -27,15 +28,6 @@ export default function UserInfo() {
   useEffect(() => {
     getUserInfo();
   }, [name]);
-
-  function stringAvatar(name) {
-    if (name === undefined) {
-      return;
-    }
-    return {
-      children: name[0].toUpperCase()
-    };
-  }
 
   return (
     <Box p={2} sx={{ backgroundColor: "mypageBox.main", borderRadius: 1 }}>
