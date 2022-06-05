@@ -112,6 +112,10 @@ public class UserClusterController {
                     .body("INVALID_JWT_VALUE");
 
         AddUserCheckDto userCheckDto = userClusterService.addUserCheck(userReqDto);
+
+        if(userCheckDto.getValid_userId().size() == 0 && userCheckDto.getInvalid_email().size() != 0)
+            return ResponseEntity.status(HttpStatus.OK).body(userCheckDto.getInvalid_email());
+
         int result = userClusterService.reqAddUser(userReqDto.getClusterName(), userCheckDto.getValid_userId());
 
         if(result == 1)
