@@ -34,7 +34,7 @@ export default function LoginEmail({ setToken }) {
           window.localStorage.setItem('token', response.data.token);
           setToken(response.data.token);
           console.log(response);
-          alert('Success in login!');
+          // alert('Success in login!');
           navigate('/');
         })
         .catch(error => {

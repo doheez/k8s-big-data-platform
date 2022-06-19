@@ -20,7 +20,7 @@ export default function IncreaseDecreaseNodeDialog({ open, setOpen, cluster, opt
 
   const handleCloseDialog = () => {
     setOpen(false);
-    setAmount(0);
+    // setAmount(0);
   };
 
   const handleOpenSnackbar = () => {
