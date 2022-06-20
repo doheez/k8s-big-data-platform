@@ -2,12 +2,24 @@
 쿠버네티스 환경에서 Hadoop/Spark 클러스터를 프로비저닝하고 공동 관리하는 MSA 기반 빅데이터 플랫폼
 
 ### Preview
-![Untitled-9](https://user-images.githubusercontent.com/57346425/174558694-2fcbb8fc-d12d-4d76-9792-d906dbd3567a.gif)
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/57346425/174558694-2fcbb8fc-d12d-4d76-9792-d906dbd3567a.gif">
+  <em><b>[ Main Page ]</b> Creating Cluster</em>
+</p>
+<br>
 
-![Untitled-10](https://user-images.githubusercontent.com/57346425/174566890-36832493-7c70-489e-ad4f-0af24535b1e4.gif)
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/57346425/174566890-36832493-7c70-489e-ad4f-0af24535b1e4.gif">
+  <em><b>[ My Page ]</b> Modify Cluster Amount / Delete Cluster / Invite User etc.</em>
+</p>
+<br>
 
-<img src="https://user-images.githubusercontent.com/57346425/174570233-46ebf718-1967-472c-8db0-da6dee766aba.gif" width="60%" height="60%">
-
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/57346425/174570233-46ebf718-1967-472c-8db0-da6dee766aba.gif" width="60%" height="60%">
+</p>
+<p align="center">
+    <em>Responsive Web</em>
+</p>
 
 <br> 
 
