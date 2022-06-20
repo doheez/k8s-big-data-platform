@@ -9,6 +9,8 @@
 ## Introduction
 컨테이너 기반 가상환경과 빅데이터 플랫폼이 주목받는 상황에서 대량의 데이터를 효율적으로 관리하는 것은 필수적이다. 하지만 빅데이터 분석을 위해 인프라를 구축하려면 많은 시간과 비용이 소요된다. 이러한 문제점을 해결하기 위해 전문지식이 없는 사용자도 웹 기반 인터페이스를 통해 컨테이너 오케스트레이션 환경에서 Hadoop/Spark 클러스터를 간편하게 구축하고 공유할 수 있는 플랫폼을 제공하고자 한다.
 
+<br>
+
 ## Goal
 <p align="center">
   <img src="https://user-images.githubusercontent.com/69456626/174544157-a9295558-1b82-4a70-b583-6983f5091124.png">
@@ -20,6 +22,8 @@
 2. 기존 시스템과의 차별성
     - 마이페이지에서 Hadoop/Spark 클러스터에 대해 타 사용자 초대 기능 제공
     - 사용자 초대를 통해 클러스터를 공동 관리하여 효과적인 협업을 지원
+
+<br>
 
 ## System Architecture
 <p align="center">
@@ -37,12 +41,24 @@
     - 프론트엔드의 요청을 받아서 쿠버네티스 제어 엔진으로 전달
     - RestTemplate를 통해 쿠버네티스 제어 엔진과 통신
 4. **쿠버네티스 제어 엔진**
+    - Spring Framework로 개발된 제어 엔진
     - 쿠버네티스(GKE) master node의 API Server로 접근
     - 사용자의 요청사항에 맞게 Hadoop/Spark 클러스터 구축 및 수정
     - 클러스터 생성 시 Hadoop/Spark docker image를 이용해 생성
     - 프론트엔드와 백엔드의 docker image를 이용해 쿠버네티스 내 pod로 배포
 
+<br>
+
 ## Sequence Diagram
 <p align="center">
   <img src="https://user-images.githubusercontent.com/69456626/174543433-da67c029-1a29-4af5-9afb-a77cd3a8b17c.png">
 </p>
+
+## Demo
+https://youtu.be/SOw_VBL2TYo
+
+## Member
+||김도희|백혜원|이도윤|허현진|
+|:---:|:---:|:---:|:---:|:---:|
+|Role|Web-Frontend|Web-Backend|Kubernetes Control Engine|Kubernetes Control Engine|
+|GitHub|[@doheez](https://github.com/doheez)|[@HyeW](https://github.com/HyeW)|[@idoburnish](https://github.com/idoburnish)|[@heohyeonjin](https://github.com/heohyeonjin)|
