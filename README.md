@@ -4,9 +4,8 @@
 ### Preview
 ![Untitled-9](https://user-images.githubusercontent.com/57346425/174558694-2fcbb8fc-d12d-4d76-9792-d906dbd3567a.gif)
 
-![Untitled-5](https://user-images.githubusercontent.com/57346425/174558858-0938e79d-efba-4379-907b-a33ef957af7e.gif)
+![Untitled-10](https://user-images.githubusercontent.com/57346425/174566890-36832493-7c70-489e-ad4f-0af24535b1e4.gif)
 
-![Untitled-6](https://user-images.githubusercontent.com/57346425/174558717-dff3039b-bc0a-452e-875e-88670e44e0e2.gif)
 
 <br> 
 
