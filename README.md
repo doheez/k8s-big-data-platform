@@ -112,6 +112,28 @@ https://youtu.be/SOw_VBL2TYo
 
 <br>
 
+## Development Environment
+- Web-Frontend
+    - IDE: Visual Studio
+    - Detail:
+        - Node.js: 16.14.0
+        - React: 18.0.0
+        - MUI Core (Material UI): 5.6.2, MUI X (Data Grid): 5.10.0, Axios: 0.27.2, react-router-dom: 6.3.0, http-proxy-middleware: 2.0.6
+        
+- Web-Backend & Kubernetes Control Engine
+    - IDE: IntelliJ
+    - Database: MySQL
+    - Web Server: Ubuntu 22.04 LTS
+    - Kubernetes Engine: GKE (Google Kubernetes Engine)
+        - Container Runtime: Container-Optimized OS (cos_containerd)
+    - Detail:
+        - Java: 11
+        - Spring Boot: 2.6.6
+        - Spring Boot Gradle: 7.4.1
+        - java-client: 14.0.0, jjwt: 0.11.2, httpclient: 4.5.13, json-simple: 1.1.1
+      
+<br>
+
 ## Member
 ||김도희|백혜원|이도윤|허현진|
 |:---:|:---:|:---:|:---:|:---:|
