@@ -91,6 +91,22 @@
 
 <br>
 
+## Expectation Effectiveness
+- Kubernetes 환경에서 빅데이터 플랫폼을 구성하고 관리할 수 있는 기술을 개발함으로써 현시대의 데이터 폭증에 대응할 수 있는 서비스를 제공할 수 있을 것으로 기대
+- 온프레미스 환경에서 빅데이터 분석 환경 구축 시 발생하는 비효율적인 서버 사용률 문제점 해소
+- 전문지식이 없는 사용자도 웹 기반 인터페이스를 통해 간편하게 컨테이너 오케스트레이션 환경에서 빅데이터 클러스터 구축 가능
+- 여러 사용자가 빅데이터 분석 환경을 공유하여 공동 관리가 가능한 플랫폼을 제안
+
+<br>
+
+## Application Plan
+![그림6](https://user-images.githubusercontent.com/69456626/174621334-1a38da88-4844-4ae1-adc4-57f8b6348548.png)
+- 빅데이터를 사용하는 프로그램에서 활용 가능 (ex. 잃어버린 반려동물 찾기 웹 페이지)
+    - 예시 웹 페이지는 본 과제에서 개발한 빅데이터 플랫폼을 활용하여 Hadoop 클러스터 생성 및 HDFS에 전체 유기견 데이터를 저장
+    - 인메모리 환경에서 실시간으로 데이터 분석 기능을 제공하는 Spark 클러스터를 생성해 유기 동물 검색과 같은 빅데이터 분석 기능 구현
+- 빅데이터 플랫폼 종류를 Hadoop, Spark에서 나아가 Hive, Kafka 등 다양한 빅데이터 플랫폼을 추가하여 더욱 다양한 서비스 개발 가능
+<br>
+
 ## Demo
 https://youtu.be/SOw_VBL2TYo
 
@@ -101,3 +117,4 @@ https://youtu.be/SOw_VBL2TYo
 |:---:|:---:|:---:|:---:|:---:|
 |Role|Web-Frontend|Web-Backend|Kubernetes Control Engine|Kubernetes Control Engine|
 |GitHub|[@doheez](https://github.com/doheez)|[@HyeW](https://github.com/HyeW)|[@idoburnish](https://github.com/idoburnish)|[@heohyeonjin](https://github.com/heohyeonjin)|
+
