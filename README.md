@@ -6,7 +6,8 @@
 
 ![Untitled-10](https://user-images.githubusercontent.com/57346425/174566890-36832493-7c70-489e-ad4f-0af24535b1e4.gif)
 
-![Untitled-11](https://user-images.githubusercontent.com/57346425/174568792-7f1ecd76-f586-405e-afb0-56d8e270a57e.gif)
+![Untitled-11](https://user-images.githubusercontent.com/57346425/174569642-bd9ebe7e-0f05-49d4-bd98-b092470f1140.gif)
+
 
 <br> 
 
