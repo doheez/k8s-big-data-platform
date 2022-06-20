@@ -29,9 +29,7 @@
 <br>
 
 ## Goal
-<p align="center">
-  <img src="https://user-images.githubusercontent.com/69456626/174544157-a9295558-1b82-4a70-b583-6983f5091124.png">
-</p>
+![그림2](https://user-images.githubusercontent.com/57346425/174588105-1b6392ae-aa78-403d-b9a2-32484a75acd4.png)
 
 1. Kubernetes 환경에서 MSA 기반 빅데이터 플랫폼 구축
     - Apache Hadoop과 Spark 클러스터를 프로비저닝하고 공동 관리할 수 있는 웹 서비스 개발
@@ -43,9 +41,7 @@
 <br>
 
 ## System Architecture
-<p align="center">
-  <img src="https://user-images.githubusercontent.com/69456626/174543305-39536af8-f849-4620-8fbc-68ba504a00fd.png">
-</p>
+![그림2](https://user-images.githubusercontent.com/57346425/174599516-e684f3f2-0ff1-463e-a7d6-e3a715c2100b.png)
 
 1. **Google Kubernetes Engine**
     - 본 과제에서 구현한 빅데이터 플랫폼은 관리형 쿠버네티스 엔진인 GKE(Google Kubernetes Engine)를 활용하여 클라우드 환경에서 구축함
@@ -67,9 +63,7 @@
 <br>
 
 ## Sequence Diagram
-<p align="center">
-  <img src="https://user-images.githubusercontent.com/69456626/174543433-da67c029-1a29-4af5-9afb-a77cd3a8b17c.png">
-</p>
+![그림5](https://user-images.githubusercontent.com/57346425/174599752-04f796af-f3b4-4b95-ba51-bdc207c77e74.png)
 
 ## Demo
 https://youtu.be/SOw_VBL2TYo
