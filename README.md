@@ -6,7 +6,7 @@
 
 ![Untitled-10](https://user-images.githubusercontent.com/57346425/174566890-36832493-7c70-489e-ad4f-0af24535b1e4.gif)
 
-![Untitled-11](https://user-images.githubusercontent.com/57346425/174569642-bd9ebe7e-0f05-49d4-bd98-b092470f1140.gif)
+<img src="https://user-images.githubusercontent.com/57346425/174570233-46ebf718-1967-472c-8db0-da6dee766aba.gif" width="60%" height="60%">
 
 
 <br> 
