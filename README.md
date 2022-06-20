@@ -5,7 +5,6 @@
 - 2022년 1학기 경북대학교 종합설계프로젝트2<br>
 - 산학협력기관: ㈜데이터스트림즈<br>
 
-
 ### Preview
 <p align="center">
   <img src="https://user-images.githubusercontent.com/57346425/174558694-2fcbb8fc-d12d-4d76-9792-d906dbd3567a.gif">
@@ -26,7 +25,7 @@
     <em>Responsive Web</em>
 </p>
 
-<br> 
+<br><br>
 
 ## Introduction
 컨테이너 기반 가상환경과 빅데이터 플랫폼이 주목받는 상황에서 대량의 데이터를 효율적으로 관리하는 것은 필수적이다. 하지만 빅데이터 분석을 위해 인프라를 구축하려면 많은 시간과 비용이 소요된다. 이러한 문제점을 해결하기 위해 전문지식이 없는 사용자도 웹 기반 인터페이스를 통해 컨테이너 오케스트레이션 환경에서 Hadoop/Spark 클러스터를 간편하게 구축하고 공유할 수 있는 플랫폼을 제공하고자 한다.
@@ -34,7 +33,7 @@
 <br>
 
 ## Goal
-![그림2](https://user-images.githubusercontent.com/57346425/174588105-1b6392ae-aa78-403d-b9a2-32484a75acd4.png)
+![그림1](https://user-images.githubusercontent.com/57346425/174588105-1b6392ae-aa78-403d-b9a2-32484a75acd4.png)
 
 1. Kubernetes 환경에서 MSA 기반 빅데이터 플랫폼 구축
     - Apache Hadoop과 Spark 클러스터를 프로비저닝하고 공동 관리할 수 있는 웹 서비스 개발
@@ -70,10 +69,32 @@
 <br>
 
 ## Sequence Diagram
-![그림5](https://user-images.githubusercontent.com/57346425/174599752-04f796af-f3b4-4b95-ba51-bdc207c77e74.png)
+![그림3](https://user-images.githubusercontent.com/57346425/174599752-04f796af-f3b4-4b95-ba51-bdc207c77e74.png)
+
+<br>
+
+## Implementation Technology
+
+#### [클러스터 구성 및 관리]
+![그림4](https://user-images.githubusercontent.com/69456626/174616554-e2438e1b-a308-41f9-9f93-a156433560ae.png)
+- Operator와 Custom Resource를 통해 Hadoop 및 Spark 클러스터 구축 과정과 관리를 자동화하도록 구현
+- Custom Resource Definition(CRD)를 통해 Operator가 관리해야 할 Hadoop Cluster와 Spark Cluster에 대한 규정(Spec)을 정의하여 쿠버네티스에 등록
+- 쿠버네티스 제어 엔진을 통해 앞서 규정한 CRD의 구현체인 Custom Resource(CR) 생성을 요청
+- CR에는 Hadoop 및 Spark Cluster가 유지해야 할 clusterSize에 대한 정보가 포함
+- Operator가 자동적으로 clusterSize를 모니터링하여, 클러스터 크기를 지정된 숫자만큼 유지
+
+#### [클러스터 공동 관리]
+![그림5](https://user-images.githubusercontent.com/69456626/174619239-dd449155-d8de-4652-a5df-f81193d71572.png)
+- 각 클러스터별 사용자 초대 기능을 도입하여 여러 사용자들은 하나의 클러스터를 공동 관리 가능
+- User-Cluster를 다대다 관계로 설정하여, 사용자는 다수의 클러스터를 생성 가능하고 클러스터는 다수의 사용자가 관리 가능
+- 여러 사용자가 하나의 클러스터를 프로비저닝함으로써, 훨씬 더 유연하고 확장된 클러스터 관리 환경을 제공
+
+<br>
 
 ## Demo
 https://youtu.be/SOw_VBL2TYo
+
+<br>
 
 ## Member
 ||김도희|백혜원|이도윤|허현진|
