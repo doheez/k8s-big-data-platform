@@ -125,7 +125,8 @@ https://youtu.be/SOw_VBL2TYo
     - Database: MySQL
     - Web Server: Ubuntu 22.04 LTS
     - Kubernetes Engine: GKE (Google Kubernetes Engine)
-        - Container Runtime: Container-Optimized OS (cos_containerd)
+        - OS image: Container-Optimized OS (cos)
+        - Container Runtime: containerd
     - Detail:
         - Java: 11
         - Spring Boot: 2.6.6
